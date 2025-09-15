@@ -1,44 +1,86 @@
-import { PixelImage } from './ui/PixelImage';
+"use client";
+
+import Image from 'next/image';
+import { motion, Variants } from 'framer-motion';
+
+const fadeUp: Variants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: (custom: number = 0) => ({
+        opacity: 1,
+        y: 0,
+        transition: { delay: custom * 0.3, duration: 0.6, ease: "easeOut" }
+    }),
+};
 
 export default function Header() {
     return (
-        <div className="h-screen flex flex-col mt-24">
-            {/* Top Section - 4/5 height with rounded image and logo */}
-            <div className="relative h-3/5">
-                <div className="h-full mx-4 sm:mx-6 lg:mx-8">
-                    <div className="relative h-full rounded-2xl overflow-hidden">
-                        <PixelImage
-                            src="/estate-hero.png"
-                            grid="9x5"
-                            grayscaleAnimation={true}
-                            pixelFadeInDuration={800}
-                            maxAnimationDelay={1000}
-                            colorRevealDelay={900}
+        <div className="flex flex-col mt-24">
+            {/* Top Section */}
+            <motion.div
+                className="relative min-h-[60vh] w-full"
+                custom={2}
+                initial="hidden"
+                animate="visible"
+                variants={fadeUp}
+            >
+                <div className="mx-4 sm:mx-6 lg:mx-8">
+                    <div className="relative min-h-[60vh] rounded-2xl overflow-hidden">
+                        {/* Background image */}
+                        <Image
+                            src="/hero-bg.png"
+                            alt="Bynekere Estate"
+                            fill
+                            className="object-cover rounded-2xl"
+                            priority
                         />
+
+                        {/* Overlay logo */}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="h-1/2 relative aspect-square">
+                                <Image
+                                    src="/hero-logo.svg"
+                                    alt="Bynekere Estate Logo"
+                                    fill
+                                    className="object-contain"
+                                    priority
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </motion.div>
 
-            {/* Bottom Section - 1/5 height with text columns */}
-            <div className="h-1/5 w-full flex items-center">
-                <div className="mx-20 px-4 sm:px-6 lg:px-8 w-full">
+            {/* Bottom Section */}
+            <div className="w-full flex items-center relative z-10">
+                <div className="mx-4 sm:mx-6 lg:mx-20 px-4 sm:px-6 lg:px-8 py-12 w-full">
                     <div className="grid md:grid-cols-2 gap-8 md:gap-12">
-                        <div className="text-left">
+                        <motion.div
+                            className="text-left"
+                            custom={5}
+                            initial="hidden"
+                            animate="visible"
+                            variants={fadeUp}
+                        >
                             <p className="text-lg sm:text-xl leading-relaxed text-primary">
-                                Bynekere Estate is an historic coffee plantation
-                                located in the Baba Budangiri Hills near
-                                Chikmagalur, Karnataka.
+                                Bynekere Estate is an historic coffee plantation located in the
+                                Baba Budangiri Hills near Chikmagalur, Karnataka.
                             </p>
-                        </div>
-                        <div className="text-left">
+                        </motion.div>
+
+                        <motion.div
+                            className="text-left"
+                            custom={7}
+                            initial="hidden"
+                            animate="visible"
+                            variants={fadeUp}
+                        >
                             <p className="text-lg sm:text-xl leading-relaxed text-primary">
-                                Byne delivers high-quality, sustainably grown
-                                coffee from our farms to businesses and
-                                coffee lovers alike. Through our homestay,
-                                guests can experience the plantation life and
-                                the story behind every bean.
+                                Byne delivers high-quality, sustainably grown coffee from our
+                                farms to businesses and coffee lovers alike. Through our
+                                homestay, guests can experience the plantation life and the
+                                story behind every bean.
                             </p>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </div>
