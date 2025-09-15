@@ -13,7 +13,7 @@ export default function Header() {
                             grayscaleAnimation={true}
                             pixelFadeInDuration={800}
                             maxAnimationDelay={1000}
-                            colorRevealDelay={1100}
+                            colorRevealDelay={900}
                         />
                     </div>
                 </div>
