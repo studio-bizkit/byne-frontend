@@ -14,7 +14,6 @@ export default function Home() {
       </section>
       <Timeline />
       <HorizontalCardSection />
-
     </main>
   );
 }
