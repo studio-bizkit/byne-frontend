@@ -1,7 +1,8 @@
 "use client";
-import { motion, useTransform, useScroll, MotionValue } from "framer-motion";
-import { useMemo, useRef } from "react";
+import { motion, useTransform, useScroll, useMotionValueEvent } from "framer-motion";
+import { useMemo, useRef, useState } from "react";
 import Image from "next/image";
+import { useIsMobile } from "@/lib/useMediaQuery";
 
 interface CardType {
   url: string;
@@ -12,22 +13,23 @@ interface CardType {
 
 const Example = () => {
   return (
-    <div className="bg-[#001f9f] relative">
+    <div className="bg-pri relative">
       <HorizontalScrollCarousel />
     </div>
   );
 };
 
 const HorizontalScrollCarousel = () => {
+  const isMobile = useIsMobile();
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
   });
 
   // Card width including gap
-  const cardWidth = 335; // 300px width + 10px gap
+  const cardWidth = isMobile ? 240 : 380; // total horizontal step
   const viewportCenter = typeof window !== "undefined" ? window.innerWidth / 2 : 640;
-  const cardCenter = 150;
+  const cardCenter = isMobile ? 120 : 220;
   const initialOffset = viewportCenter - cardCenter;
   const totalScrollDistance = (cards.length - 1) * cardWidth;
 
@@ -35,44 +37,51 @@ const HorizontalScrollCarousel = () => {
   const x = useTransform(scrollYProgress, [0, 1], [initialOffset, initialOffset - totalScrollDistance]);
 
   // Active index
-  const activeIndex = useTransform(
-    scrollYProgress,
-    cards.map((_, i) => i / (cards.length - 1)),
-    cards.map((_, i) => i)
-  );
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    const index = Math.round(latest * (cards.length - 1));
+    setActiveIndex(index);
+  });
 
   return (
     <section ref={targetRef} className="relative h-[300vh] bg-primary pb-36">
       {/* Background beans */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Coffee beans scattered */}
-        <Image src="/bean-white.svg" alt="bean" width={60} height={60} className="absolute top-20 left-10 opacity-40" />
         <Image
           src="/bean-white.svg"
           alt="bean"
-          width={90}
-          height={90}
+          width={isMobile ? 24 : 40}
+          height={isMobile ? 24 : 40}
+          className="absolute top-16 left-6 opacity-40"
+        />
+        <Image
+          src="/bean-white.svg"
+          alt="bean"
+          width={isMobile ? 40 : 70}
+          height={isMobile ? 40 : 70}
           className="absolute top-1/3 left-1/4 opacity-30"
         />
         <Image
           src="/bean-white.svg"
           alt="bean"
-          width={50}
-          height={50}
-          className="absolute top-1/2 right-20 opacity-50"
+          width={isMobile ? 28 : 40}
+          height={isMobile ? 28 : 40}
+          className="absolute top-1/2 right-10 opacity-50"
         />
         <Image
           src="/bean-white.svg"
           alt="bean"
-          width={70}
-          height={70}
-          className="absolute bottom-32 left-1/3 opacity-40"
+          width={isMobile ? 36 : 60}
+          height={isMobile ? 36 : 60}
+          className="absolute bottom-28 left-1/3 opacity-40"
         />
         <Image
           src="/bean-white.svg"
           alt="bean"
-          width={100}
-          height={100}
+          width={isMobile ? 50 : 80}
+          height={isMobile ? 50 : 80}
           className="absolute bottom-10 right-1/4 opacity-30"
         />
 
@@ -91,7 +100,7 @@ const HorizontalScrollCarousel = () => {
       <div className="sticky top-0 flex h-screen flex-col items-end justify-start px-8 overflow-hidden w-full">
         {/* Top text */}
         <div className="w-full text-left mt-32 relative z-10">
-          <p className="max-w-md text-background text-2xl leading-tight px-6 text-left font-serif">
+          <p className="max-w-md text-background md:text-2xl text-lg leading-tight px-6 text-left font-serif">
             Our products are made of 100% good quality materials, lorem ipsum byne is best lorem ipsum hello hello
             hello.
           </p>
@@ -99,7 +108,7 @@ const HorizontalScrollCarousel = () => {
 
         {/* Horizontal scroll cards */}
         <div className="relative w-full flex justify-center z-10 mt-10">
-          <motion.div style={{ x }} className="flex gap-24 items-center">
+          <motion.div style={{ x }} className="flex md:gap-24 gap-12 items-center">
             {cards.map((card) => (
               <Card card={card} key={card.id} />
             ))}
@@ -117,19 +126,15 @@ const HorizontalScrollCarousel = () => {
   );
 };
 
-const BottomInfo = ({
-  card,
-  index,
-  activeIndex,
-}: {
-  card: CardType;
-  index: number;
-  activeIndex: MotionValue<number>;
-}) => {
-  const opacity = useTransform(activeIndex, [index - 0.3, index, index + 0.3], [0, 1, 0]);
+const BottomInfo = ({ card, index, activeIndex }: { card: CardType; index: number; activeIndex: number }) => {
+  const isActive = index === activeIndex;
 
   return (
-    <motion.div style={{ opacity }} className="absolute inset-0 flex flex-col items-center justify-center ">
+    <motion.div
+      animate={{ opacity: isActive ? 1 : 0 }}
+      transition={{ duration: 0.4 }}
+      className="absolute inset-0 flex flex-col items-center justify-center"
+    >
       <div className="max-w-sm w-xs text-start">
         <p className="italic text-xl font-semibold font-serif">{card.title}</p>
         <p className="text-sm">{card.desc}</p>
@@ -138,17 +143,34 @@ const BottomInfo = ({
   );
 };
 
+
 const Card = ({ card }: { card: CardType }) => {
-  // Pick a random small rotation between -5deg and +5deg, fixed per card
+  // Fixed random rotation
   const rotation = useMemo(() => {
-    const tilt = Math.random() * 10 - 5; // -5 to +5
+    const tilt = Math.random() * 10 - 5; // -5° to +5°
     return `${tilt}deg`;
   }, []);
 
+  // Random floating parameters
+  const { offset, duration, delay } = useMemo(() => {
+    return {
+      offset: Math.random() * 8 + 5, // 5–13px vertical float
+      duration: Math.random() * 2 + 2, // 2–4s cycle
+      delay: Math.random() * 2, // stagger start
+    };
+  }, []);
+
   return (
-    <div
-      className="relative h-[350px] w-[300px] rounded-xl overflow-hidden bg-background shadow-xl group flex-shrink-0"
-      style={{ transform: `rotate(${rotation})` }}
+    <motion.div
+      className="relative md:h-[350px] md:w-[300px] h-[250px] w-[200px] rounded-xl overflow-hidden bg-background shadow-xl group flex-shrink-0"
+      style={{ rotate: rotation }}
+      animate={{ y: [0, -offset, 0] }}
+      transition={{
+        duration,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay,
+      }}
     >
       <div
         style={{
@@ -158,9 +180,10 @@ const Card = ({ card }: { card: CardType }) => {
         }}
         className="absolute inset-0 z-0 transition-transform duration-300 group-hover:scale-105"
       />
-    </div>
+    </motion.div>
   );
 };
+
 
 const cards: CardType[] = [
   {

@@ -19,8 +19,8 @@ export default function Header() {
 
   // Transform values for animations
   const scale = useTransform(scrollY, [0, 500], [1, 1.2]);
-  const logoScale = useTransform(scrollY, [0, 500], [1, 0.8]);
-  const opacity = useTransform(scrollY, [0, 500], [1, 0.8]);
+  const logoScale = useTransform(scrollY, [0, 500], [1, 1]);
+  const opacity = useTransform(scrollY, [0, 500], [1, 1]);
 
   return (
     <div className="flex flex-col mt-24">
