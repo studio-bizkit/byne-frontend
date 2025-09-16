@@ -14,8 +14,8 @@ export default function Home() {
         <Header />
       </section>
       <Timeline />
-      <ScrollingText />
       <HorizontalCardSection />
+      <ScrollingText />
     </main>
   );
 }
