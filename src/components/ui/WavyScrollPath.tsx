@@ -57,7 +57,7 @@ const WavyPathScroll = () => {
   });
 
   // Transform scroll progress to path offset
-  const pathOffset = useTransform(smoothProgress, [0, 1], [0, 1]);
+const pathOffset = useTransform(smoothProgress, [0, 1], [0, 2]);
 
   // States for text visibility
   const [showText1, setShowText1] = useState(false);
@@ -138,10 +138,10 @@ const WavyPathScroll = () => {
     <g transform={`translate(${x}, ${y}) rotate(${rotation})`}>
       <motion.image
         href="/bean.svg"
-        x="-20"
+        x="-30"
         y="-20"
-        width="40"
-        height="40"
+        width="50"
+        height="50"
         initial={{ scale: 1 }}
         animate={{ scale: 1 }}
       />
@@ -170,7 +170,7 @@ const WavyPathScroll = () => {
                 d={pathData}
                 fill="none"
                 stroke="rgba(0, 51, 153, 0.3)"
-                strokeWidth="4"
+                strokeWidth="6"
                 strokeLinecap="round"
               />
 
@@ -179,7 +179,7 @@ const WavyPathScroll = () => {
                 d={pathData}
                 fill="none"
                 stroke="rgb(0, 51, 153)"
-                strokeWidth="4"
+                strokeWidth="6"
                 strokeLinecap="round"
                 initial={{ pathLength: 0 }}
                 style={{ pathLength: pathOffset }}
@@ -241,7 +241,7 @@ const WavyPathScroll = () => {
                 // Desktop: Multiple text containers
                 <>
                   <motion.div
-                    className="absolute left-[30%] top-[30%] max-w-sm pointer-events-auto"
+                    className="absolute left-[30%] top-[25%] max-w-sm pointer-events-auto"
                     variants={textVariants}
                     initial="hidden"
                     animate={showText1 ? "visible" : "hidden"}
@@ -255,7 +255,7 @@ const WavyPathScroll = () => {
                   </motion.div>
 
                   <motion.div
-                    className="absolute left-[50%] top-[60%] max-w-sm pointer-events-auto"
+                    className="absolute left-[50%] top-[65%] max-w-sm pointer-events-auto"
                     variants={textVariants}
                     initial="hidden"
                     animate={showText2 ? "visible" : "hidden"}
@@ -269,7 +269,7 @@ const WavyPathScroll = () => {
                   </motion.div>
 
                   <motion.div
-                    className="absolute right-[5%] top-[30%] max-w-sm pointer-events-auto"
+                    className="absolute right-[5%] top-[25%] max-w-sm pointer-events-auto"
                     variants={textVariants}
                     initial="hidden"
                     animate={showText3 ? "visible" : "hidden"}
@@ -287,24 +287,6 @@ const WavyPathScroll = () => {
           </div>
         </div>
       </div>
-
-      {/* Next Section - Only scrollable after path is complete */}
-      {isPathComplete && (
-        <motion.div
-          className="min-h-screen bg-primary p-20 flex items-center justify-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="max-w-4xl text-center">
-            <h2 className="text-5xl font-bold text-primary mb-6">Welcome to Our Coffee Journey</h2>
-            <p className="text-xl text-gray-700 leading-relaxed">
-              Continue scrolling to discover more about our premium coffee heritage,
-              sustainable practices, and the passion that goes into every cup.
-            </p>
-          </div>
-        </motion.div>
-      )}
     </>
   );
 };

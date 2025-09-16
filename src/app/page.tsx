@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Header from "@/components/Header";
 import Timeline from "@/components/Timeline";
+import HorizontalCardSection from "@/components/ui/HorizontalCardSection";
 
 export default function Home() {
   return (
@@ -12,6 +13,8 @@ export default function Home() {
         <Header />
       </section>
       <Timeline />
+      <HorizontalCardSection />
+
     </main>
   );
 }
