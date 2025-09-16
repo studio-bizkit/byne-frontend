@@ -2,7 +2,7 @@ import WavyScrollDemo from "./ui/WavyScrollPath";
 
 export default function Timeline() {
   return (
-    <section className="py-10 bg-background">
+    <section className="relative mt-[10vh] bg-background">
       <div className="w-full">
         <WavyScrollDemo />
       </div>

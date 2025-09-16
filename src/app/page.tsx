@@ -4,10 +4,14 @@ import Timeline from "@/components/Timeline";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
-      <Header />
+    <main className="relative bg-background">
+      <div className="fixed top-0 left-0 right-0 z-50">
+        <Navbar />
+      </div>
+      <section className="relative">
+        <Header />
+      </section>
       <Timeline />
-    </div>
+    </main>
   );
 }

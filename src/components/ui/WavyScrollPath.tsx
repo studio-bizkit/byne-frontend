@@ -1,201 +1,229 @@
-"use client";
-import React, { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+"use client"
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
-// Helper: Get point on quadratic bezier
-function getQuadraticXY(t: number, start: [number, number], cp: [number, number], end: [number, number]) {
-  const x = (1 - t) * (1 - t) * start[0] + 2 * (1 - t) * t * cp[0] + t * t * end[0];
-  const y = (1 - t) * (1 - t) * start[1] + 2 * (1 - t) * t * cp[1] + t * t * end[1];
-  return { x, y };
+// Type definition for SVG path methods we're using
+declare module 'react' {
+  interface SVGAttributes<T> extends AriaAttributes, DOMAttributes<T> {
+    preserveAspectRatio?: string;
+  }
 }
 
-export const WavyScrollPath = ({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-
+const WavyPathScroll = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const pathRef = useRef<SVGPathElement>(null);
+  const [pathLength, setPathLength] = useState(0);
+  const [isPathComplete, setIsPathComplete] = useState(false);
+  
   const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
+    target: containerRef,
+    offset: ["start center", "end center"]
   });
-
+  
+  // Smooth spring animation for the progress
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+  
+  // Transform scroll progress to path offset
+  const pathOffset = useTransform(smoothProgress, [0, 1], [0, 1]);
+  
+  // States for text visibility
+  const [showText1, setShowText1] = useState(false);
+  const [showText2, setShowText2] = useState(false);
+  const [showText3, setShowText3] = useState(false);
+  
+  // Bean position along the path
+  const [beanPosition, setBeanPosition] = useState({ x: 0, y: 0 });
+  const [beanRotation, setBeanRotation] = useState(0);
+  
+  // The SVG path data for a wavy line from left edge to right edge
+  const pathData = "M 0 200 Q 200 100 400 200 T 800 200 Q 1000 100 1200 200 T 1600 200";
+  
   useEffect(() => {
-    const updateDimensions = () => {
-      if (contentRef.current) {
-        setDimensions({
-          width: contentRef.current.offsetWidth,
-          height: window.innerHeight,  // fixes: sticky should reference viewport, not content
-        });
-      }
-    };
-    updateDimensions();
-    window.addEventListener("resize", updateDimensions);
-    return () => window.removeEventListener("resize", updateDimensions);
-  }, []);
-
-  // Create wavy path - for clarity, use two quadratic segments
-  function createWavyPath(width: number, height: number) {
-    const startX = 50;
-    const endX = width - 50;
-    const midX = width * 0.5;
-    const y1 = height * 0.3;
-    const y2 = height * 0.7;
-
-    // Path: Q1 (start to mid), Q2 (mid to end)
-    return `
-      M ${startX} ${y1}
-      Q ${width * 0.3} ${height * 0.1} ${midX} ${y1}
-      Q ${width * 0.7} ${height * 0.5} ${endX} ${y2}
-    `;
-  }
-
-  // Get XY along the path (split: progress 0 to 0.5 is first Q, 0.5 to 1 is second Q)
-  function getCirclePosition(progress: number, width: number, height: number) {
-    const start = [50, height * 0.3];
-    const mid = [width * 0.5, height * 0.3];
-    const end = [width - 50, height * 0.7];
-    const cp1 = [width * 0.3, height * 0.1];
-    const cp2 = [width * 0.7, height * 0.5];
-    if (progress <= 0.5) {
-      return getQuadraticXY(progress * 2, start, cp1, mid);
-    } else {
-      return getQuadraticXY((progress - 0.5) * 2, mid, cp2, end);
+    const path = pathRef.current;
+    if (path) {
+      const length = path.getTotalLength();
+      setPathLength(length);
     }
-  }
-
-  // Visible part of the path (0=none, 1=all)
-  const drawProgress = useSpring(scrollYProgress, {
-    stiffness: 90,
-    damping: 26,
-  });
-  // Opacity for the full path (dimmed)
-  const baseOpacity = useTransform(scrollYProgress, [0, 0.05], [0.18, 0.18]);
-  // Opacity for the outlined (drawing) path (full)
-  const outlineOpacity = useTransform(scrollYProgress, [0, 0.05], [1, 1]);
-
-  // Section triggers roughly at thirds along progress
-  const sections = [
-    useTransform(scrollYProgress, [0.08, 0.18], [0, 1]), // Section 1
-    useTransform(scrollYProgress, [0.26, 0.36], [0, 1]), // Section 2
-    useTransform(scrollYProgress, [0.48, 0.60], [0, 1]), // Section 3
-  ];
-
-  // In Tailwind breakpoints, adjust minWidth threshold if needed
-  const svgWidth = dimensions.width < 400 ? 400 : dimensions.width || 800;
-  const svgHeight = dimensions.height || 600;
-
-  // How much is the entire path? Will animate to that length
-  const pathLength = svgWidth + svgHeight;
+  }, []);
+  
+  useEffect(() => {
+    const unsubscribe = pathOffset.on("change", (latest) => {
+      const path = pathRef.current;
+      if (path && pathLength > 0) {
+        const point = path.getPointAtLength(latest * pathLength);
+        setBeanPosition({ x: point.x, y: point.y });
+        
+        // Calculate rotation based on path tangent
+        const nextPoint = path.getPointAtLength(Math.min((latest + 0.01) * pathLength, pathLength));
+        const angle = Math.atan2(nextPoint.y - point.y, nextPoint.x - point.x) * (180 / Math.PI);
+        setBeanRotation(angle);
+        
+        // Show text at specific progress points (but hide if path hasn't reached them)
+        setShowText1(latest >= 0.25);
+        setShowText2(latest >= 0.50);
+        setShowText3(latest >= 0.75);
+        
+        // Check if path is complete
+        setIsPathComplete(latest >= 0.98);
+      }
+    });
+    
+    return () => unsubscribe();
+  }, [pathOffset, pathLength]);
+  
+  const textVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 20,
+      filter: "blur(10px)"
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      filter: "blur(0px)",
+      transition: {
+        duration: 0.8,
+        ease: [0.4, 0, 0.2, 1]
+      }
+    }
+  } as const;
+  
+  // Bean SVG component
+  const BeanSVG = ({ x, y, rotation }: { x: number, y: number, rotation: number }) => (
+    <g transform={`translate(${x}, ${y}) rotate(${rotation})`}>
+      <motion.image
+        href="/bean.svg"
+        x="-20"
+        y="-20"
+        width="40"
+        height="40"
+        initial={{ scale: 1 }}
+        animate={{ scale: 1 }}
+      />
+    </g>
+  );
   
   return (
-    <section className="relative min-h-[220vh]">
-      <motion.div ref={ref} className="sticky top-0 h-screen w-full" style={{ pointerEvents: "none" }}>
-        <svg
-          width={svgWidth}
-          height={svgHeight}
-          className="absolute inset-0"
-        >
-          {/* Faint base path */}
-          <motion.path
-            d={createWavyPath(svgWidth, svgHeight)}
-            stroke="#003399"
-            strokeWidth={6}
-            fill="none"
-            style={{
-              opacity: baseOpacity,
-            }}
-          />
-          {/* Drawn animated path */}
-          <motion.path
-            d={createWavyPath(svgWidth, svgHeight)}
-            stroke="#003399"
-            strokeWidth={6}
-            fill="none"
-            style={{
-              opacity: outlineOpacity,
-              strokeDasharray: pathLength,
-              strokeDashoffset: drawProgress.to(p => (1 - p) * pathLength),
-            }}
-          />
-          {/* Moving circle */}
-          <motion.circle
-            r={13}
-            fill="#003399"
-            style={{
-              x: drawProgress.to(p => getCirclePosition(p, svgWidth, svgHeight).x),
-              y: drawProgress.to(p => getCirclePosition(p, svgWidth, svgHeight).y),
-            }}
-            // Key: using x and y for motion instead of cx/cy for Framer Motion
-          />
-        </svg>
-      </motion.div>
-      <div ref={contentRef} className="relative z-10 space-y-48 px-8 py-20">
-        {/* Section 1 */}
-        <motion.div
-          className="flex items-center justify-start"
-          initial={{ opacity: 0, y: 56 }}
-          animate={{ opacity: 1, y: 0 }}
-          style={{ opacity: sections[0] }}
-          transition={{ duration: 0.7 }}
-        >
-          <div className="p-8 max-w-md bg-white/90 rounded-lg shadow text-primary">
-            <h2 className="text-2xl italic mb-4">Established in 1931</h2>
-            <p className="text-gray-600 leading-relaxed">
-              The estate carries a legacy stretching over a century. Known for its sustainable, wildlife-friendly farming practices, Bynekere produces the finest S795 Arabica coffee.
-            </p>
+    <>
+      {/* Main scrollable container */}
+      <div 
+        ref={containerRef}
+        className="relative h-[300vh]"
+      >
+        {/* Fixed positioned content */}
+        <div className="sticky top-0 min-h-screen">
+          <div className="relative w-full h-screen overflow-hidden">
+            {/* SVG Path */}
+            <svg
+              className="absolute inset-0 w-full h-full"
+              viewBox="0 0 1600 400"
+              preserveAspectRatio="xMidYMid meet"
+            >
+              {/* Background wavy path */}
+              <path
+                ref={pathRef}
+                d={pathData}
+                fill="none"
+                stroke="rgba(0, 51, 153, 0.3)"
+                strokeWidth="4"
+                strokeLinecap="round"
+              />
+              
+              {/* Animated path reveal */}
+              <motion.path
+                d={pathData}
+                fill="none"
+                stroke="rgb(0, 51, 153)"
+                strokeWidth="4"
+                strokeLinecap="round"
+                initial={{ pathLength: 0 }}
+                style={{ pathLength: pathOffset }}
+              />
+              
+              {/* Traveling coffee bean */}
+              <motion.g
+                initial={{ opacity: 1 }}
+                animate={{ opacity: 1 }}
+              >
+                <BeanSVG x={beanPosition.x} y={beanPosition.y} rotation={beanRotation} />
+              </motion.g>
+              {/* Removed milestone markers */}
+            </svg>
+            
+            {/* Text content - only visible when path has reached trigger points */}
+            <div className="absolute inset-0 pointer-events-none">
+              {/* Text 1 - Established in 1931 */}
+              <motion.div
+                className="absolute left-[20%] top-[20%] max-w-sm pointer-events-auto"
+                variants={textVariants}
+                initial="hidden"
+                animate={showText1 ? "visible" : "hidden"}
+              >
+                <h2 className="text-3xl font-light italic text-primary mb-2">
+                  Established in 1931,
+                </h2>
+                <p className="text-gray-700 leading-relaxed">
+                  the estate carries a legacy stretching over a century. Known for its sustainable, wildlife-friendly farming practices, Bynekere produces the finest S795 Arabica coffee.
+                </p>
+              </motion.div>
+              
+              {/* Text 2 - Fact no 02 */}
+              <motion.div
+                className="absolute left-[50%] top-[55%] max-w-sm pointer-events-auto"
+                variants={textVariants}
+                initial="hidden"
+                animate={showText2 ? "visible" : "hidden"}
+              >
+                <h2 className="text-3xl font-light italic text-primary mb-2">
+                  Premium Processing
+                </h2>
+                <p className="text-gray-700 leading-relaxed">
+                  Our beans undergo meticulous processing, from hand-picking at peak ripeness to careful sun-drying on raised beds, ensuring exceptional flavor profiles in every batch.
+                </p>
+              </motion.div>
+              
+              {/* Text 3 - Fact no 03 */}
+              <motion.div
+                className="absolute right-[5%] top-[25%] max-w-sm pointer-events-auto"
+                variants={textVariants}
+                initial="hidden"
+                animate={showText3 ? "visible" : "hidden"}
+              >
+                <h2 className="text-3xl font-light italic text-primary mb-2">
+                  Award Winning Quality
+                </h2>
+                <p className="text-gray-700 leading-relaxed">
+                  Recognized globally for excellence, our coffee has won multiple international cupping competitions and is served in the world&apos;s finest establishments.
+                </p>
+              </motion.div>
+            </div>
           </div>
-        </motion.div>
-        {/* Section 2 */}
-        <motion.div
-          className="flex items-center justify-center"
-          initial={{ opacity: 0, y: 56 }}
-          animate={{ opacity: 1, y: 0 }}
-          style={{ opacity: sections[1] }}
-          transition={{ duration: 0.7 }}
-        >
-          <div className="p-8 max-w-md bg-white/90 rounded-lg shadow text-primary">
-            <h2 className="text-2xl italic mb-4">A Unique Craft</h2>
-            <p className="text-gray-600 leading-relaxed">
-              Our artisanal process preserves biodiversity and ensures that every bean tells its own story through bold, balanced flavor.
-            </p>
-          </div>
-        </motion.div>
-        {/* Section 3 */}
-        <motion.div
-          className="flex items-center justify-end"
-          initial={{ opacity: 0, y: 56 }}
-          animate={{ opacity: 1, y: 0 }}
-          style={{ opacity: sections[2] }}
-          transition={{ duration: 0.7 }}
-        >
-          <div className="p-8 max-w-md bg-white/90 rounded-lg shadow text-primary">
-            <h2 className="text-2xl italic mb-4">Proudly Grown</h2>
-            <p className="text-gray-600 leading-relaxed">
-              Bynekere represents the heritage of Indian coffee, cultivated in harmony with nature.
-            </p>
-          </div>
-        </motion.div>
-        <div className="h-96"></div>
+        </div>
       </div>
-    </section>
+      
+      {/* Next Section - Only scrollable after path is complete */}
+      {isPathComplete && (
+        <motion.div 
+          className="min-h-screen bg-primary p-20 flex items-center justify-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="max-w-4xl text-center">
+            <h2 className="text-5xl font-bold text-primary mb-6">Welcome to Our Coffee Journey</h2>
+            <p className="text-xl text-gray-700 leading-relaxed">
+              Continue scrolling to discover more about our premium coffee heritage, 
+              sustainable practices, and the passion that goes into every cup.
+            </p>
+          </div>
+        </motion.div>
+      )}
+    </>
   );
 };
 
-// Demo page
-export default function WavyScrollDemo() {
-  return (
-    <div className="min-h-screen">
-      <WavyScrollPath className="w-full">
-
-        {null}
-        {/* Content inside WavyScrollPath */}
-      </WavyScrollPath>
-    </div>
-  );
-}
+export default WavyPathScroll;
