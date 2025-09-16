@@ -45,7 +45,7 @@ const HorizontalScrollCarousel = () => {
   });
 
   return (
-    <section ref={targetRef} className="relative h-[300vh] bg-primary pb-36">
+    <section ref={targetRef} className="relative md:h-[300vh] h-[60vh] bg-primary pb-36">
       {/* Background beans */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Coffee beans scattered */}

@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Timeline from "@/components/Timeline";
 import HorizontalCardSection from "@/components/ui/HorizontalCardSection";
 import ScrollingText from "@/components/ScrollingText";
+import ScrollRevealCards from "@/components/ui/ScrollRevealCards";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <Timeline />
       <HorizontalCardSection />
       <ScrollingText />
+      <ScrollRevealCards />
     </main>
   );
 }
