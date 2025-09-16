@@ -61,8 +61,8 @@ export default function Header() {
       <div className="w-full flex items-center relative z-10">
         <div className="mx-4 sm:mx-6 lg:mx-20 px-4 sm:px-6 lg:px-8 py-12 w-full">
           <div className="grid md:grid-cols-2 gap-8 md:gap-12">
-            <motion.div className="text-left" custom={5} initial="hidden" animate="visible" variants={fadeUp}>
-              <p className="text-lg sm:text-xl leading-relaxed text-primary">
+            <motion.div className="text-left max-w-lg" custom={5} initial="hidden" animate="visible" variants={fadeUp}>
+              <p className="text-2xl leading-relaxed text-primary font-serif">
                 Bynekere Estate is an historic coffee plantation located in the Baba Budangiri Hills near Chikmagalur,
                 Karnataka.
               </p>

@@ -1,10 +1,10 @@
-"use client"
-import React, { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { useIsMobile } from '@/lib/useMediaQuery';
+"use client";
+import React, { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { useIsMobile } from "@/lib/useMediaQuery";
 
 // Type definition for SVG path methods we're using
-declare module 'react' {
+declare module "react" {
   interface SVGAttributes<T> extends AriaAttributes, DOMAttributes<T> {
     preserveAspectRatio?: string;
   }
@@ -30,13 +30,11 @@ function getProgressForX(path: SVGPathElement, targetX: number, pathLength: numb
   return mid / pathLength;
 }
 
-
 const WavyPathScroll = () => {
   const isMobile = useIsMobile();
   const containerRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
   const [pathLength, setPathLength] = useState(0);
-  const [isPathComplete, setIsPathComplete] = useState(false);
   const [currentMobileText, setCurrentMobileText] = useState(0);
   const [thresholds, setThresholds] = useState<{ q1: number; q2: number; q3: number }>({
     q1: 0,
@@ -46,18 +44,18 @@ const WavyPathScroll = () => {
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start center", "end center"]
+    offset: ["start center", "end center"],
   });
 
   // Smooth spring animation for the progress
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
-    restDelta: 0.001
+    restDelta: 0.001,
   });
 
   // Transform scroll progress to path offset
-const pathOffset = useTransform(smoothProgress, [0, 1], [0, 2]);
+  const pathOffset = useTransform(smoothProgress, [0, 1], [0, 2]);
 
   // States for text visibility
   const [showText1, setShowText1] = useState(false);
@@ -107,9 +105,6 @@ const pathOffset = useTransform(smoothProgress, [0, 1], [0, 2]);
           setShowText2(latest >= thresholds.q2);
           setShowText3(latest >= thresholds.q3);
         }
-
-        // Check if path is complete
-        setIsPathComplete(latest >= 0.98);
       }
     });
 
@@ -120,7 +115,7 @@ const pathOffset = useTransform(smoothProgress, [0, 1], [0, 2]);
     hidden: {
       opacity: 0,
       y: 20,
-      filter: "blur(10px)"
+      filter: "blur(10px)",
     },
     visible: {
       opacity: 1,
@@ -128,13 +123,13 @@ const pathOffset = useTransform(smoothProgress, [0, 1], [0, 2]);
       filter: "blur(0px)",
       transition: {
         duration: 0.8,
-        ease: [0.4, 0, 0.2, 1]
-      }
-    }
+        ease: [0.4, 0, 0.2, 1],
+      },
+    },
   } as const;
 
   // Bean SVG component
-  const BeanSVG = ({ x, y, rotation }: { x: number, y: number, rotation: number }) => (
+  const BeanSVG = ({ x, y, rotation }: { x: number; y: number; rotation: number }) => (
     <g transform={`translate(${x}, ${y}) rotate(${rotation})`}>
       <motion.image
         href="/bean.svg"
@@ -151,19 +146,12 @@ const pathOffset = useTransform(smoothProgress, [0, 1], [0, 2]);
   return (
     <>
       {/* Main scrollable container */}
-      <div
-        ref={containerRef}
-        className="relative h-[300vh]"
-      >
+      <div ref={containerRef} className="relative h-[300vh]">
         {/* Fixed positioned content */}
         <div className="sticky top-0 min-h-screen">
           <div className="relative w-full h-screen overflow-hidden">
             {/* SVG Path */}
-            <svg
-              className="absolute inset-0 w-full h-full"
-              viewBox="0 0 1600 500"
-              preserveAspectRatio="xMidYMid meet"
-            >
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1600 500" preserveAspectRatio="xMidYMid meet">
               {/* Background wavy path */}
               <path
                 ref={pathRef}
@@ -186,10 +174,7 @@ const pathOffset = useTransform(smoothProgress, [0, 1], [0, 2]);
               />
 
               {/* Traveling coffee bean */}
-              <motion.g
-                initial={{ opacity: 1 }}
-                animate={{ opacity: 1 }}
-              >
+              <motion.g initial={{ opacity: 1 }} animate={{ opacity: 1 }}>
                 <BeanSVG x={beanPosition.x} y={beanPosition.y} rotation={beanRotation} />
               </motion.g>
               {/* Removed milestone markers */}
@@ -208,31 +193,28 @@ const pathOffset = useTransform(smoothProgress, [0, 1], [0, 2]);
                 >
                   {currentMobileText === 0 && (
                     <>
-                      <h2 className="text-3xl font-light italic text-primary mb-2">
-                        Established in 1931,
-                      </h2>
+                      <h2 className="text-4xl font-light italic font-serif text-primary mb-2">Established in 1931,</h2>
                       <p className="text-gray-700 leading-relaxed">
-                        the estate carries a legacy stretching over a century. Known for its sustainable, wildlife-friendly farming practices, Bynekere produces the finest S795 Arabica coffee.
+                        the estate carries a legacy stretching over a century. Known for its sustainable,
+                        wildlife-friendly farming practices, Bynekere produces the finest S795 Arabica coffee.
                       </p>
                     </>
                   )}
                   {currentMobileText === 1 && (
                     <>
-                      <h2 className="text-3xl font-light italic text-primary mb-2">
-                        Premium Processing
-                      </h2>
+                      <h2 className="text-4xl font-light italic font-serif text-primary mb-2">Premium Processing</h2>
                       <p className="text-gray-700 leading-relaxed">
-                        Our beans undergo meticulous processing, from hand-picking at peak ripeness to careful sun-drying on raised beds, ensuring exceptional flavor profiles in every batch.
+                        Our beans undergo meticulous processing, from hand-picking at peak ripeness to careful
+                        sun-drying on raised beds, ensuring exceptional flavor profiles in every batch.
                       </p>
                     </>
                   )}
                   {currentMobileText === 2 && (
                     <>
-                      <h2 className="text-3xl font-light italic text-primary mb-2">
-                        Award Winning Quality
-                      </h2>
+                      <h2 className="text-4xl font-light italic font-serif text-primary mb-2">Award Winning Quality</h2>
                       <p className="text-gray-700 leading-relaxed">
-                        Recognized globally for excellence, our coffee has won multiple international cupping competitions and is served in the world&apos;s finest establishments.
+                        Recognized globally for excellence, our coffee has won multiple international cupping
+                        competitions and is served in the world&apos;s finest establishments.
                       </p>
                     </>
                   )}
@@ -246,11 +228,10 @@ const pathOffset = useTransform(smoothProgress, [0, 1], [0, 2]);
                     initial="hidden"
                     animate={showText1 ? "visible" : "hidden"}
                   >
-                    <h2 className="text-3xl font-light italic text-primary mb-2">
-                      Established in 1931,
-                    </h2>
+                    <h2 className="text-4xl font-light italic font-serif text-primary mb-2">Established in 1931,</h2>
                     <p className="text-gray-700 leading-relaxed">
-                      the estate carries a legacy stretching over a century. Known for its sustainable, wildlife-friendly farming practices, Bynekere produces the finest S795 Arabica coffee.
+                      the estate carries a legacy stretching over a century. Known for its sustainable,
+                      wildlife-friendly farming practices, Bynekere produces the finest S795 Arabica coffee.
                     </p>
                   </motion.div>
 
@@ -260,11 +241,10 @@ const pathOffset = useTransform(smoothProgress, [0, 1], [0, 2]);
                     initial="hidden"
                     animate={showText2 ? "visible" : "hidden"}
                   >
-                    <h2 className="text-3xl font-light italic text-primary mb-2">
-                      Premium Processing
-                    </h2>
+                    <h2 className="text-4xl font-light italic font-serif text-primary mb-2">Premium Processing</h2>
                     <p className="text-gray-700 leading-relaxed">
-                      Our beans undergo meticulous processing, from hand-picking at peak ripeness to careful sun-drying on raised beds, ensuring exceptional flavor profiles in every batch.
+                      Our beans undergo meticulous processing, from hand-picking at peak ripeness to careful sun-drying
+                      on raised beds, ensuring exceptional flavor profiles in every batch.
                     </p>
                   </motion.div>
 
@@ -274,11 +254,10 @@ const pathOffset = useTransform(smoothProgress, [0, 1], [0, 2]);
                     initial="hidden"
                     animate={showText3 ? "visible" : "hidden"}
                   >
-                    <h2 className="text-3xl font-light italic text-primary mb-2">
-                      Award Winning Quality
-                    </h2>
+                    <h2 className="text-4xl font-light italic font-serif text-primary mb-2">Award Winning Quality</h2>
                     <p className="text-gray-700 leading-relaxed">
-                      Recognized globally for excellence, our coffee has won multiple international cupping competitions and is served in the world&apos;s finest establishments.
+                      Recognized globally for excellence, our coffee has won multiple international cupping competitions
+                      and is served in the world&apos;s finest establishments.
                     </p>
                   </motion.div>
                 </>

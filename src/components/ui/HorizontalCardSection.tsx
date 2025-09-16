@@ -42,7 +42,7 @@ const HorizontalScrollCarousel = () => {
   );
 
   return (
-    <section ref={targetRef} className="relative h-[300vh] bg-primary">
+    <section ref={targetRef} className="relative h-[300vh] bg-primary pb-36">
       {/* Background beans */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Coffee beans scattered */}
@@ -91,7 +91,7 @@ const HorizontalScrollCarousel = () => {
       <div className="sticky top-0 flex h-screen flex-col items-end justify-start px-8 overflow-hidden w-full">
         {/* Top text */}
         <div className="w-full text-left mt-32 relative z-10">
-          <p className="max-w-md text-background text-lg leading-relaxed px-6 text-left">
+          <p className="max-w-md text-background text-2xl leading-tight px-6 text-left font-serif">
             Our products are made of 100% good quality materials, lorem ipsum byne is best lorem ipsum hello hello
             hello.
           </p>
@@ -129,9 +129,11 @@ const BottomInfo = ({
   const opacity = useTransform(activeIndex, [index - 0.3, index, index + 0.3], [0, 1, 0]);
 
   return (
-    <motion.div style={{ opacity }} className="absolute inset-0 flex flex-col items-center justify-center">
-      <p className="italic text-xl font-semibold mb-2">{card.title}</p>
-      <p className="text-sm text-gray-200">{card.desc}</p>
+    <motion.div style={{ opacity }} className="absolute inset-0 flex flex-col items-center justify-center ">
+      <div className="max-w-sm w-xs text-start">
+        <p className="italic text-xl font-semibold font-serif">{card.title}</p>
+        <p className="text-sm">{card.desc}</p>
+      </div>
     </motion.div>
   );
 };
@@ -145,7 +147,7 @@ const Card = ({ card }: { card: CardType }) => {
 
   return (
     <div
-      className="relative h-[450px] w-[300px] rounded-xl overflow-hidden bg-background shadow-xl group flex-shrink-0"
+      className="relative h-[350px] w-[300px] rounded-xl overflow-hidden bg-background shadow-xl group flex-shrink-0"
       style={{ transform: `rotate(${rotation})` }}
     >
       <div
