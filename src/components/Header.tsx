@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { motion, Variants } from 'framer-motion';
+import { useIsMobile } from '@/lib/useMediaQuery';
 
 const fadeUp: Variants = {
     hidden: { opacity: 0, y: 50 },
@@ -13,12 +14,14 @@ const fadeUp: Variants = {
 };
 
 export default function Header() {
+    const isMobile = useIsMobile();
+
     return (
         <div className="flex flex-col mt-24">
             {/* Top Section */}
             <motion.div
                 className="relative min-h-[60vh] w-full"
-                custom={2}
+                custom={isMobile ? 1 : 2}
                 initial="hidden"
                 animate="visible"
                 variants={fadeUp}
