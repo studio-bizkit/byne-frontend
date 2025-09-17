@@ -107,13 +107,23 @@ const HorizontalScrollCarousel = () => {
         </div>
 
         {/* Horizontal scroll cards */}
-        <div className="relative w-full flex justify-center z-10 mt-10">
+        <motion.div
+          className="relative w-full flex justify-center z-10 mt-10"
+          animate={{ y: [0, -10, 30] }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "easeInOut",
+          }}
+        >
           <motion.div style={{ x }} className="flex md:gap-24 gap-12 items-center">
             {cards.map((card) => (
               <Card card={card} key={card.id} />
             ))}
           </motion.div>
-        </div>
+        </motion.div>
+
 
         {/* Bottom Info */}
         <motion.div className="mt-10 text-center text-white relative h-20 w-full z-10">

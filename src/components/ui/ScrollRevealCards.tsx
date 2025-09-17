@@ -24,7 +24,7 @@ const ScrollRevealCards = () => {
         y: useTransform(
             scrollYProgress,
             [0 / cards.length, 1 / cards.length],
-            ["600vh", `${(0 * 80)-200}px`]
+            ["600vh", `${(0 * 80) - 200}px`]
         ),
     };
 
@@ -37,7 +37,7 @@ const ScrollRevealCards = () => {
         y: useTransform(
             scrollYProgress,
             [1 / cards.length, 2 / cards.length],
-            ["600vh", `${(1 * 80)-200}px`]
+            ["600vh", `${(1 * 80) - 200}px`]
         ),
     };
 
@@ -50,7 +50,7 @@ const ScrollRevealCards = () => {
         y: useTransform(
             scrollYProgress,
             [2 / cards.length, 3 / cards.length],
-            ["600vh", `${(2 * 80)-200}px`]
+            ["600vh", `${(2 * 80) - 200}px`]
         ),
     };
 
@@ -63,20 +63,20 @@ const ScrollRevealCards = () => {
         y: useTransform(
             scrollYProgress,
             [3 / cards.length, 4 / cards.length],
-            ["600vh", `${(3 * 80)-200}px`]
+            ["600vh", `${(3 * 80) - 200}px`]
         ),
     };
 
     const transform4 = {
         x: useTransform(
             scrollYProgress,
-            [4 / cards.length, 5 / cards.length],
+            [4 / cards.length, 1],
             ["150%", `${4 * 60}px`]
         ),
         y: useTransform(
             scrollYProgress,
-            [4 / cards.length, 5 / cards.length],
-            ["600vh", `${(4 * 80)-200}px`]
+            [4 / cards.length, 1],
+            ["600vh", `${(4 * 80) - 200}px`]
         ),
     };
 
@@ -98,8 +98,11 @@ const ScrollRevealCards = () => {
                     {cards.map((card, i) => (
                         <motion.div
                             key={card.id}
-                            style={{y: transforms[i].y }}
-                            className="relative w-[220px] h-[300px] md:w-[300px] md:h-[200px] -ml-24 rounded-b-md overflow-hidden flex-shrink-0"
+                            style={{
+                                y: transforms[i].y,
+                                zIndex: cards.length - i, // topmost for smallest i
+                            }} className={`relative w-[120px] h-[150px] md:w-[200px] md:h-[220px] -ml-24 rounded-b-sm overflow-hidden flex-shrink-0 ${"z-" + ((cards.length) - i)}
+                            `}
                         >
                             {/* Background gradient */}
                             <Image
@@ -110,11 +113,11 @@ const ScrollRevealCards = () => {
                             />
 
                             {/* Overlay text */}
-                            <div className="absolute bottom-4 left-4 text-background font-serif">
+                            <div className="absolute md:bottom-4 md:left-4 bottom-2 left-2 text-background font-serif">
                                 <div className="text-md md:text-base font-light">
                                     {String(card.id).padStart(2, "0")}
                                 </div>
-                                <div className="text-2xl md:text-3xl font-semibold">
+                                <div className="text-lg md:text-3xl">
                                     {card.title}
                                 </div>
                             </div>

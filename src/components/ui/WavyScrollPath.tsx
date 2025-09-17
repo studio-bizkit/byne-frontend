@@ -194,7 +194,7 @@ const WavyPathScroll = () => {
                   {currentMobileText === 0 && (
                     <>
                       <h2 className="text-4xl font-light italic font-serif text-primary mb-2">Established in 1931,</h2>
-                      <p className="text-gray-700 leading-relaxed">
+                      <p className="text-primary leading-relaxed">
                         the estate carries a legacy stretching over a century. Known for its sustainable,
                         wildlife-friendly farming practices, Bynekere produces the finest S795 Arabica coffee.
                       </p>
@@ -203,7 +203,7 @@ const WavyPathScroll = () => {
                   {currentMobileText === 1 && (
                     <>
                       <h2 className="text-4xl font-light italic font-serif text-primary mb-2">Premium Processing</h2>
-                      <p className="text-gray-700 leading-relaxed">
+                      <p className="text-primary leading-relaxed">
                         Our beans undergo meticulous processing, from hand-picking at peak ripeness to careful
                         sun-drying on raised beds, ensuring exceptional flavor profiles in every batch.
                       </p>
@@ -212,7 +212,7 @@ const WavyPathScroll = () => {
                   {currentMobileText === 2 && (
                     <>
                       <h2 className="text-4xl font-light italic font-serif text-primary mb-2">Award Winning Quality</h2>
-                      <p className="text-gray-700 leading-relaxed">
+                      <p className="text-primary leading-relaxed">
                         Recognized globally for excellence, our coffee has won multiple international cupping
                         competitions and is served in the world&apos;s finest establishments.
                       </p>
@@ -229,7 +229,7 @@ const WavyPathScroll = () => {
                     animate={showText1 ? "visible" : "hidden"}
                   >
                     <h2 className="text-4xl font-light italic font-serif text-primary mb-2">Established in 1931,</h2>
-                    <p className="text-gray-700 leading-relaxed">
+                    <p className="text-primary leading-relaxed">
                       the estate carries a legacy stretching over a century. Known for its sustainable,
                       wildlife-friendly farming practices, Bynekere produces the finest S795 Arabica coffee.
                     </p>
@@ -242,7 +242,7 @@ const WavyPathScroll = () => {
                     animate={showText2 ? "visible" : "hidden"}
                   >
                     <h2 className="text-4xl font-light italic font-serif text-primary mb-2">Premium Processing</h2>
-                    <p className="text-gray-700 leading-relaxed">
+                    <p className="text-primary leading-relaxed">
                       Our beans undergo meticulous processing, from hand-picking at peak ripeness to careful sun-drying
                       on raised beds, ensuring exceptional flavor profiles in every batch.
                     </p>
@@ -255,7 +255,7 @@ const WavyPathScroll = () => {
                     animate={showText3 ? "visible" : "hidden"}
                   >
                     <h2 className="text-4xl font-light italic font-serif text-primary mb-2">Award Winning Quality</h2>
-                    <p className="text-gray-700 leading-relaxed">
+                    <p className="text-primary leading-relaxed">
                       Recognized globally for excellence, our coffee has won multiple international cupping competitions
                       and is served in the world&apos;s finest establishments.
                     </p>
