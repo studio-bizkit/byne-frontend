@@ -26,7 +26,7 @@ export default function Header() {
     <div className="flex flex-col">
       {/* Top Section */}
       <motion.div
-        className="relative h-screen w-full"
+        className="relative h-screen w-full bg-black"
         custom={isMobile ? 1 : 2}
         initial="hidden"
         animate="visible"
