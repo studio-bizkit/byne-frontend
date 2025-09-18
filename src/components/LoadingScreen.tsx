@@ -47,10 +47,6 @@ export default function LoadingScreen() {
       setLoading(true);
       setProgress(10); // reset
     };
-    const handleComplete = () => {
-      setProgress(100);
-      setTimeout(() => setLoading(false), 300);
-    };
 
     // ❌ In App Router `useRouter` does not expose .events
     // ✅ Use window events instead
