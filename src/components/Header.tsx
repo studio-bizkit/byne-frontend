@@ -23,17 +23,17 @@ export default function Header() {
   const opacity = useTransform(scrollY, [0, 500], [1, 1]);
 
   return (
-    <div className="flex flex-col mt-24">
+    <div className="flex flex-col">
       {/* Top Section */}
       <motion.div
-        className="relative min-h-[60vh] w-full"
+        className="relative h-screen w-full"
         custom={isMobile ? 1 : 2}
         initial="hidden"
         animate="visible"
         variants={fadeUp}
       >
-        <div className="mx-4 sm:mx-6 lg:mx-8">
-          <div className="relative min-h-[60vh] rounded-2xl overflow-hidden">
+        <div className="">
+          <div className="relative h-screen overflow-hidden">
             {/* Background image */}
             <motion.div
               style={{
@@ -44,12 +44,12 @@ export default function Header() {
                 position: "absolute",
               }}
             >
-              <Image src="/hero-bg.png" alt="Bynekere Estate" fill className="object-cover rounded-2xl" priority />
+              <Image src="/hero-bg.png" alt="Bynekere Estate" fill className="object-cover " priority />
             </motion.div>
 
             {/* Overlay logo */}
             <motion.div className="absolute inset-0 flex items-center justify-center" style={{ scale: logoScale }}>
-              <div className="h-1/2 relative aspect-square">
+              <div className="h-2/5 relative aspect-square">
                 <Image src="/hero-logo.svg" alt="Bynekere Estate Logo" fill className="object-contain" priority />
               </div>
             </motion.div>
