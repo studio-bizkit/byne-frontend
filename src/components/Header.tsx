@@ -53,8 +53,12 @@ export default function Header({ page }: HeaderProps) {
                 className="object-cover"
                 priority
               />
+
             </div>
           </motion.div>
+          {page !== "home" && (
+            <div className="absolute inset-x-0 bottom-0 h-1/12 bg-gradient-to-t from-background via-background/30 to-transparent" />
+          )}
 
           {/* Overlay */}
           {content.title ? (
@@ -66,7 +70,7 @@ export default function Header({ page }: HeaderProps) {
                 const words = content.title.split(" ");
                 const lastWord = words.pop();
                 return (
-                  <h1 className="text-4xl sm:text-7xl font-serif text-background text-center px-4">
+                  <h1 className="text-6xl sm:text-8xl font-serif text-background text-center px-4">
                     {words.join(" ")}{" "}
                     <span className="italic">{lastWord}</span>
                   </h1>

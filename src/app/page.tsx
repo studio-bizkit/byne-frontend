@@ -1,3 +1,4 @@
+"use client";
 import Navbar from "@/components/Navbar";
 import Header from "@/components/Header";
 import Timeline from "@/components/Timeline";
@@ -17,20 +18,26 @@ export default function Home() {
       {/* Blur layer under navbar */}
       <ProgressiveBlur
         className="fixed top-0 left-0 right-0 z-40"
-        height="20%"
+        height="15%"
         position="top"
-        // blurLevels={[2, 4, 8, 16, 32]}
       />
 
-
-      {/* Content */}
-      <section className="relative">
+      {/* Sections */}
+      <section data-section="home">
         <Header page="home" />
       </section>
-      <Timeline />
-      <HorizontalCardSection />
-      <ScrollingText />
-      <ScrollRevealCards />
+      <section data-section="timeline">
+        <Timeline />
+      </section>
+      <section data-section="horizontal">
+        <HorizontalCardSection />
+      </section>
+      <section data-section="scrolling">
+        <ScrollingText />
+      </section>
+      <section data-section="reveal">
+        <ScrollRevealCards />
+      </section>
     </main>
   );
 }

@@ -1,10 +1,9 @@
 import Navbar from "@/components/Navbar";
 import Header from "@/components/Header";
-import Timeline from "@/components/Timeline";
-import HorizontalCardSection from "@/components/ui/HorizontalCardSection";
 import ScrollingText from "@/components/ScrollingText";
 import ScrollRevealCards from "@/components/ui/ScrollRevealCards";
 import { ProgressiveBlur } from "@/components/ui/ProgressiveBlur";
+import CoffeeCarousel from "@/components/ui/HorizontalScrollCarousel";
 
 export default function Home() {
   return (
@@ -17,7 +16,7 @@ export default function Home() {
       {/* Blur layer under navbar */}
       <ProgressiveBlur
         className="fixed top-0 left-0 right-0 z-40"
-        height="20%"
+        height="15%"
         position="top"
       // blurLevels={[2, 4, 8, 16, 32]}
       />
@@ -27,8 +26,12 @@ export default function Home() {
       <section className="relative">
         <Header page={"coffee"} />
       </section>
-      <Timeline />
-      <HorizontalCardSection />
+      {/* <Timeline /> */}
+      <CoffeeCarousel />
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-5xl font-serif mb-4 text-primary text-center">
+          From washed, natural, and honey methods to our signature 23-hour sugarcane juice fermentation, every process highlights unique flavors. Rooted in sustainability, each cup tells the story of our land and people.</h2>
+      </section>
       <ScrollingText />
       <ScrollRevealCards />
     </main>
