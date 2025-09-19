@@ -25,7 +25,7 @@ export default function Home() {
 
       {/* Content */}
       <section className="relative">
-        <Header />
+        <Header page="home" />
       </section>
       <Timeline />
       <HorizontalCardSection />

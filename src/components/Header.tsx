@@ -5,7 +5,7 @@ import { motion, Variants, useTransform, useScroll } from "framer-motion";
 import { useIsMobile } from "@/lib/useMediaQuery";
 
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 50 },
+  hidden: { opacity: 0 },
   visible: (custom: number = 0) => ({
     opacity: 1,
     y: 0,
@@ -13,18 +13,28 @@ const fadeUp: Variants = {
   }),
 };
 
-export default function Header() {
+interface HeaderProps {
+  page: string; // accept any string now
+}
+
+const pageContent: Record<string, { bgImage: string; title?: string }> = {
+  home: { bgImage: "/hero-bg.png" },
+  coffee: { bgImage: "/coffee-bg.png", title: "Coffee Byne" },
+  homestay: { bgImage: "/homestay-bg.jpg", title: "Plantation Homestay" },
+  about: { bgImage: "/about-bg.jpg", title: "About Us" },
+};
+
+export default function Header({ page }: HeaderProps) {
   const isMobile = useIsMobile();
   const { scrollY } = useScroll();
-
-  // Transform values for animations
   const scale = useTransform(scrollY, [0, 500], [1, 1.2]);
-  const logoScale = useTransform(scrollY, [0, 500], [1, 1]);
+  const logoScale = useTransform(scrollY, [0, 500], [1, 0.8]);
   const opacity = useTransform(scrollY, [0, 500], [1, 1]);
+
+  const content = pageContent[page] || pageContent["home"]; // fallback to home
 
   return (
     <div className="flex flex-col">
-      {/* Top Section */}
       <motion.div
         className="relative h-screen w-full bg-black"
         custom={isMobile ? 1 : 2}
@@ -32,51 +42,56 @@ export default function Header() {
         animate="visible"
         variants={fadeUp}
       >
-        <div className="">
-          <div className="relative h-screen overflow-hidden">
-            {/* Background image */}
+        <div className="relative h-screen overflow-hidden">
+          {/* Background */}
+          <motion.div className="absolute inset-0" style={{ scale, opacity }}>
+            <div className="relative h-full w-full">
+              <Image
+                src={content.bgImage}
+                alt={content.title || "Background"}
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+          </motion.div>
+
+          {/* Overlay */}
+          {content.title ? (
             <motion.div
-              style={{
-                scale,
-                opacity,
-                width: "100%",
-                height: "100%",
-                position: "absolute",
-              }}
+              className="absolute inset-0 flex items-center justify-center"
+              style={{ scale: logoScale }}
             >
-              <Image src="/hero-bg.png" alt="Bynekere Estate" fill className="object-cover " priority />
+              {(() => {
+                const words = content.title.split(" ");
+                const lastWord = words.pop();
+                return (
+                  <h1 className="text-4xl sm:text-7xl font-serif text-background text-center px-4">
+                    {words.join(" ")}{" "}
+                    <span className="italic">{lastWord}</span>
+                  </h1>
+                );
+              })()}
             </motion.div>
 
-            {/* Overlay logo */}
-            <motion.div className="absolute inset-0 flex items-center justify-center" style={{ scale: logoScale }}>
+          ) : (
+            <motion.div
+              className="absolute inset-0 flex items-center justify-center"
+              style={{ scale: logoScale }}
+            >
               <div className="h-2/5 relative aspect-square">
-                <Image src="/hero-logo.svg" alt="Bynekere Estate Logo" fill className="object-contain" priority />
+                <Image
+                  src="/hero-logo.svg"
+                  alt="Bynekere Estate Logo"
+                  fill
+                  className="object-contain"
+                  priority
+                />
               </div>
             </motion.div>
-          </div>
+          )}
         </div>
       </motion.div>
-
-      {/* Bottom Section */}
-      <div className="w-full flex items-center relative z-10">
-        <div className="mx-4 sm:mx-6 lg:mx-20 px-4 sm:px-6 lg:px-8 py-12 w-full">
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12">
-            <motion.div className="text-left max-w-lg" custom={5} initial="hidden" animate="visible" variants={fadeUp}>
-              <p className="text-2xl leading-relaxed text-primary font-serif">
-                Bynekere Estate is an historic coffee plantation located in the Baba Budangiri Hills near Chikmagalur,
-                Karnataka.
-              </p>
-            </motion.div>
-
-            <motion.div className="text-left" custom={7} initial="hidden" animate="visible" variants={fadeUp}>
-              <p className="text-lg sm:text-xl leading-relaxed text-primary">
-                Byne delivers high-quality, sustainably grown coffee from our farms to businesses and coffee lovers
-                alike. Through our homestay, guests can experience the plantation life and the story behind every bean.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

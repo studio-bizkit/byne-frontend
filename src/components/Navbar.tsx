@@ -8,7 +8,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { name: "COFFEE", href: "/" },
+    { name: "COFFEE", href: "/coffee" },
     { name: "HOMESTAY", href: "/homestay" },
     { name: "ABOUT US", href: "/about" },
     { name: "CONTACT US", href: "/contact" },
@@ -36,7 +36,7 @@ export default function Navbar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-background hover:text-background/90 px-3 py-2 text-sm font-medium transition-colors mix-blend-difference"
+                className="text-background px-3 py-2 text-sm font-medium mix-blend-difference"
               >
                 {item.name}
               </Link>
@@ -91,7 +91,7 @@ export default function Navbar() {
             <Link
               key={item.name}
               href={item.href}
-              className="text-gray-200 hover:text-white block px-3 py-2 text-base font-medium"
+              className="text-gray-200 hover:text-white block px-3 py-2 text-base font-medium "
               onClick={() => setIsOpen(false)}
             >
               {item.name}
