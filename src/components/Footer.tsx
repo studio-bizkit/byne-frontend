@@ -2,6 +2,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { FormEvent, useState } from "react";
 
 const Footer = ({ withForm = true }) => {
     const { scrollYProgress } = useScroll();
@@ -12,12 +13,39 @@ const Footer = ({ withForm = true }) => {
         { name: "ABOUT US", href: "/about" },
         { name: "CONTACT US", href: "/contact", isButton: true },
     ];
+    const [result, setResult] = useState("");
+
+    const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        setResult("Sending...");
+
+        const form = event.currentTarget; // guaranteed to be HTMLFormElement
+        const formData = new FormData(form);
+
+        formData.append("access_key", "YOUR_ACCESS_KEY_HERE");
+
+        const response = await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            body: formData,
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            setResult("Form Submitted Successfully");
+            form.reset();
+        } else {
+            console.log("Error", data);
+            setResult(data.message);
+        }
+    };
+
     return (
         <footer className="relative w-full overflow-visible bg-background flex flex-col items-center justify-center" >
             {withForm && (
-                <motion.div style={{ }} className="relative mb-20">
+                <motion.div style={{}} className="relative mb-20">
                     {/* Top-right Image */}
-                    <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/ ">
+                    <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1 transition-transform duration-500 hover:-rotate-10 hover:-translate-y-[22px]">
                         <Image
                             src="/form-pin.png"
                             width={160}
@@ -26,6 +54,7 @@ const Footer = ({ withForm = true }) => {
                             className="w-full h-full object-contain"
                         />
                     </div>
+
 
                     {/* Form Container */}
                     <div className="bg-primary text-background py-9 w-xs md:w-6xl rounded-xl">
@@ -39,7 +68,9 @@ const Footer = ({ withForm = true }) => {
 
                                     {/* Form */}
                                     <div className="flex-1 w-full">
-                                        <form className="space-y-6">
+                                        <form className="space-y-6" onSubmit={onSubmit}>
+                                            <input type="hidden" name="access_key" value="651104ef-c4c5-4608-8de1-030859a0e3b3" />
+
                                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                                                 {/* Full Name */}
                                                 <div>
@@ -118,7 +149,10 @@ const Footer = ({ withForm = true }) => {
                                                     type="submit"
                                                     className="bg-background text-primary px-8 py-3 rounded-full font-medium hover:bg-background/90 transition-colors"
                                                 >
-                                                    Submit
+                                                    {result ? (
+                                                        <span className="text-sm font-normal">{result}</span>) : (
+                                                        < span className="text-sm font-normal">SUBMIT</span>
+                                                    )}
                                                 </button>
                                             </div>
                                         </form>
@@ -127,7 +161,7 @@ const Footer = ({ withForm = true }) => {
                             </div>
                         </div>
                     </div>
-                </motion.div>
+                </motion.div >
             )}
 
             <div
@@ -264,7 +298,7 @@ const Footer = ({ withForm = true }) => {
                     </div>
                 </div>
             </div>
-        </footer>
+        </footer >
     );
 };
 
