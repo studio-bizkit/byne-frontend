@@ -9,16 +9,11 @@ import { useScroll, useTransform, motion } from "framer-motion";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [windowHeight, setWindowHeight] = useState(0);
-  const [currentLogo, setCurrentLogo] = useState("/nav-logo.svg");
   const pathname = usePathname();
   const { scrollY } = useScroll();
 
   useEffect(() => {
     setWindowHeight(window.innerHeight);
-
-    return scrollY.onChange((y) => {
-      setCurrentLogo(y > window.innerHeight ? "/nav-blue-logo.svg" : "/nav-logo.svg");
-    });
   }, [scrollY]);
 
   const textColor = useTransform(
@@ -26,6 +21,8 @@ export default function Navbar() {
     [0, windowHeight],
     ["rgb(245, 230, 211)", "rgb(0, 51, 153)"]
   );
+  const logoOpacity = useTransform(scrollY, [0, windowHeight / 2], [1, 0]);
+  const blueLogoOpacity = useTransform(scrollY, [0, windowHeight / 2], [0, 1]);
 
   const navItems = [
     { name: "COFFEE", href: "/coffee" },
@@ -39,17 +36,27 @@ export default function Navbar() {
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
 
-          <div className="flex items-center py-4">
-            <Link href="/" className="text-xl text-primary w-14 h-full relative">
+          <div className="flex items-center py-4 relative w-14 h-14">
+            <motion.div style={{ opacity: logoOpacity }} className="absolute inset-0">
               <Image
-                src={currentLogo}
+                src="/nav-logo.svg"
                 alt="logo"
                 fill
-                className="object-cover w-full h-full"
+                className="object-contain w-full h-full"
                 priority
               />
-            </Link>
+            </motion.div>
+            <motion.div style={{ opacity: blueLogoOpacity }} className="absolute inset-0">
+              <Image
+                src="/nav-blue-logo.svg"
+                alt="blue logo"
+                fill
+                className="object-contain w-full h-full"
+                priority
+              />
+            </motion.div>
           </div>
+
 
           {/* Desktop menu */}
           <div className="hidden sm:flex items-center space-x-8 relative">

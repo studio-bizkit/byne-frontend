@@ -6,6 +6,7 @@ import HorizontalCardSection from "@/components/ui/HorizontalCardSection";
 import ScrollingText from "@/components/ScrollingText";
 import ScrollRevealCards from "@/components/ui/ScrollRevealCards";
 import { ProgressiveBlur } from "@/components/ui/ProgressiveBlur";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -38,6 +39,8 @@ export default function Home() {
       <section data-section="reveal">
         <ScrollRevealCards />
       </section>
+      <Footer withForm={false} />
+
     </main>
   );
 }
