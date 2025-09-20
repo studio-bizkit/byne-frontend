@@ -29,7 +29,7 @@ export default function Header({ page }: HeaderProps) {
   const { scrollY } = useScroll();
   const scale = useTransform(scrollY, [0, 500], [1, 1.2]);
   const logoScale = useTransform(scrollY, [0, 500], [1, 0.8]);
-  const opacity = useTransform(scrollY, [0, 500], [1, 1]);
+  const opacity = useTransform(scrollY, [0, 300], [0.3, 1]);
 
   const content = pageContent[page] || pageContent["home"]; // fallback to home
 
@@ -44,7 +44,7 @@ export default function Header({ page }: HeaderProps) {
       >
         <div className="relative h-screen overflow-hidden">
           {/* Background */}
-          <motion.div className="absolute inset-0" style={{ scale, opacity }}>
+          <motion.div className="absolute inset-0" style={{ scale }}>
             <div className="relative h-full w-full">
               <Image
                 src={content.bgImage}
@@ -57,7 +57,7 @@ export default function Header({ page }: HeaderProps) {
             </div>
           </motion.div>
           {page !== "home" && (
-            <div className="absolute inset-x-0 bottom-0 h-1/12 bg-gradient-to-t from-background via-background/30 to-transparent" />
+            <motion.div className="absolute inset-x-0 bottom-0 h-1/12 bg-gradient-to-t from-background via-background/30 to-transparent" style={{ opacity }} />
           )}
 
           {/* Overlay */}

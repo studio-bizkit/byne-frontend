@@ -4,6 +4,9 @@ import ScrollingText from "@/components/ScrollingText";
 import ScrollRevealCards from "@/components/ui/ScrollRevealCards";
 import { ProgressiveBlur } from "@/components/ui/ProgressiveBlur";
 import CoffeeCarousel from "@/components/ui/HorizontalScrollCarousel";
+import AnimatedProductCards from "@/components/ui/AnimatedProductCards";
+import AnimatedReviews from "@/components/ui/TestimonialCards";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -32,8 +35,10 @@ export default function Home() {
         <h2 className="text-5xl font-serif mb-4 text-primary text-center">
           From washed, natural, and honey methods to our signature 23-hour sugarcane juice fermentation, every process highlights unique flavors. Rooted in sustainability, each cup tells the story of our land and people.</h2>
       </section>
-      <ScrollingText />
-      <ScrollRevealCards />
+      {/* <ScrollingText /> */}
+      <AnimatedProductCards />
+      <AnimatedReviews />
+      <Footer />
     </main>
   );
 }

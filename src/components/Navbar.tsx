@@ -2,13 +2,30 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-
+import { useScroll, useTransform, motion } from "framer-motion";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [windowHeight, setWindowHeight] = useState(0);
+  const [currentLogo, setCurrentLogo] = useState("/nav-logo.svg");
   const pathname = usePathname();
+  const { scrollY } = useScroll();
+
+  useEffect(() => {
+    setWindowHeight(window.innerHeight);
+
+    return scrollY.onChange((y) => {
+      setCurrentLogo(y > window.innerHeight ? "/nav-blue-logo.svg" : "/nav-logo.svg");
+    });
+  }, [scrollY]);
+
+  const textColor = useTransform(
+    scrollY,
+    [0, windowHeight],
+    ["rgb(245, 230, 211)", "rgb(0, 51, 153)"]
+  );
 
   const navItems = [
     { name: "COFFEE", href: "/coffee" },
@@ -17,17 +34,15 @@ export default function Navbar() {
     { name: "CONTACT US", href: "/contact", isButton: true },
   ];
 
-  // choose text color based on section
-  const textColor ="text-background";
-
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 pt-2">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
+
           <div className="flex items-center py-4">
             <Link href="/" className="text-xl text-primary w-14 h-full relative">
               <Image
-                src="/nav-logo.svg"
+                src={currentLogo}
                 alt="logo"
                 fill
                 className="object-cover w-full h-full"
@@ -43,16 +58,12 @@ export default function Navbar() {
                 {pathname === item.href && !item.isButton && (
                   <span className="absolute -left-1 w-2 h-2 bg-primary rounded-full"></span>
                 )}
-                <Link
-                  href={item.href}
-                  className={`px-3 py-2 text-sm font-medium ${
-                    item.isButton
-                      ? "bg-primary text-background rounded-full px-4 py-2"
-                      : `${textColor} mix-blend-difference`
-                  }`}
+                <motion.div
+                  className={`px-3 py-2 text-sm font-medium ${item.isButton ? "bg-primary text-background rounded-full px-4 py-2" : ""}`}
+                  style={{ color: !item.isButton ? textColor : undefined }}
                 >
-                  {item.name}
-                </Link>
+                  <Link href={item.href}>{item.name}</Link>
+                </motion.div>
               </div>
             ))}
           </div>
