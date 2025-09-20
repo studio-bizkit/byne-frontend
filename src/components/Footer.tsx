@@ -22,7 +22,7 @@ const Footer = ({ withForm = true }) => {
         const form = event.currentTarget; // guaranteed to be HTMLFormElement
         const formData = new FormData(form);
 
-        formData.append("access_key", "YOUR_ACCESS_KEY_HERE");
+        formData.append("access_key", "651104ef-c4c5-4608-8de1-030859a0e3b3");
 
         const response = await fetch("https://api.web3forms.com/submit", {
             method: "POST",
