@@ -51,9 +51,10 @@ const Footer = ({ withForm = true }) => {
                             width={160}
                             height={160}
                             alt="decorative pin"
-                            className="w-full h-full object-contain"
+                            className="w-full h-full object-contain max-w-[140px] md:max-w-full"
                         />
                     </div>
+
 
 
                     {/* Form Container */}
@@ -63,7 +64,9 @@ const Footer = ({ withForm = true }) => {
                                 <div className="flex flex-col lg:flex-col gap-8 items-start justify-between">
                                     {/* Form Title and Decorative Element */}
                                     <div className="flex-1">
-                                        <h2 className="text-5xl lg:text-6xl font-serif">Enquire Now</h2>
+                                        <h2 className="text-5xl lg:text-6xl font-serif">
+                                            Enquire <span className="block lg:inline">Now</span>
+                                        </h2>
                                     </div>
 
                                     {/* Form */}
