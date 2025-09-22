@@ -28,9 +28,10 @@ const HorizontalScrollCarousel = () => {
 
   const cardWidth = isMobile ? 240 : 380;
   const viewportCenter = typeof window !== "undefined" ? window.innerWidth / 2 : 640;
-  const cardCenter = isMobile ? 120 : 220;
-  const initialOffset = viewportCenter - cardCenter;
-  const totalScrollDistance = (cards.length - 1) * cardWidth;
+  // const cardCenter = isMobile ? 120 : 220;
+  // const initialOffset = viewportCenter - cardCenter;
+  const initialOffset = viewportCenter ;
+  const totalScrollDistance = (cards.length - 3) * cardWidth;
 
   const x = useTransform(scrollYProgress, [0, 1], [initialOffset, initialOffset - totalScrollDistance]);
 
@@ -54,7 +55,7 @@ const HorizontalScrollCarousel = () => {
             ease: "easeInOut",
           }}
         >
-          <motion.div style={{ x }} className="flex md:gap-4 gap-12 items-center">
+          <motion.div style={{ x }} className="flex md:gap-4 gap-12 items-start">
             {cards.map((card) => (
               <Card card={card} key={card.id} />
             ))}
@@ -116,6 +117,26 @@ const cards: CardType[] = [
   {
     url: "/coffee/1.png",
     title: "Filter Coffee", desc: "Traditional South Indian filter coffee taste.", id: 4
+  },
+  {
+    url: "/coffee/1.png",
+    title: "Coffee Powder",
+    desc: "Premium coffee powder from the hills of Coorg. 100% Quality.",
+    id: 5,
+  },
+  {
+    url: "/coffee/2.png",
+    title: "Espresso Blend",
+    desc: "Rich and bold blend crafted for espresso lovers.",
+    id: 6,
+  },
+  {
+    url: "/coffee/3.png",
+    title: "Arabica Beans", desc: "Single-origin Arabica beans with smooth flavor.", id: 7
+  },
+  {
+    url: "/coffee/1.png",
+    title: "Filter Coffee", desc: "Traditional South Indian filter coffee taste.", id: 8
   },
 ];
 
