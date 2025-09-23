@@ -79,7 +79,7 @@ const VillaBynekere: React.FC<VillaBynekereProps> = ({ villaScale, villaImageSca
       </p>
     </motion.div>
 
-    <div className="relative bottom-0 w-full h-24 md:h-32 overflow-hidden">
+    <div className="relative bottom-0 w-full h-1/2  overflow-hidden">
       <motion.div
         style={{ scale: villaImageScale, y: villaImageY }}
         className="w-full h-full"
@@ -379,7 +379,7 @@ const MissionValuesComponent: React.FC = () => {
   const traditionBottomOpacity = useTransform(scrollYProgress, [0.5, 0.8], [1, 0]);
 
   return (
-    <div ref={ref} className="bg-background p-8 max-w-4xl mx-auto mt-12">
+    <div ref={ref} className="bg-background p-8 md:max-w-7xl mx-auto mt-12">
       {/* Header */}
       <h1 className="text-4xl md:text-5xl font-serif text-primary text-center mb-12">
         Our mission & values

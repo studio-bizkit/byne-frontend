@@ -66,7 +66,7 @@ export default function Navbar() {
                   <span className="absolute -left-1 w-2 h-2 bg-primary rounded-full"></span>
                 )}
                 <motion.div
-                  className={`px-3 py-2 text-sm font-medium ${item.isButton ? "bg-primary text-background rounded-full px-4 py-2" : ""}`}
+                  className={`px-3 py-2 text-sm font-semibold ${item.isButton ? "bg-primary text-background rounded-full px-4 py-2" : ""}`}
                   style={{ color: !item.isButton ? textColor : undefined }}
                 >
                   <Link href={item.href}>{item.name}</Link>
