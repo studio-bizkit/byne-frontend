@@ -20,7 +20,7 @@ interface HeaderProps {
 const pageContent: Record<string, { bgImage: string; title?: string }> = {
   home: { bgImage: "/hero-bg.png" },
   coffee: { bgImage: "/coffee-bg.png", title: "Coffee Byne" },
-  homestay: { bgImage: "/homestay-bg.png", title: "Plantation Homestay" },
+  homestay: { bgImage: "/homestay-bg.png", title: "Villa Bynekere" },
   about: { bgImage: "/about-bg.png", title: "About Byne" },
 };
 
