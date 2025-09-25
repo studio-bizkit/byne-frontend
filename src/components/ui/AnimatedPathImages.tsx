@@ -115,7 +115,7 @@ const PolaroidBoundingBox = () => {
   ];
 
   return (
-    <div className="relative w-full h-screen bg-background overflow-hidden mb-24">
+    <div className="relative w-full h-screen bg-background  mb-24">
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
         <span className="font-serif text-primary/20 text-6xl md:text-9xl">
           {isMobile ? "Click to expand" : "Hover for more"}
@@ -141,11 +141,11 @@ const PolaroidBoundingBox = () => {
                     top: "50%",
                     left: "50%",
                     transform: "translate(-50%, -50%)",
-                    zIndex: 999, // active card on top
+                    zIndex: 50, // High z-index for mobile active state
                   }
                 : {
                     ...initialPositions[index],
-                    zIndex: 1, // default
+                    zIndex: isActive ? 50 : 10, // Higher z-index when active
                   }
             }
             animate={isMobile ? {} : animationPaths[index].animate}
@@ -160,16 +160,21 @@ const PolaroidBoundingBox = () => {
           >
             <motion.div
               className="relative cursor-pointer"
-              animate={{ zIndex: isActive ? 999 : 1 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              animate={{
+                scale: isActive ? 1.02 : 1,
+              }}
+              transition={{ duration: 0.3, ease: "linear" }} // fixed linear movement
             >
               <motion.div
                 className="group bg-white relative shadow-[0_5px_15px_rgba(0,0,0,0.1)] overflow-hidden flex justify-center items-start"
                 animate={{
                   width: isActive ? expandedWidth : baseWidth,
                   height: isActive ? expandedHeight : baseHeight,
+                  boxShadow: isActive
+                    ? "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+                    : "0 5px 15px rgba(0,0,0,0.1)",
                 }}
-                transition={{ type: "spring", stiffness: 200, damping: 25 }}
+                transition={{ duration: 0.3, ease: "linear" }} // fixed movement, no spring
               >
                 <motion.div
                   className="relative w-full z-20"

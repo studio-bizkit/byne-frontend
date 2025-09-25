@@ -60,23 +60,23 @@ const swipeVariants: Variants = {
 
 export default function RoomSlider() {
   const [index, setIndex] = useState(0);
-  const [direction, setDirection] = useState(0); // 1 = next, -1 = prev
+  const [direction, setDirection] = useState(0);
   const current = slides[index];
 
   const nextSlide = () => {
     setDirection(1);
-    setIndex(prev => (prev + 1) % slides.length);
+    setIndex((prev) => (prev + 1) % slides.length);
   };
   const prevSlide = () => {
     setDirection(-1);
-    setIndex(prev => (prev - 1 + slides.length) % slides.length);
+    setIndex((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-background">
-      <div className="flex max-w-6xl w-full overflow-hidden ">
+    <div className="flex justify-center items-center min-h-screen bg-background px-4">
+      <div className="flex flex-col md:flex-row max-w-6xl w-full overflow-hidden gap-6">
         {/* Left Image */}
-        <div className="relative w-1/2 h-[600px] overflow-hidden">
+        <div className="relative w-full md:w-1/2 h-64 md:h-[600px] overflow-hidden rounded-lg">
           <AnimatePresence initial={false} custom={direction}>
             <motion.div
               key={current.id + "-main"}
@@ -92,15 +92,16 @@ export default function RoomSlider() {
                 alt={current.title}
                 fill
                 className="object-cover w-full h-full"
+                priority
               />
             </motion.div>
           </AnimatePresence>
         </div>
 
         {/* Right Section */}
-        <div className="flex flex-col justify-between w-1/2 bg-background pl-8 gap-48">
-          {/* Top: Title, Description, Side Image */}
-          <div className="flex flex-row gap-6">
+        <div className="flex flex-col justify-between w-full md:w-1/2 bg-background gap-8 md:gap-48">
+          {/* Top: Title, Description */}
+          <div className="flex flex-col gap-4 md:flex-row md:gap-6">
             <div className="flex-1">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -109,23 +110,81 @@ export default function RoomSlider() {
                   initial="initial"
                   animate="animate"
                   exit="exit"
-                  className="space-y-1"
+                  className="space-y-2"
                 >
-                  <p className="text-primary text-md">
-                    Rooms
-                  </p>
-                  <h2 className="text-primary font-serif text-6xl font-medium">
+                  <p className="text-primary text-sm md:text-md">Rooms</p>
+                  <h2 className="text-primary font-serif text-3xl md:text-6xl font-medium">
                     {current.title}
                   </h2>
-                  <p className="text-primary text-sm">
+                  <p className="text-primary text-sm md:text-base">
                     {current.desc}
                   </p>
                 </motion.div>
               </AnimatePresence>
             </div>
+          </div>
 
-            {/* Side Image with swipe */}
-            <div className="w-1/3 relative aspect-[4/3] overflow-hidden">
+          {/* Bottom: Mobile 2-col grid, Desktop row */}
+          <div className="grid grid-cols-2 md:flex md:items-end md:justify-between gap-6 md:gap-0">
+            {/* Details */}
+            <div className="flex flex-col gap-3 order-1 md:order-none">
+              <div>
+                <span className="text-primary text-xs md:text-sm uppercase">
+                  Type
+                </span>
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={current.id + "-type"}
+                    variants={textVariantsSmall}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                    className="text-primary font-medium text-sm md:text-base"
+                  >
+                    {current.type}
+                  </motion.p>
+                </AnimatePresence>
+              </div>
+
+              <div>
+                <span className="text-primary text-xs md:text-sm uppercase">
+                  Bed
+                </span>
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={current.id + "-bed"}
+                    variants={textVariantsSmall}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                    className="text-primary font-medium text-sm md:text-base"
+                  >
+                    {current.bed}
+                  </motion.p>
+                </AnimatePresence>
+              </div>
+
+              <div>
+                <span className="text-primary text-xs md:text-sm uppercase">
+                  Occupancy
+                </span>
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={current.id + "-occupancy"}
+                    variants={textVariantsSmall}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                    className="text-primary font-medium text-sm md:text-base"
+                  >
+                    {current.occupancy}
+                  </motion.p>
+                </AnimatePresence>
+              </div>
+            </div>
+
+            {/* Side Image (mobile second column, desktop inline) */}
+            <div className="relative aspect-[4/3] rounded-lg overflow-hidden order-2 md:order-none">
               <AnimatePresence initial={false} custom={direction}>
                 <motion.div
                   key={current.id + "-side"}
@@ -145,63 +204,9 @@ export default function RoomSlider() {
                 </motion.div>
               </AnimatePresence>
             </div>
-          </div>
 
-          {/* Bottom: Type, Bed, Occupancy + Controls */}
-          <div className="flex items-end justify-between">
-            <div className="flex flex-col gap-2">
-              <div >
-                <span className="text-primary text-sm uppercase">Type</span>
-                <AnimatePresence mode="wait">
-                  <motion.p
-                    key={current.id + "-type"}
-                    variants={textVariantsSmall}
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                    className="text-primary font-medium"
-                  >
-                    {current.type}
-                  </motion.p>
-                </AnimatePresence>
-              </div>
-
-              <div >
-                <span className="text-primary text-sm uppercase">Bed</span>
-                <AnimatePresence mode="wait">
-                  <motion.p
-                    key={current.id + "-bed"}
-                    variants={textVariantsSmall}
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                    className="text-primary font-medium"
-                  >
-                    {current.bed}
-                  </motion.p>
-                </AnimatePresence>
-              </div>
-
-              <div >
-                <span className="text-primary text-sm uppercase">
-                  Occupancy
-                </span>
-                <AnimatePresence mode="wait">
-                  <motion.p
-                    key={current.id + "-occupancy"}
-                    variants={textVariantsSmall}
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                    className="text-primary font-medium"
-                  >
-                    {current.occupancy}
-                  </motion.p>
-                </AnimatePresence>
-              </div>
-            </div>
-
-            <div className="flex gap-3">
+            {/* Controls full width on mobile, right aligned on desktop */}
+            <div className="flex gap-3 col-span-2 md:col-span-1 justify-center md:justify-end order-3 md:order-none">
               <button
                 onClick={prevSlide}
                 className="w-10 h-10 flex items-center justify-center rounded-full bg-[#D9D9D9] text-primary hover:bg-primary/20"

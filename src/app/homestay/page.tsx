@@ -5,6 +5,8 @@ import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ui/ScrollRevealText";
 import PolaroidBoundingBox from "@/components/ui/AnimatedPathImages";
 import RoomSlider from "@/components/ui/RoomSlider";
+import SemicircleScrollAnimation from "@/components/ui/AnimatedBean";
+import { ActivitesComponent } from "@/components/ui/ActivitesComponent";
 
 export default function Coffee() {
   return (
@@ -35,6 +37,8 @@ export default function Coffee() {
       </section>
       <PolaroidBoundingBox />
       <RoomSlider />
+      {/* <SemicircleScrollAnimation /> */}
+      <ActivitesComponent />
       <Footer />
     </main>
   );
