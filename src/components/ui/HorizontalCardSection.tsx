@@ -33,12 +33,16 @@ const HorizontalScrollCarousel = () => {
   const viewportCenter =
     typeof window !== "undefined" ? window.innerWidth / 2 : 320;
   const cardCenter = isMobile ? 90 : 220;
-  const totalScrollDistance = (cards.length - 1) * cardWidth;
+  const totalScrollDistance = isMobile ? (cards.length -0.4) * cardWidth : (cards.length - 1) * cardWidth;
+  const offset = isMobile ? 200 : 0;
 
   const x = useTransform(
     scrollYProgress,
     [0, 1],
-    [viewportCenter - cardCenter, viewportCenter - cardCenter - totalScrollDistance]
+    [
+      viewportCenter - cardCenter + offset,
+      viewportCenter - cardCenter - totalScrollDistance + offset,
+    ]
   );
 
   // Path moves across its full width while cards scroll
@@ -61,7 +65,7 @@ const HorizontalScrollCarousel = () => {
   return (
     <section ref={targetRef} className="relative h-[300vh] bg-primary pb-12">
       {/* Fixed beans */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
         <Image
           src="/bean-white.svg"
           alt="bean"
@@ -99,11 +103,19 @@ const HorizontalScrollCarousel = () => {
         />
       </div>
 
-      <div className="sticky top-0 flex h-screen flex-col items-end justify-start px-8 overflow-hidden w-full">
+      <div className="sticky top-0 flex h-screen flex-col items-start justify-start px-8 overflow-hidden w-full">
         {/* Top text */}
-        <div className={`w-full mt-${isMobile ? "20" : "32"} relative z-10 ${isMobile ? "px-4" : "px-6"}`}>
+        <div
+          className={`max-w-xl relative z-10 ${
+            isMobile ? "mt-20 px-4" : "mt-24 px-6"
+          }`}
+        >
           <p
-            className={`text-background ${isMobile ? "text-base leading-snug" : "md:text-2xl text-lg leading-tight"} font-serif`}
+            className={`text-background ${
+              isMobile
+                ? "text-base leading-snug"
+                : "md:text-2xl text-lg leading-tight"
+            } font-serif`}
           >
             Our products are made of 100% good quality materials, lorem ipsum
             byne is best lorem ipsum hello hello hello.
@@ -111,8 +123,12 @@ const HorizontalScrollCarousel = () => {
         </div>
 
         {/* Path that scrolls with cards */}
-        <div className="absolute top-1/3 left-0 w-full overflow-hidden z-5">
-          <motion.div style={{ x: pathX }} className={`relative w-[${pathWidth}px] h-[325px]`}>
+        <div className="absolute top-1/3 left-0 w-full overflow-visible z-5">
+          <motion.div
+            style={{ x: pathX }}
+            animate={{ y: [0, -10, 30] }}
+            className={`relative w-[${pathWidth}px] h-[325px]`}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width={pathWidth}
@@ -137,7 +153,7 @@ const HorizontalScrollCarousel = () => {
 
         {/* Cards */}
         <motion.div
-          className="relative w-full flex justify-center z-10 mt-10"
+          className="relative w-full flex justify-center z-10 mt-24"
           animate={{ y: [0, -10, 30] }}
           transition={{
             duration: 3,
@@ -148,7 +164,9 @@ const HorizontalScrollCarousel = () => {
         >
           <motion.div
             style={{ x }}
-            className={`flex ${isMobile ? "gap-6" : "md:gap-24 gap-12"} items-center`}
+            className={`flex ${
+              isMobile ? "gap-10" : "md:gap-24 gap-12"
+            } items-center`}
           >
             {cards.map(card => (
               <Card card={card} key={card.id} isMobile={isMobile} />
@@ -157,7 +175,7 @@ const HorizontalScrollCarousel = () => {
         </motion.div>
 
         {/* Bottom info */}
-        <motion.div className="mt-10 text-center text-white relative h-20 w-full z-10">
+        <motion.div className="mt-10 max-w-xltext-center text-white relative h-20 w-full z-10">
           {cards.map((card, i) => (
             <BottomInfo
               key={card.id}
@@ -187,16 +205,16 @@ const BottomInfo = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 20 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="absolute inset-0 flex flex-col items-center justify-center"
+      className="absolute inset-0 flex flex-col items-center justify-center px-4 sm:px-6"
     >
       <motion.div
-        className="max-w-sm w-xs text-start"
+        className="w-full max-w-xs sm:max-w-sm text-start"
         initial={{ scale: 0.95 }}
         animate={{ scale: isActive ? 1 : 0.95 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
       >
         <motion.p
-          className="italic text-xl font-semibold font-serif"
+          className="italic text-lg sm:text-xl font-semibold font-serif"
           initial={{ opacity: 0 }}
           animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
@@ -204,7 +222,7 @@ const BottomInfo = ({
           {card.title}
         </motion.p>
         <motion.p
-          className="text-sm"
+          className="text-sm sm:text-sm mt-1"
           initial={{ opacity: 0 }}
           animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: 0.4, delay: 0.2 }}
