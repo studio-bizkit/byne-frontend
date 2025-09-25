@@ -35,38 +35,48 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 pt-2">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-
           <div className="flex items-center py-4 relative w-14 h-14">
-            <motion.div style={{ opacity: logoOpacity }} className="absolute inset-0">
-              <Image
-                src="/nav-logo.svg"
-                alt="logo"
-                fill
-                className="object-contain w-full h-full"
-                priority
-              />
-            </motion.div>
-            <motion.div style={{ opacity: blueLogoOpacity }} className="absolute inset-0">
-              <Image
-                src="/nav-blue-logo.svg"
-                alt="blue logo"
-                fill
-                className="object-contain w-full h-full"
-                priority
-              />
-            </motion.div>
+            <Link href={"/"}>
+              <motion.div
+                style={{ opacity: logoOpacity }}
+                className="absolute inset-0"
+              >
+                <Image
+                  src="/nav-logo.svg"
+                  alt="logo"
+                  fill
+                  className="object-contain w-full h-full"
+                  priority
+                />
+              </motion.div>
+              <motion.div
+                style={{ opacity: blueLogoOpacity }}
+                className="absolute inset-0"
+              >
+                <Image
+                  src="/nav-blue-logo.svg"
+                  alt="blue logo"
+                  fill
+                  className="object-contain w-full h-full"
+                  priority
+                />
+              </motion.div>
+            </Link>
           </div>
-
 
           {/* Desktop menu */}
           <div className="hidden sm:flex items-center space-x-8 relative">
-            {navItems.map((item) => (
+            {navItems.map(item => (
               <div key={item.name} className="relative flex items-center">
                 {pathname === item.href && !item.isButton && (
                   <span className="absolute -left-1 w-2 h-2 bg-primary rounded-full"></span>
                 )}
                 <motion.div
-                  className={`px-3 py-2 text-sm font-semibold ${item.isButton ? "bg-primary text-background rounded-full px-4 py-2" : ""}`}
+                  className={`px-3 py-2 text-sm font-semibold ${
+                    item.isButton
+                      ? "bg-primary text-background rounded-full px-4 py-2"
+                      : ""
+                  }`}
                   style={{ color: !item.isButton ? textColor : undefined }}
                 >
                   <Link href={item.href}>{item.name}</Link>
@@ -89,7 +99,12 @@ export default function Navbar() {
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
                 </svg>
               ) : (
                 <svg
@@ -98,7 +113,12 @@ export default function Navbar() {
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               )}
             </button>

@@ -65,18 +65,18 @@ export default function RoomSlider() {
 
   const nextSlide = () => {
     setDirection(1);
-    setIndex((prev) => (prev + 1) % slides.length);
+    setIndex(prev => (prev + 1) % slides.length);
   };
   const prevSlide = () => {
     setDirection(-1);
-    setIndex((prev) => (prev - 1 + slides.length) % slides.length);
+    setIndex(prev => (prev - 1 + slides.length) % slides.length);
   };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-background px-4">
       <div className="flex flex-col md:flex-row max-w-6xl w-full overflow-hidden gap-6">
         {/* Left Image */}
-        <div className="relative w-full md:w-1/2 h-64 md:h-[600px] overflow-hidden rounded-lg">
+        <div className="relative w-full md:w-1/2 h-64 md:h-[600px] overflow-hidden">
           <AnimatePresence initial={false} custom={direction}>
             <motion.div
               key={current.id + "-main"}
@@ -102,7 +102,8 @@ export default function RoomSlider() {
         <div className="flex flex-col justify-between w-full md:w-1/2 bg-background gap-8 md:gap-48">
           {/* Top: Title, Description */}
           <div className="flex flex-col gap-4 md:flex-row md:gap-6">
-            <div className="flex-1">
+            <div className="flex-1 flex-col gap-2">
+              <p className="text-primary text-sm md:text-md">Rooms</p>
               <AnimatePresence mode="wait">
                 <motion.div
                   key={current.id + "-text"}
@@ -112,7 +113,6 @@ export default function RoomSlider() {
                   exit="exit"
                   className="space-y-2"
                 >
-                  <p className="text-primary text-sm md:text-md">Rooms</p>
                   <h2 className="text-primary font-serif text-3xl md:text-6xl font-medium">
                     {current.title}
                   </h2>
@@ -121,6 +121,30 @@ export default function RoomSlider() {
                   </p>
                 </motion.div>
               </AnimatePresence>
+            </div>
+            {/* Side Image with swipe */}{" "}
+            <div className="w-1/3 relative aspect-[4/3] overflow-hidden hidden md:block">
+              {" "}
+              <AnimatePresence initial={false} custom={direction}>
+                {" "}
+                <motion.div
+                  key={current.id + "-side"}
+                  custom={direction}
+                  variants={swipeVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  className="absolute top-0 left-0 w-full h-full"
+                >
+                  {" "}
+                  <Image
+                    src={current.sideImg}
+                    alt={current.title}
+                    fill
+                    className="object-cover w-full h-full"
+                  />{" "}
+                </motion.div>{" "}
+              </AnimatePresence>{" "}
             </div>
           </div>
 
@@ -184,7 +208,7 @@ export default function RoomSlider() {
             </div>
 
             {/* Side Image (mobile second column, desktop inline) */}
-            <div className="relative aspect-[4/3] rounded-lg overflow-hidden order-2 md:order-none">
+            <div className="relative aspect-[4/3] overflow-hidden order-2 md:order-none">
               <AnimatePresence initial={false} custom={direction}>
                 <motion.div
                   key={current.id + "-side"}
@@ -209,13 +233,13 @@ export default function RoomSlider() {
             <div className="flex gap-3 col-span-2 md:col-span-1 justify-center md:justify-end order-3 md:order-none">
               <button
                 onClick={prevSlide}
-                className="w-10 h-10 flex items-center justify-center rounded-full bg-[#D9D9D9] text-primary hover:bg-primary/20"
+                className="w-10 h-10 flex cursor-pointer items-center justify-center rounded-full bg-[#D9D9D9] text-primary hover:bg-primary/20"
               >
                 ‹
               </button>
               <button
                 onClick={nextSlide}
-                className="w-10 h-10 flex items-center justify-center rounded-full bg-primary text-[#D9D9D9] hover:bg-primary/90"
+                className="w-10 h-10 flex cursor-pointer items-center justify-center rounded-full bg-primary text-[#D9D9D9] hover:bg-primary/90"
               >
                 ›
               </button>
