@@ -123,7 +123,7 @@ const HorizontalScrollCarousel = () => {
         </div>
 
         {/* Path that scrolls with cards */}
-        <div className="absolute top-1/3 left-0 w-full overflow-visible z-5">
+        {/* <div className="absolute top-1/3 left-0 w-full overflow-visible z-5">
           <motion.div
             style={{ x: pathX }}
             animate={{ y: [0, -10, 30] }}
@@ -149,7 +149,7 @@ const HorizontalScrollCarousel = () => {
               />
             </svg>
           </motion.div>
-        </div>
+        </div> */}
 
         {/* Cards */}
         <motion.div
