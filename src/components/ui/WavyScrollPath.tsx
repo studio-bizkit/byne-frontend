@@ -44,7 +44,7 @@ const WavyPathScroll = () => {
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start center", "end center"],
+    offset: ["start start", "end end"],
   });
 
   // Smooth spring animation for the progress
