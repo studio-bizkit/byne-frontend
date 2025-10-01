@@ -25,7 +25,7 @@ const ProductRange = () => {
         </>
       ),
       image: "/about/villa.png",
-      link: "/villa",
+      link: "/homestay",
     },
   ];
 
