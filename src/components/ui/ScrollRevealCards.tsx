@@ -107,9 +107,9 @@ const ScrollRevealCards = () => {
               key={card.id}
               style={{
                 y: transforms[i].y,
-                zIndex: cards.length - 1 - i,
+                zIndex: i,
               }}
-              className={`relative w-[120px] h-[150px] md:w-[230px] md:h-[267px] -ml-24 rounded-b-sm overflow-hidden flex-shrink-0  ${"z-" + (cards.length - 1 - i)
+              className={`relative w-[120px] h-[150px] md:w-[230px] md:h-[267px] -ml-24 rounded-b-sm overflow-hidden flex-shrink-0  ${"z-" + (i)
                 } 
                             `}
             >
