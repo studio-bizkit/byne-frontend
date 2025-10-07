@@ -5,7 +5,7 @@ import CoffeeCarousel from "@/components/ui/HorizontalScrollCarousel";
 import AnimatedProductCards from "@/components/ui/AnimatedProductCards";
 import AnimatedReviews from "@/components/ui/TestimonialCards";
 import Footer from "@/components/Footer";
-import ScrollReveal from "@/components/ui/ScrollRevealText";
+import { TextReveal } from "@/components/ui/ScrollRevealText";
 
 export default function Coffee() {
   return (
@@ -30,16 +30,12 @@ export default function Coffee() {
       {/* <Timeline /> */}
       <CoffeeCarousel />
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <ScrollReveal
-          baseOpacity={0}
-          enableBlur={false}
-          baseRotation={5}
-        >
+        <TextReveal className="h-[30vh] max-w-7xl">
           From washed, natural, and honey methods to our signature 23-hour
-          sugarcane juice fermentation, every process highlights unique
-          flavors. Rooted in sustainability, each cup tells the story of our
-          land and people.
-        </ScrollReveal>
+          sugarcane juice fermentation, every process highlights unique flavors.
+          Rooted in sustainability, each cup tells the story of our land and
+          people.
+        </TextReveal>
       </section>
       <AnimatedProductCards />
       <AnimatedReviews />

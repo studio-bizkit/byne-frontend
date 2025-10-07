@@ -6,7 +6,7 @@ import { FormEvent, useState } from "react";
 
 const Footer = ({ withForm = true }) => {
   const { scrollYProgress } = useScroll();
-  const yTransform = useTransform(scrollYProgress, [0, 1], [2, 1]);
+  const yTransform = useTransform(scrollYProgress, [0, 1], [2.1, 1]);
   const navItems = [
     { name: "COFFEE", href: "/coffee" },
     { name: "HOMESTAY", href: "/homestay" },
@@ -192,14 +192,14 @@ const Footer = ({ withForm = true }) => {
 
       <div
         className="w-full relative bg-gradient-to-b from-background to-primary overflow-x-hidden overflow-y-visible scrollbar-none"
-        style={{ paddingTop: `${100 / 1.497}%` }} // ≈ 66.8%
+        style={{ paddingTop: `${100 / 1.595}%` }} // ≈ 62.7%
       >
         <motion.div
           style={{ scale: yTransform }}
           className="absolute top-0 left-0 w-full h-full overflow-y-visible"
         >
           <Image
-            src="/footer.png"
+            src="/footer-2.png"
             alt="Coffee plantation illustration"
             fill
             style={{ objectFit: "contain", objectPosition: "top" }}

@@ -2,11 +2,10 @@ import Navbar from "@/components/Navbar";
 import Header from "@/components/Header";
 import { ProgressiveBlur } from "@/components/ui/ProgressiveBlur";
 import Footer from "@/components/Footer";
-import ScrollReveal from "@/components/ui/ScrollRevealText";
-import PolaroidBoundingBox from "@/components/ui/AnimatedPathImages";
+import { TextReveal } from "@/components/ui/ScrollRevealText";
 import RoomSlider from "@/components/ui/RoomSlider";
-import SemicircleScrollAnimation from "@/components/ui/AnimatedBean";
 import { ActivitesComponent } from "@/components/ui/ActivitesComponent";
+import HomestayResponsiveSection from "@/components/ui/HomestayResponsiveSection";
 
 export default function Coffee() {
   return (
@@ -28,14 +27,22 @@ export default function Coffee() {
       <section className="relative">
         <Header page={"homestay"} />
       </section>
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 my-24">
-        <ScrollReveal baseOpacity={0} enableBlur={false} baseRotation={5}>
-          The perfect escape into Chikmagalur’s lush coffee country. Wake up to
-          fresh brews, rolling hills, and the calm of untouched nature. Villa
-          Bynekere is where relaxation meets tradition.
-        </ScrollReveal>
+      <section className="max-w-5xl mx-auto py-12">
+          <section className="flex flex-col items-center justify-center space-y- text-center">
+            <TextReveal className="h-[30vh] max-w-7xl">
+              Situated in the western ghats and a short drive from the town of
+              chickmagalur, &apos;Villa Bynekere&apos; Homestay offers you an
+              escape to a private and stylish villa right on top of a hill.
+            </TextReveal>
+
+            <TextReveal className="h-[30vh] max-w-7xl">
+              A place tastefully done to allow you to feel at home. We offer you
+              ample space to lounge to catch up for a chat or gather around for
+              some board games and outdoor activities.
+            </TextReveal>
+          </section>
       </section>
-      <PolaroidBoundingBox />
+      <HomestayResponsiveSection />
       <RoomSlider />
       {/* <SemicircleScrollAnimation /> */}
       <ActivitesComponent />
