@@ -10,68 +10,22 @@ type AnimationPath = {
   transition: Transition;
 };
 
-const PolaroidBoundingBox = () => {
+type HomestayImage = {
+  id: number;
+  src: string;
+  title?: string;
+  subtitle?: string;
+  width: number;
+  height: number;
+};
+
+interface PolaroidBoundingBoxProps {
+  images: HomestayImage[];
+}
+
+const PolaroidBoundingBox = ({ images }: PolaroidBoundingBoxProps) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const isMobile = useIsMobile();
-
-  const images = [
-    {
-      id: 1,
-      src: "/homestay/1.png",
-      title: "Estate Tour",
-      subtitle: "Coffee Plantation Visit",
-      width: 240,
-      height: 320,
-    },
-    {
-      id: 2,
-      src: "/homestay/2.png",
-      title: "Free Wi-Fi",
-      subtitle: "Stay Connected",
-      width: 240,
-      height: 320,
-    },
-    {
-      id: 3,
-      src: "/homestay/3.png",
-      title: "Trekking",
-      subtitle: "Explore the Hills",
-      width: 200,
-      height: 250,
-    },
-    {
-      id: 4,
-      src: "/homestay/4.png",
-      title: "Late Check-Out",
-      subtitle: "Flexible Stays",
-      width: 170,
-      height: 230,
-    },
-    {
-      id: 5,
-      src: "/homestay/5.png",
-      title: "Bar",
-      subtitle: "Outdoor Refreshments",
-      width: 240,
-      height: 320,
-    },
-    {
-      id: 6,
-      src: "/homestay/6.png",
-      title: "Outdoor Activities",
-      subtitle: "Play & Relax",
-      width: 190,
-      height: 260,
-    },
-    {
-      id: 7,
-      src: "/homestay/7.png",
-      title: "Barbeque",
-      subtitle: "Evening Grill Setup",
-      width: 160,
-      height: 220,
-    },
-  ];
 
   const animationPaths: AnimationPath[] = [
     {
@@ -186,7 +140,7 @@ const PolaroidBoundingBox = () => {
                 >
                   <Image
                     src={image.src}
-                    alt={image.title}
+                    alt={image.title ?? "Homestay image"}
                     fill
                     style={{ objectFit: "cover" }}
                     className="filter grayscale group-hover:grayscale-0 transition-all duration-700"

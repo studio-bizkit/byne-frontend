@@ -1,13 +1,15 @@
 "use client";
 
 import { motion, useMotionValue, useTransform } from "framer-motion";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
-interface StackCard {
+interface HomestayImage {
   id: number;
-  img: string;
+  src: string;
   title?: string;
   subtitle?: string;
+  width: number;
+  height: number;
 }
 
 interface CardRotateProps {
@@ -50,6 +52,7 @@ function CardRotate({ children, onSendToBack, sensitivity }: CardRotateProps) {
 }
 
 interface StackProps {
+  images: HomestayImage[];
   randomRotation?: boolean;
   sensitivity?: number;
   cardDimensions?: { width: number; height: number };
@@ -58,21 +61,23 @@ interface StackProps {
 }
 
 export default function Stack({
+  images,
   randomRotation = false,
   sensitivity = 50,
   cardDimensions = { width: 260, height: 380 },
   sendToBackOnClick = true,
   animationConfig = { stiffness: 260, damping: 20 },
 }: StackProps) {
-  const initialCards: StackCard[] = [
-    { id: 1, img: "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?q=80&w=500&auto=format", title: "Estate Tour", subtitle: "Coffee Plantation Visit" },
-    { id: 2, img: "https://images.unsplash.com/photo-1449844908441-8829872d2607?q=80&w=500&auto=format", title: "Free Wi-Fi", subtitle: "Stay Connected" },
-    { id: 3, img: "https://images.unsplash.com/photo-1452626212852-811d58933cae?q=80&w=500&auto=format", title: "Trekking", subtitle: "Explore the Hills" },
-    { id: 4, img: "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?q=80&w=500&auto=format", title: "Late Check-Out", subtitle: "Flexible Stays" },
-    { id: 5, img: "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?q=80&w=500&auto=format", title: "Bar", subtitle: "Outdoor Refreshments" },
-    { id: 6, img: "https://images.unsplash.com/photo-1449844908441-8829872d2607?q=80&w=500&auto=format", title: "Outdoor Activities", subtitle: "Play & Relax" },
-    { id: 7, img: "https://images.unsplash.com/photo-1452626212852-811d58933cae?q=80&w=500&auto=format", title: "Barbeque", subtitle: "Evening Grill Setup" },
-  ];
+  const initialCards = useMemo(
+    () =>
+      images.map((img) => ({
+        id: img.id,
+        img: img.src,
+        title: img.title,
+        subtitle: img.subtitle,
+      })),
+    [images]
+  );
 
   const [cards, setCards] = useState(initialCards);
 
