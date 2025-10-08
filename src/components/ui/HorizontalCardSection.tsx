@@ -33,7 +33,9 @@ const HorizontalScrollCarousel = () => {
   const viewportCenter =
     typeof window !== "undefined" ? window.innerWidth / 2 : 320;
   const cardCenter = isMobile ? 90 : 220;
-  const totalScrollDistance = isMobile ? (cards.length -0.4) * cardWidth : (cards.length - 1) * cardWidth;
+  const totalScrollDistance = isMobile
+    ? (cards.length - 0.4) * cardWidth
+    : (cards.length - 1) * cardWidth;
   const offset = isMobile ? 200 : 0;
 
   const x = useTransform(
@@ -56,10 +58,19 @@ const HorizontalScrollCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   useMotionValueEvent(scrollYProgress, "change", latest => {
-    const progress = latest * (cards.length - 1);
-    const centerIndex = Math.round(progress);
-    const distanceFromCenter = Math.abs(progress - centerIndex);
-    if (distanceFromCenter < 0.3) setActiveIndex(centerIndex);
+    const scroll = latest; // normalized 0–1 from useScroll
+    const totalDistance = totalScrollDistance; // pixels the cards move
+    const scrolledDistance = scroll * totalDistance;
+
+    // compute index by dividing distance scrolled by card width
+    const progressPerCard = cardWidth;
+    const rawIndex = scrolledDistance / progressPerCard;
+
+    // nearest whole card in view
+    const centerIndex = Math.round(rawIndex);
+    const clampedIndex = Math.max(0, Math.min(cards.length - 1, centerIndex));
+
+    setActiveIndex(clampedIndex);
   });
 
   return (
@@ -107,18 +118,17 @@ const HorizontalScrollCarousel = () => {
         {/* Top text */}
         <div
           className={`max-w-xl relative z-10 ${
-            isMobile ? "mt-20 px-4" : "mt-24 px-6"
+            isMobile ? "mt-28 px-4" : "mt-24 px-6"
           }`}
         >
           <p
             className={`text-background ${
               isMobile
-                ? "text-base leading-snug"
-                : "md:text-2xl text-lg leading-tight"
+                ? "text-2xl leading-snug "
+                : "md:text-5xl text-2xl leading-tighter"
             } font-serif`}
           >
-            Our products are made of 100% good quality materials, lorem ipsum
-            byne is best lorem ipsum hello hello hello.
+            Experience coffee, perfected over decades
           </p>
         </div>
 
@@ -153,7 +163,7 @@ const HorizontalScrollCarousel = () => {
 
         {/* Cards */}
         <motion.div
-          className="relative w-full flex justify-center z-10 mt-24"
+          className="relative w-full flex justify-center z-10 mt-12 md:ml-32"
           animate={{ y: [0, -10, 30] }}
           transition={{
             duration: 3,
@@ -165,7 +175,7 @@ const HorizontalScrollCarousel = () => {
           <motion.div
             style={{ x }}
             className={`flex ${
-              isMobile ? "gap-10" : "md:gap-24 gap-12"
+              isMobile ? "gap-10" : "md:gap-16 gap-12"
             } items-center`}
           >
             {cards.map(card => (
@@ -245,7 +255,7 @@ const Card = ({ card, isMobile }: { card: CardType; isMobile: boolean }) => {
     []
   );
   const w = isMobile ? 180 : 300;
-  const h = isMobile ? 250 : 350;
+  const h = isMobile ? 250 : 380;
   return (
     <motion.div
       className="relative rounded-xl overflow-hidden bg-background shadow-xl flex-shrink-0"
@@ -268,27 +278,33 @@ const Card = ({ card, isMobile }: { card: CardType; isMobile: boolean }) => {
 const cards: CardType[] = [
   {
     url: "/imgs/coffee/1.jpg",
-    title: "Coffee Powder",
-    desc: "Premium coffee powder from the hills of Coorg. 100% Quality.",
+    title: "South Indian Filter",
+    desc: "80:20",
     id: 1,
   },
   {
     url: "/imgs/coffee/2.jpg",
-    title: "Espresso Blend",
-    desc: "Rich and bold blend crafted for espresso lovers.",
+    title: "South Indian Filter",
+    desc: "60:40",
     id: 2,
   },
   {
     url: "/imgs/coffee/3.jpg",
-    title: "Arabica Beans",
-    desc: "Single-origin Arabica beans with smooth flavor.",
+    title: "House Blend",
+    desc: "Real flavor",
     id: 3,
   },
   {
     url: "/imgs/coffee/4.jpg",
-    title: "Filter Coffee",
-    desc: "Traditional South Indian filter coffee taste.",
+    title: "100% Arabica",
+    desc: "Medium Dark Roast",
     id: 4,
+  },
+  {
+    url: "/imgs/coffee/5.jpg",
+    title: "100% Arabica",
+    desc: "Light Roast",
+    id: 5,
   },
 ];
 

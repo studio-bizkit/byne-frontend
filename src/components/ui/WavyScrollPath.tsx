@@ -9,7 +9,11 @@ declare module "react" {
     preserveAspectRatio?: string;
   }
 }
-function getProgressForX(path: SVGPathElement, targetX: number, pathLength: number): number {
+function getProgressForX(
+  path: SVGPathElement,
+  targetX: number,
+  pathLength: number
+): number {
   let low = 0;
   let high = pathLength;
   let mid = 0; // initialize
@@ -36,10 +40,16 @@ const WavyPathScroll = () => {
   const pathRef = useRef<SVGPathElement>(null);
   const [pathLength, setPathLength] = useState(0);
   const [currentMobileText, setCurrentMobileText] = useState(0);
-  const [thresholds, setThresholds] = useState<{ q1: number; q2: number; q3: number }>({
+  const [thresholds, setThresholds] = useState<{
+    q1: number;
+    q2: number;
+    q3: number;
+    q4: number;
+  }>({
     q1: 0,
     q2: 0,
     q3: 0,
+    q4: 0,
   });
 
   const { scrollYProgress } = useScroll({
@@ -61,42 +71,49 @@ const WavyPathScroll = () => {
   const [showText1, setShowText1] = useState(false);
   const [showText2, setShowText2] = useState(false);
   const [showText3, setShowText3] = useState(false);
+  const [showText4, setShowText4] = useState(false);
 
   // Bean position along the path
   const [beanPosition, setBeanPosition] = useState({ x: 0, y: 0 });
   const [beanRotation, setBeanRotation] = useState(0);
 
   // The SVG path data for a wavy line from left edge to right edge
-  const pathData = "M 2 2 Q 269 17 400 200 T 813 308 Q 1068 220 1303 373 T 1669 491";
+  const pathData =
+    "M 2 2 Q 269 17 400 200 T 813 308 Q 1068 220 1303 373 T 1669 491";
 
   useEffect(() => {
     const path = pathRef.current;
     if (path) {
       const length = path.getTotalLength();
       setPathLength(length);
-
-      const q1 = getProgressForX(path, 417, length);
-      const q2 = getProgressForX(path, 834, length);
-      const q3 = getProgressForX(path, 1251, length);
-      setThresholds({ q1, q2, q3 });
+      const q1 = getProgressForX(path, 100, length); // Made first point appear much earlier
+      const q2 = getProgressForX(path, 600, length);
+      const q3 = getProgressForX(path, 1000, length);
+      const q4 = getProgressForX(path, 1400, length);
+      setThresholds({ q1, q2, q3, q4 });
     }
   }, []);
 
   useEffect(() => {
-    const unsubscribe = pathOffset.on("change", (latest) => {
+    const unsubscribe = pathOffset.on("change", latest => {
       const path = pathRef.current;
       if (path && pathLength > 0) {
         const point = path.getPointAtLength(latest * pathLength);
         setBeanPosition({ x: point.x, y: point.y });
 
         // Calculate rotation based on path tangent
-        const nextPoint = path.getPointAtLength(Math.min((latest + 0.01) * pathLength, pathLength));
-        const angle = Math.atan2(nextPoint.y - point.y, nextPoint.x - point.x) * (180 / Math.PI);
+        const nextPoint = path.getPointAtLength(
+          Math.min((latest + 0.01) * pathLength, pathLength)
+        );
+        const angle =
+          Math.atan2(nextPoint.y - point.y, nextPoint.x - point.x) *
+          (180 / Math.PI);
         setBeanRotation(angle);
 
         if (isMobile) {
           // For mobile, update current text based on progress
-          if (latest >= thresholds.q3) setCurrentMobileText(2);
+          if (latest >= thresholds.q4) setCurrentMobileText(3);
+          else if (latest >= thresholds.q3) setCurrentMobileText(2);
           else if (latest >= thresholds.q2) setCurrentMobileText(1);
           else if (latest >= thresholds.q1) setCurrentMobileText(0);
         } else {
@@ -104,6 +121,7 @@ const WavyPathScroll = () => {
           setShowText1(latest >= thresholds.q1);
           setShowText2(latest >= thresholds.q2);
           setShowText3(latest >= thresholds.q3);
+          setShowText4(latest >= thresholds.q4);
         }
       }
     });
@@ -129,14 +147,22 @@ const WavyPathScroll = () => {
   } as const;
 
   // Bean SVG component
-  const BeanSVG = ({ x, y, rotation }: { x: number; y: number; rotation: number }) => (
+  const BeanSVG = ({
+    x,
+    y,
+    rotation,
+  }: {
+    x: number;
+    y: number;
+    rotation: number;
+  }) => (
     <g transform={`translate(${x}, ${y}) rotate(${rotation})`}>
       <motion.image
         href="/bean.svg"
         x="-30"
-        y="-20"
-        width="50"
-        height="50"
+        y={isMobile?"-50":"-20"}
+        width={isMobile ? "100" : "50"}
+        height={isMobile ? "100" : "50"}
         initial={{ scale: 1 }}
         animate={{ scale: 1 }}
       />
@@ -151,14 +177,18 @@ const WavyPathScroll = () => {
         <div className="sticky top-0 min-h-screen">
           <div className="relative w-full h-screen overflow-hidden">
             {/* SVG Path */}
-            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1600 500" preserveAspectRatio="xMidYMid meet">
+            <svg
+              className="absolute inset-0 w-full h-full mt-24 md:mt-0"
+              viewBox="0 0 1600 500"
+              preserveAspectRatio="xMidYMid meet"
+            >
               {/* Background wavy path */}
               <path
                 ref={pathRef}
                 d={pathData}
                 fill="none"
                 stroke="rgba(0, 51, 153, 0.3)"
-                strokeWidth="6"
+                strokeWidth={isMobile ? "12" : "6"}
                 strokeLinecap="round"
               />
 
@@ -167,7 +197,7 @@ const WavyPathScroll = () => {
                 d={pathData}
                 fill="none"
                 stroke="rgb(0, 51, 153)"
-                strokeWidth="6"
+                strokeWidth={isMobile ? "12" : "6"}
                 strokeLinecap="round"
                 initial={{ pathLength: 0 }}
                 style={{ pathLength: pathOffset }}
@@ -175,7 +205,11 @@ const WavyPathScroll = () => {
 
               {/* Traveling coffee bean */}
               <motion.g initial={{ opacity: 1 }} animate={{ opacity: 1 }}>
-                <BeanSVG x={beanPosition.x} y={beanPosition.y} rotation={beanRotation} />
+                <BeanSVG
+                  x={beanPosition.x}
+                  y={beanPosition.y}
+                  rotation={beanRotation}
+                />
               </motion.g>
               {/* Removed milestone markers */}
             </svg>
@@ -185,7 +219,7 @@ const WavyPathScroll = () => {
               {isMobile ? (
                 // Mobile: Single text container that updates content
                 <motion.div
-                  className="absolute left-[20%] top-[20%] max-w-xs mx-6 text-right pointer-events-auto"
+                  className="absolute left-[20%] top-[15%] max-w-xs mx-6 text-right pointer-events-auto"
                   variants={textVariants}
                   initial="hidden"
                   animate="visible"
@@ -193,28 +227,51 @@ const WavyPathScroll = () => {
                 >
                   {currentMobileText === 0 && (
                     <>
-                      <h2 className="text-4xl font-light italic font-serif text-primary mb-2">Established in 1931,</h2>
+                      <h2 className="text-4xl font-light italic font-serif text-primary mb-2">
+                        Established in 1931
+                      </h2>
                       <p className="text-primary leading-relaxed">
-                        the estate carries a legacy stretching over a century. Known for its sustainable,
-                        wildlife-friendly farming practices, Bynekere produces the finest S795 Arabica coffee.
+                        Hulikere Estate is a multi-generational family-run
+                        coffee farm near the Bhadra Wildlife Sanctuary in
+                        Chikmagalur, Karnataka. Known for its sustainable,
+                        wildlife-friendly farming practices.
                       </p>
                     </>
                   )}
                   {currentMobileText === 1 && (
                     <>
-                      <h2 className="text-4xl font-light italic font-serif text-primary mb-2">Premium Processing</h2>
+                      <h2 className="text-4xl font-light italic font-serif text-primary mb-2">
+                        Premium Processing
+                      </h2>
                       <p className="text-primary leading-relaxed">
-                        Our beans undergo meticulous processing, from hand-picking at peak ripeness to careful
-                        sun-drying on raised beds, ensuring exceptional flavor profiles in every batch.
+                        Our beans undergo meticulous processing, from
+                        hand-picking at peak ripeness to careful sun-drying on
+                        raised beds, ensuring exceptional flavor profiles in
+                        every batch.
                       </p>
                     </>
                   )}
                   {currentMobileText === 2 && (
                     <>
-                      <h2 className="text-4xl font-light italic font-serif text-primary mb-2">Award Winning Quality</h2>
+                      <h2 className="text-4xl font-light italic font-serif text-primary mb-2">
+                        Renowned Internationally
+                      </h2>
                       <p className="text-primary leading-relaxed">
-                        Recognized globally for excellence, our coffee has won multiple international cupping
-                        competitions and is served in the world&apos;s finest establishments.
+                        Globally recognized for excellence, our coffee has
+                        captivated the palates of coffee enthusiasts and
+                        connoisseurs around the world.
+                      </p>
+                    </>
+                  )}
+                  {currentMobileText === 3 && (
+                    <>
+                      <h2 className="text-4xl font-light italic font-serif text-primary mb-2">
+                        Experience the Legacy
+                      </h2>
+                      <p className="text-primary leading-relaxed">
+                        Every cup tells the story of our heritage and passion
+                        for coffee. Experience the legacy that has been nurtured
+                        across generations.
                       </p>
                     </>
                   )}
@@ -223,15 +280,35 @@ const WavyPathScroll = () => {
                 // Desktop: Multiple text containers
                 <>
                   <motion.div
-                    className="absolute left-[30%] top-[25%] max-w-sm pointer-events-auto"
+                    className="absolute left-[10%] top-[65%] max-w-sm pointer-events-auto"
                     variants={textVariants}
                     initial="hidden"
                     animate={showText1 ? "visible" : "hidden"}
                   >
-                    <h2 className="text-4xl font-light italic font-serif text-primary mb-2">Established in 1931,</h2>
+                    <h2 className="text-4xl font-light italic font-serif text-primary mb-2">
+                      Established in 1931
+                    </h2>
                     <p className="text-primary leading-relaxed">
-                      the estate carries a legacy stretching over a century. Known for its sustainable,
-                      wildlife-friendly farming practices, Bynekere produces the finest S795 Arabica coffee.
+                      Hulikere Estate is a multi-generational family-run coffee
+                      farm near the Bhadra Wildlife Sanctuary in Chikmagalur,
+                      Karnataka. Known for its sustainable, wildlife-friendly
+                      farming practices.
+                    </p>
+                  </motion.div>
+
+                  <motion.div
+                    className="absolute left-[30%] top-[25%] max-w-sm pointer-events-auto"
+                    variants={textVariants}
+                    initial="hidden"
+                    animate={showText2 ? "visible" : "hidden"}
+                  >
+                    <h2 className="text-4xl font-light italic font-serif text-primary mb-2">
+                      Premium Processing
+                    </h2>
+                    <p className="text-primary leading-relaxed">
+                      Our beans undergo meticulous processing, from hand-picking
+                      at peak ripeness to careful sun-drying on raised beds,
+                      ensuring exceptional flavor profiles in every batch.
                     </p>
                   </motion.div>
 
@@ -239,12 +316,15 @@ const WavyPathScroll = () => {
                     className="absolute left-[50%] top-[65%] max-w-sm pointer-events-auto"
                     variants={textVariants}
                     initial="hidden"
-                    animate={showText2 ? "visible" : "hidden"}
+                    animate={showText3 ? "visible" : "hidden"}
                   >
-                    <h2 className="text-4xl font-light italic font-serif text-primary mb-2">Premium Processing</h2>
+                    <h2 className="text-4xl font-light italic font-serif text-primary mb-2">
+                      Renowned Internationally
+                    </h2>
                     <p className="text-primary leading-relaxed">
-                      Our beans undergo meticulous processing, from hand-picking at peak ripeness to careful sun-drying
-                      on raised beds, ensuring exceptional flavor profiles in every batch.
+                      Globally recognized for excellence, our coffee has
+                      captivated the palates of coffee enthusiasts and
+                      connoisseurs around the world.
                     </p>
                   </motion.div>
 
@@ -252,12 +332,15 @@ const WavyPathScroll = () => {
                     className="absolute right-[5%] top-[25%] max-w-sm pointer-events-auto"
                     variants={textVariants}
                     initial="hidden"
-                    animate={showText3 ? "visible" : "hidden"}
+                    animate={showText4 ? "visible" : "hidden"}
                   >
-                    <h2 className="text-4xl font-light italic font-serif text-primary mb-2">Award Winning Quality</h2>
+                    <h2 className="text-4xl font-light italic font-serif text-primary mb-2">
+                      Experience the Legacy
+                    </h2>
                     <p className="text-primary leading-relaxed">
-                      Recognized globally for excellence, our coffee has won multiple international cupping competitions
-                      and is served in the world&apos;s finest establishments.
+                      Every cup tells the story of our heritage and passion for
+                      coffee. Experience the legacy that has been nurtured
+                      across generations.
                     </p>
                   </motion.div>
                 </>
