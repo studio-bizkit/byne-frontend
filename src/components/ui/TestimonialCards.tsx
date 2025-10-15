@@ -1,6 +1,7 @@
 "use client";
+import { useIsMobile } from "@/lib/useMediaQuery";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 interface ReviewType {
   id: number;
@@ -13,31 +14,60 @@ interface ReviewType {
 
 const AnimatedReviews = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
+  const isMobile = useIsMobile();
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start center", "end center"],
+    offset: isMobile
+      ? ["start center", "end center"]
+      : ["start center", "end start"],
   });
-  
+
+  const [activeCard, setActiveCard] = useState<number | null>(null);
 
   const card1Transform = {
     rotate: useTransform(scrollYProgress, [0, 0.5], [25, -15]),
-    x: useTransform(scrollYProgress, [0, 0.5], [-2000, -200]),
+    x: useTransform(scrollYProgress, [0, 0.5], [-700, -200]),
     y: useTransform(scrollYProgress, [0, 0.5], [50, -20]),
   };
 
   const card2Transform = {
     rotate: useTransform(scrollYProgress, [0.1, 0.6], [15, 0]),
     x: useTransform(scrollYProgress, [0.1, 0.6], [0, 0]),
-    y: useTransform(scrollYProgress, [0.1, 0.6], [2000, 0]),
+    y: useTransform(scrollYProgress, [0.1, 0.6], [500, 0]),
   };
 
   const card3Transform = {
     rotate: useTransform(scrollYProgress, [0.2, 0.7], [-20, 15]),
-    x: useTransform(scrollYProgress, [0.2, 0.7], [1000, 200]),
+    x: useTransform(scrollYProgress, [0, 0.7], [700, 200]),
     y: useTransform(scrollYProgress, [0.2, 0.7], [60, 100]),
   };
 
-  const transforms = [card1Transform, card2Transform, card3Transform];
+  const mcard1Transform = {
+    rotate: useTransform(scrollYProgress, [0, 0.5], [25, -15]),
+    x: useTransform(scrollYProgress, [0, 0.5], [-700, -50]),
+    y: useTransform(scrollYProgress, [0, 0.5], [50, -50]),
+  };
+
+  const mcard2Transform = {
+    rotate: useTransform(scrollYProgress, [0.1, 0.6], [15, 0]),
+    x: useTransform(scrollYProgress, [0.1, 0.6], [0, 0]),
+    y: useTransform(scrollYProgress, [0.1, 0.6], [500, 0]),
+  };
+
+  const mcard3Transform = {
+    rotate: useTransform(scrollYProgress, [0.2, 0.7], [-20, 15]),
+    x: useTransform(scrollYProgress, [0.2, 0.7], [700, 50]),
+    y: useTransform(scrollYProgress, [0.2, 0.7], [60, 50]),
+  };
+  const transforms = isMobile
+    ? [mcard1Transform, mcard2Transform, mcard3Transform]
+    : [card1Transform, card2Transform, card3Transform];
+
+  const handleCardClick = (cardId: number) => {
+    if (isMobile) {
+      setActiveCard(activeCard === cardId ? null : cardId);
+    }
+  };
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
@@ -56,7 +86,10 @@ const AnimatedReviews = () => {
   };
 
   return (
-    <section ref={sectionRef} className="relative h-[400vh] bg-background">
+    <section
+      ref={sectionRef}
+      className="relative h-[200vh] bg-background -mb-32 md:mb-0"
+    >
       <div className="sticky top-20 h-screen flex flex-col items-center justify-center overflow-hidden px-6 ">
         {/* Header */}
         <motion.div
@@ -65,7 +98,7 @@ const AnimatedReviews = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl md:text-3xl lg:text-5xl font-serif text-primary max-w-4xl leading-tight">
+          <h2 className="text-2xl md:text-3xl lg:text-5xl font-serif text-primary max-w-4xl leading-tight">
             What the coffee nation talks about us
           </h2>
         </motion.div>
@@ -80,13 +113,22 @@ const AnimatedReviews = () => {
                 <motion.div
                   key={review.id}
                   className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                  style={{ rotate, x, y, zIndex: index + 1
+                  style={{
+                    rotate,
+                    x,
+                    y,
+                    zIndex: activeCard === review.id ? 10 : index + 1,
                   }}
                   whileHover={{
                     scale: 1.05,
                     zIndex: 10,
                     transition: { duration: 0.2 },
                   }}
+                  animate={{
+                    scale: activeCard === review.id ? 1.05 : 1,
+                    transition: { duration: 0.2 },
+                  }}
+                  onClick={() => handleCardClick(review.id)}
                 >
                   <div
                     className="w-64 md:w-80 bg-cover rounded-2xl px-4 py-5 flex flex-col justify-between shadow-2xl text-background"
@@ -96,7 +138,7 @@ const AnimatedReviews = () => {
                     }}
                   >
                     <div className="text-primary">
-                      <h3 className="text-3xl md:text-[44px] truncate font-serif font-medium">
+                      <h3 className="text-2xl md:text-[44px] truncate font-serif font-medium">
                         {review.name}
                       </h3>
                       <p className="text-sm md:text-base font-bold uppercase">

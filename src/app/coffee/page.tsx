@@ -31,10 +31,11 @@ export default function Coffee() {
       <CoffeeCarousel />
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <TextReveal className="h-[30vh] max-w-7xl">
-          From washed, natural, and honey methods to our signature 23-hour
-          sugarcane juice fermentation, every process highlights unique flavors.
-          Rooted in sustainability, each cup tells the story of our land and
-          people.
+          At HURO, we don’t just craft products — we design experiences. Each
+          HURO creation blends precision, purpose, and passion, rooted in our
+          commitment to quality, sustainability, and modern design. From the
+          first idea to the final detail, our products are built to elevate
+          everyday living. Effortless, timeless, and distinctly HURO.
         </TextReveal>
       </section>
       <AnimatedProductCards />
