@@ -124,8 +124,8 @@ const HorizontalScrollCarousel = () => {
           <p
             className={`text-background ${
               isMobile
-                ? "text-2xl leading-snug "
-                : "md:text-5xl text-2xl leading-tighter"
+                ? "text-4xl leading-snug "
+                : "md:text-3xl text-2xl leading-tighter"
             } font-serif`}
           >
             Experience coffee, perfected over decades
@@ -163,7 +163,7 @@ const HorizontalScrollCarousel = () => {
 
         {/* Cards */}
         <motion.div
-          className="relative w-full flex justify-center z-10 mt-12 md:ml-32"
+          className="relative w-full flex justify-center z-10 mt-12 ml-18 md:ml-32"
           animate={{ y: [0, -10, 30] }}
           transition={{
             duration: 3,
@@ -224,7 +224,7 @@ const BottomInfo = ({
         transition={{ duration: 0.3, ease: "easeOut" }}
       >
         <motion.p
-          className="italic text-lg sm:text-xl font-semibold font-serif"
+          className="italic text-2xl md:text-xl font-semibold font-serif"
           initial={{ opacity: 0 }}
           animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
@@ -232,7 +232,7 @@ const BottomInfo = ({
           {card.title}
         </motion.p>
         <motion.p
-          className="text-sm sm:text-sm mt-1"
+          className="text-lg md:text-sm mt-1"
           initial={{ opacity: 0 }}
           animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: 0.4, delay: 0.2 }}

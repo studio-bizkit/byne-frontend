@@ -178,7 +178,7 @@ const WavyPathScroll = () => {
           <div className="relative w-full h-screen overflow-hidden">
             {/* SVG Path */}
             <svg
-              className="absolute inset-0 w-full h-full mt-24 md:mt-0"
+              className="absolute inset-0 w-full h-full mt-0 md:mt-0"
               viewBox="0 0 1600 500"
               preserveAspectRatio="xMidYMid meet"
             >
@@ -217,78 +217,90 @@ const WavyPathScroll = () => {
             {/* Text content - responsive layout */}
             <div className="absolute inset-0 pointer-events-none">
               {isMobile ? (
-                // Mobile: Single text container that updates content
-                <motion.div
-                  className="absolute left-[20%] top-[15%] max-w-xs mx-6 text-right pointer-events-auto"
-                  variants={textVariants}
-                  initial="hidden"
-                  animate="visible"
-                  key={currentMobileText} // Force animation restart when content changes
-                >
-                  {currentMobileText === 0 && (
-                    <>
-                      <h2 className="text-4xl font-light italic font-serif text-primary mb-2">
-                        Established in 1931
-                      </h2>
-                      <p className="text-primary leading-relaxed">
-                        Hulikere Estate is a multi-generational family-run
-                        coffee farm near the Bhadra Wildlife Sanctuary in
-                        Chikmagalur, Karnataka. Known for its sustainable,
-                        wildlife-friendly farming practices.
-                      </p>
-                    </>
-                  )}
-                  {currentMobileText === 1 && (
-                    <>
-                      <h2 className="text-4xl font-light italic font-serif text-primary mb-2">
-                        Premium Processing
-                      </h2>
-                      <p className="text-primary leading-relaxed">
-                        Our beans undergo meticulous processing, from
-                        hand-picking at peak ripeness to careful sun-drying on
-                        raised beds, ensuring exceptional flavor profiles in
-                        every batch.
-                      </p>
-                    </>
-                  )}
-                  {currentMobileText === 2 && (
-                    <>
-                      <h2 className="text-4xl font-light italic font-serif text-primary mb-2">
-                        Renowned Internationally
-                      </h2>
-                      <p className="text-primary leading-relaxed">
-                        Globally recognized for excellence, our coffee has
-                        captivated the palates of coffee enthusiasts and
-                        connoisseurs around the world.
-                      </p>
-                    </>
-                  )}
-                  {currentMobileText === 3 && (
-                    <>
-                      <h2 className="text-4xl font-light italic font-serif text-primary mb-2">
-                        Experience the Legacy
-                      </h2>
-                      <p className="text-primary leading-relaxed">
-                        Every cup tells the story of our heritage and passion
-                        for coffee. Experience the legacy that has been nurtured
-                        across generations.
-                      </p>
-                    </>
-                  )}
-                </motion.div>
+                // Mobile: Keep previous text visible alongside current without re-animating
+                <>
+                  {/* Text 0 - top */}
+                  <motion.div
+                    className="absolute left-[5%] top-[20%] max-w-sm md:max-w-xs mx-6 text-left pointer-events-auto"
+                    variants={textVariants}
+                    initial="hidden"
+                    animate={currentMobileText === 0 || currentMobileText - 1 === 0 ? "visible" : "hidden"}
+                  >
+                    <h2 className="text-4xl md:text-3xl font-light italic font-serif text-primary mb-2">
+                      Established in 1931
+                    </h2>
+                    <p className="text-primary text-sm">
+                      Hulikere Estate is a multi-generational family-run coffee
+                      farm near the Bhadra Wildlife Sanctuary in Chikmagalur,
+                      Karnataka. Known for its sustainable, wildlife-friendly
+                      farming practices.
+                    </p>
+                  </motion.div>
+
+                  {/* Text 1 - bottom */}
+                  <motion.div
+                    className="absolute left-[5%] bottom-[20%] max-w-sm md:max-w-xs mx-6 text-left pointer-events-auto"
+                    variants={textVariants}
+                    initial="hidden"
+                    animate={currentMobileText === 1 || currentMobileText - 1 === 1 ? "visible" : "hidden"}
+                  >
+                    <h2 className="text-4xl md:text-3xl font-light italic font-serif text-primary mb-2">
+                      Premium Processing
+                    </h2>
+                    <p className="text-primary text-sm">
+                      Our beans undergo meticulous processing, from hand-picking
+                      at peak ripeness to careful sun-drying on raised beds,
+                      ensuring exceptional flavor profiles in every batch.
+                    </p>
+                  </motion.div>
+
+                  {/* Text 2 - top */}
+                  <motion.div
+                    className="absolute left-[5%] top-[20%] max-w-sm md:max-w-xs mx-6 text-left pointer-events-auto"
+                    variants={textVariants}
+                    initial="hidden"
+                    animate={currentMobileText === 2 || currentMobileText - 1 === 2 ? "visible" : "hidden"}
+                  >
+                    <h2 className="text-4xl md:text-3xl font-light italic font-serif text-primary mb-2">
+                      Renowned Internationally
+                    </h2>
+                    <p className="text-primary text-sm">
+                      Globally recognized for excellence, our coffee has
+                      captivated the palates of coffee enthusiasts and
+                      connoisseurs around the world.
+                    </p>
+                  </motion.div>
+
+                  {/* Text 3 - bottom */}
+                  <motion.div
+                    className="absolute left-[5%] bottom-[20%] max-w-sm md:max-w-xs mx-6 text-left pointer-events-auto"
+                    variants={textVariants}
+                    initial="hidden"
+                    animate={currentMobileText === 3 || currentMobileText - 1 === 3 ? "visible" : "hidden"}
+                  >
+                    <h2 className="text-4xl md:text-3xl font-light italic font-serif text-primary mb-2">
+                      Experience the Legacy
+                    </h2>
+                    <p className="text-primary text-sm">
+                      Every cup tells the story of our heritage and passion for
+                      coffee. Experience the legacy that has been nurtured across
+                      generations.
+                    </p>
+                  </motion.div>
+                </>
               ) : (
                 // Desktop: Multiple text containers
                 <>
                   <motion.div
-                    className="absolute left-[10%] top-[65%] max-w-sm pointer-events-auto"
+                    className="absolute left-[10%] top-[65%] max-w-sm md:max-w-xs pointer-events-auto"
                     variants={textVariants}
                     initial="hidden"
                     animate={showText1 ? "visible" : "hidden"}
                   >
-                    <h2 className="text-4xl font-light italic font-serif text-primary mb-2">
+                    <h2 className="text-4xl md:text-3xl font-light italic font-serif text-primary mb-2">
                       Established in 1931
                     </h2>
-                    <p className="text-primary leading-relaxed">
+                    <p className="text-primary text-sm">
                       Hulikere Estate is a multi-generational family-run coffee
                       farm near the Bhadra Wildlife Sanctuary in Chikmagalur,
                       Karnataka. Known for its sustainable, wildlife-friendly
@@ -297,15 +309,15 @@ const WavyPathScroll = () => {
                   </motion.div>
 
                   <motion.div
-                    className="absolute left-[30%] top-[25%] max-w-sm pointer-events-auto"
+                    className="absolute left-[30%] top-[25%] max-w-sm md:max-w-xs pointer-events-auto"
                     variants={textVariants}
                     initial="hidden"
                     animate={showText2 ? "visible" : "hidden"}
                   >
-                    <h2 className="text-4xl font-light italic font-serif text-primary mb-2">
+                    <h2 className="text-4xl md:text-3xl font-light italic font-serif text-primary mb-2">
                       Premium Processing
                     </h2>
-                    <p className="text-primary leading-relaxed">
+                    <p className="text-primary text-sm">
                       Our beans undergo meticulous processing, from hand-picking
                       at peak ripeness to careful sun-drying on raised beds,
                       ensuring exceptional flavor profiles in every batch.
@@ -313,15 +325,15 @@ const WavyPathScroll = () => {
                   </motion.div>
 
                   <motion.div
-                    className="absolute left-[50%] top-[65%] max-w-sm pointer-events-auto"
+                    className="absolute left-[50%] top-[65%] max-w-sm md:max-w-xs pointer-events-auto"
                     variants={textVariants}
                     initial="hidden"
                     animate={showText3 ? "visible" : "hidden"}
                   >
-                    <h2 className="text-4xl font-light italic font-serif text-primary mb-2">
+                    <h2 className="text-4xl md:text-3xl font-light italic font-serif text-primary mb-2">
                       Renowned Internationally
                     </h2>
-                    <p className="text-primary leading-relaxed">
+                    <p className="text-primary text-sm">
                       Globally recognized for excellence, our coffee has
                       captivated the palates of coffee enthusiasts and
                       connoisseurs around the world.
@@ -329,15 +341,15 @@ const WavyPathScroll = () => {
                   </motion.div>
 
                   <motion.div
-                    className="absolute right-[5%] top-[25%] max-w-sm pointer-events-auto"
+                    className="absolute right-[5%] top-[25%] max-w-sm md:max-w-xs pointer-events-auto"
                     variants={textVariants}
                     initial="hidden"
                     animate={showText4 ? "visible" : "hidden"}
                   >
-                    <h2 className="text-4xl font-light italic font-serif text-primary mb-2">
+                    <h2 className="text-4xl md:text-3xl font-light italic font-serif text-primary mb-2">
                       Experience the Legacy
                     </h2>
-                    <p className="text-primary leading-relaxed">
+                    <p className="text-primary text-sm">
                       Every cup tells the story of our heritage and passion for
                       coffee. Experience the legacy that has been nurtured
                       across generations.

@@ -64,7 +64,7 @@ export default function ScrollingText() {
     <div
       ref={container}
       className={`w-full flex flex-col justify-center items-center relative overflow-hidden ${
-        isMobile ? "gap-6 mt-10 py-12" : "gap-10 mt-20 py-20"
+        isMobile ? "gap-6 mt-10 py-12 pb-0" : "gap-10 mt-20 py-20"
       }`}
     >
       {/* Animated coffee beans */}
@@ -78,7 +78,7 @@ export default function ScrollingText() {
             alt="Coffee bean"
             className={`absolute object-contain pointer-events-none ${
               isForeground ? "z-20" : "z-0"
-            } ${isMobile ? "w-4 h-4" : "w-8 h-8"}`}
+            } ${isMobile ? "w-6 h-6" : "w-8 h-8"}`}
             style={{
               left: `${bean.x}%`,
               top: `${bean.y}%`,
@@ -101,7 +101,7 @@ export default function ScrollingText() {
         );
       })}
 
-      <h6 className={`${isMobile ? "text-lg" : "text-2xl"} text-primary font-serif relative z-10`}>
+      <h6 className={`${isMobile ? "text-2xl" : "text-2xl"} text-primary font-serif relative z-10`}>
         From our farms to your cups
       </h6>
       <svg className="w-full relative z-10" viewBox="0 0 900 300">
@@ -113,7 +113,7 @@ export default function ScrollingText() {
           d="m58 70c171 86 169 139 325 34C499 37 582 351 843 42"
         />
         <motion.text
-          className={`${isMobile ? "text-7xl" : "text-6xl"} font-light font-serif tracking-wider`}
+          className={`${isMobile ? "text-8xl" : "text-6xl"} font-light font-serif tracking-wider`}
           fill="#003399"
         >
           <textPath
