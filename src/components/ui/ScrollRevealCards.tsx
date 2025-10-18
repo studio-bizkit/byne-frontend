@@ -13,7 +13,7 @@ const ScrollRevealCards = () => {
   const sectionHeight = 300;
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ["start start", "end end"],
+    offset: ["start center", "end end"],
   });
 
   const transform0 = {
@@ -91,17 +91,17 @@ const ScrollRevealCards = () => {
 
   return (
     <section ref={targetRef} className={`relative h-[${sectionHeight}vh]`}>
-      <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden pt-32">
+      <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden pt-32 md:pt-24">
         {/* Top Text */}
-        <div className="top-20 px-6 max-w-md text-primary text-xl md:text-3xl font-serif z-10">
+        <div className="top-20 px-6 max-w-md text-primary text-3xl md:text-3xl font-serif z-10">
           Where our coffee travels.
         </div>
-        <div className="px-6 max-w-xl text-primary text-sm md:text-md text-center z-10">
+        <div className="px-6 max-w-xs md:max-w-xl text-primary text-sm md:text-md text-center z-10">
           Premium coffee powder from the hills og coorg. 100% Quality.
         </div>
 
         {/* Cards Row */}
-        <div className="relative flex flex-row items-center justify-center w-full h-full ml-24 mt-24">
+        <div className="relative flex flex-row items-center justify-center w-full h-full ml-24 md:mt-24 mt-12">
           {cards.map((card, i) => (
             <motion.div
               key={card.id}
@@ -109,9 +109,10 @@ const ScrollRevealCards = () => {
                 y: transforms[i].y,
                 zIndex: i,
               }}
-              className={`relative w-[120px] h-[150px] md:w-[230px] md:h-[267px] -ml-24 rounded-b-sm overflow-hidden flex-shrink-0  ${"z-" + (i)
-                } 
-                            `}
+              className={`relative w-[130px] h-[150px] md:w-[230px] md:h-[267px] -ml-24 rounded-b-sm overflow-hidden flex-shrink-0  ${
+                "z-" + i
+              } 
+            `}
             >
               {/* Background gradient */}
               <Image

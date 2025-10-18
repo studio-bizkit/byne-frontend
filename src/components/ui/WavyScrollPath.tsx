@@ -226,10 +226,10 @@ const WavyPathScroll = () => {
                     initial="hidden"
                     animate={currentMobileText === 0 || currentMobileText - 1 === 0 ? "visible" : "hidden"}
                   >
-                    <h2 className="text-4xl md:text-3xl font-light italic font-serif text-primary mb-2">
+                    <h2 className="text-4xl lg:text-4xl md:text-3xl font-light italic font-serif text-primary mb-2">
                       Established in 1931
                     </h2>
-                    <p className="text-primary text-sm">
+                    <p className="text-primary text-sm lg:text-md">
                       Hulikere Estate is a multi-generational family-run coffee
                       farm near the Bhadra Wildlife Sanctuary in Chikmagalur,
                       Karnataka. Known for its sustainable, wildlife-friendly
@@ -244,10 +244,10 @@ const WavyPathScroll = () => {
                     initial="hidden"
                     animate={currentMobileText === 1 || currentMobileText - 1 === 1 ? "visible" : "hidden"}
                   >
-                    <h2 className="text-4xl md:text-3xl font-light italic font-serif text-primary mb-2">
+                    <h2 className="text-4xl lg:text-4xl md:text-3xl font-light italic font-serif text-primary mb-2">
                       Premium Processing
                     </h2>
-                    <p className="text-primary text-sm">
+                    <p className="text-primary text-sm lg:text-md">
                       Our beans undergo meticulous processing, from hand-picking
                       at peak ripeness to careful sun-drying on raised beds,
                       ensuring exceptional flavor profiles in every batch.
@@ -261,10 +261,10 @@ const WavyPathScroll = () => {
                     initial="hidden"
                     animate={currentMobileText === 2 || currentMobileText - 1 === 2 ? "visible" : "hidden"}
                   >
-                    <h2 className="text-4xl md:text-3xl font-light italic font-serif text-primary mb-2">
+                    <h2 className="text-4xl lg:text-4xl md:text-3xl font-light italic font-serif text-primary mb-2">
                       Renowned Internationally
                     </h2>
-                    <p className="text-primary text-sm">
+                    <p className="text-primary text-sm lg:text-md">
                       Globally recognized for excellence, our coffee has
                       captivated the palates of coffee enthusiasts and
                       connoisseurs around the world.
@@ -278,10 +278,10 @@ const WavyPathScroll = () => {
                     initial="hidden"
                     animate={currentMobileText === 3 || currentMobileText - 1 === 3 ? "visible" : "hidden"}
                   >
-                    <h2 className="text-4xl md:text-3xl font-light italic font-serif text-primary mb-2">
+                    <h2 className="text-4xl lg:text-4xl md:text-3xl font-light italic font-serif text-primary mb-2">
                       Experience the Legacy
                     </h2>
-                    <p className="text-primary text-sm">
+                    <p className="text-primary text-sm lg:text-md">
                       Every cup tells the story of our heritage and passion for
                       coffee. Experience the legacy that has been nurtured across
                       generations.
@@ -297,10 +297,10 @@ const WavyPathScroll = () => {
                     initial="hidden"
                     animate={showText1 ? "visible" : "hidden"}
                   >
-                    <h2 className="text-4xl md:text-3xl font-light italic font-serif text-primary mb-2">
+                    <h2 className="text-4xl lg:text-4xl md:text-3xl font-light italic font-serif text-primary mb-2">
                       Established in 1931
                     </h2>
-                    <p className="text-primary text-sm">
+                    <p className="text-primary text-sm lg:text-md">
                       Hulikere Estate is a multi-generational family-run coffee
                       farm near the Bhadra Wildlife Sanctuary in Chikmagalur,
                       Karnataka. Known for its sustainable, wildlife-friendly
@@ -314,10 +314,10 @@ const WavyPathScroll = () => {
                     initial="hidden"
                     animate={showText2 ? "visible" : "hidden"}
                   >
-                    <h2 className="text-4xl md:text-3xl font-light italic font-serif text-primary mb-2">
+                    <h2 className="text-4xl lg:text-4xl md:text-3xl font-light italic font-serif text-primary mb-2">
                       Premium Processing
                     </h2>
-                    <p className="text-primary text-sm">
+                    <p className="text-primary text-sm lg:text-md">
                       Our beans undergo meticulous processing, from hand-picking
                       at peak ripeness to careful sun-drying on raised beds,
                       ensuring exceptional flavor profiles in every batch.
@@ -330,10 +330,10 @@ const WavyPathScroll = () => {
                     initial="hidden"
                     animate={showText3 ? "visible" : "hidden"}
                   >
-                    <h2 className="text-4xl md:text-3xl font-light italic font-serif text-primary mb-2">
+                    <h2 className="text-4xl lg:text-4xl md:text-3xl font-light italic font-serif text-primary mb-2">
                       Renowned Internationally
                     </h2>
-                    <p className="text-primary text-sm">
+                    <p className="text-primary text-sm lg:text-md">
                       Globally recognized for excellence, our coffee has
                       captivated the palates of coffee enthusiasts and
                       connoisseurs around the world.
@@ -346,10 +346,10 @@ const WavyPathScroll = () => {
                     initial="hidden"
                     animate={showText4 ? "visible" : "hidden"}
                   >
-                    <h2 className="text-4xl md:text-3xl font-light italic font-serif text-primary mb-2">
+                    <h2 className="text-4xl lg:text-4xl md:text-3xl font-light italic font-serif text-primary mb-2">
                       Experience the Legacy
                     </h2>
-                    <p className="text-primary text-sm">
+                    <p className="text-primary text-sm lg:text-md">
                       Every cup tells the story of our heritage and passion for
                       coffee. Experience the legacy that has been nurtured
                       across generations.

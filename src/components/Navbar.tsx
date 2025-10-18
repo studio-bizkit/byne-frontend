@@ -4,9 +4,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { useScroll, useTransform, motion, AnimatePresence } from "framer-motion";
+import {
+  useScroll,
+  useTransform,
+  motion,
+  AnimatePresence,
+} from "framer-motion";
 
-export default function Navbar({ shouldChangeColor = true }: { shouldChangeColor?: boolean }) {
+export default function Navbar({
+  shouldChangeColor = true,
+  isHorizontalSectionVisible = false,
+}: {
+  shouldChangeColor?: boolean;
+  isHorizontalSectionVisible?: boolean;
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [windowHeight, setWindowHeight] = useState(0);
   const pathname = usePathname();
@@ -17,14 +28,38 @@ export default function Navbar({ shouldChangeColor = true }: { shouldChangeColor
   }, [scrollY]);
 
   // Always call useTransform hooks (fixing the conditional hook issue)
-  const textColorTransform = useTransform(scrollY, [0, windowHeight], ["rgb(245, 230, 211)", "rgb(0, 51, 153)"]);
-  const logoOpacityTransform = useTransform(scrollY, [0, windowHeight / 2], [1, 0]);
-  const blueLogoOpacityTransform = useTransform(scrollY, [0, windowHeight / 2], [0, 1]);
+  const textColorTransform = useTransform(
+    scrollY,
+    [0, windowHeight],
+    ["rgb(245, 230, 211)", "rgb(0, 51, 153)"]
+  );
+  const logoOpacityTransform = useTransform(
+    scrollY,
+    [0, windowHeight / 2],
+    [1, 0]
+  );
+  const blueLogoOpacityTransform = useTransform(
+    scrollY,
+    [0, windowHeight / 2],
+    [0, 1]
+  );
 
   // Apply transforms conditionally
-  const textColor = shouldChangeColor ? textColorTransform : "rgb(0, 51, 153)";
-  const logoOpacity = shouldChangeColor ? logoOpacityTransform : 0;
-  const blueLogoOpacity = shouldChangeColor ? blueLogoOpacityTransform : 1;
+  const textColor = isHorizontalSectionVisible
+    ? "rgb(245, 230, 211)" // text-background color when horizontal section is visible
+    : shouldChangeColor
+    ? textColorTransform
+    : "rgb(0, 51, 153)";
+  const logoOpacity = isHorizontalSectionVisible
+    ? 1 // Show white logo when horizontal section is visible
+    : shouldChangeColor
+    ? logoOpacityTransform
+    : 0;
+  const blueLogoOpacity = isHorizontalSectionVisible
+    ? 0 // Hide blue logo when horizontal section is visible
+    : shouldChangeColor
+    ? blueLogoOpacityTransform
+    : 1;
 
   const navItems = [
     { name: "COFFEE", href: "/coffee" },
@@ -41,12 +76,12 @@ export default function Navbar({ shouldChangeColor = true }: { shouldChangeColor
   // Prevent body scroll when menu is open
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [isOpen]);
 
@@ -124,7 +159,7 @@ export default function Navbar({ shouldChangeColor = true }: { shouldChangeColor
                     className="absolute block h-0.5 w-6 bg-current transform"
                     variants={{
                       closed: { rotate: 0, y: 0 },
-                      open: { rotate: 45, y: 8 }
+                      open: { rotate: 45, y: 8 },
                     }}
                     style={{ top: 6 }}
                   />
@@ -132,7 +167,7 @@ export default function Navbar({ shouldChangeColor = true }: { shouldChangeColor
                     className="absolute block h-0.5 w-6 bg-current transform"
                     variants={{
                       closed: { opacity: 1 },
-                      open: { opacity: 0 }
+                      open: { opacity: 0 },
                     }}
                     style={{ top: 12 }}
                   />
@@ -140,7 +175,7 @@ export default function Navbar({ shouldChangeColor = true }: { shouldChangeColor
                     className="absolute block h-0.5 w-6 bg-current transform"
                     variants={{
                       closed: { rotate: 0, y: 0 },
-                      open: { rotate: -45, y: -8 }
+                      open: { rotate: -45, y: -8 },
                     }}
                     style={{ top: 18 }}
                   />
@@ -168,17 +203,17 @@ export default function Navbar({ shouldChangeColor = true }: { shouldChangeColor
               exit={{ opacity: 0 }}
               className="absolute inset-0 bg-background"
             />
-            
+
             {/* Menu Content */}
             <motion.div
               initial={{ y: "-100%" }}
               animate={{ y: 0 }}
               exit={{ y: "-100%" }}
-              transition={{ 
-                type: "spring", 
-                damping: 25, 
+              transition={{
+                type: "spring",
+                damping: 25,
                 stiffness: 200,
-                duration: 0.4
+                duration: 0.4,
               }}
               className="relative h-full flex flex-col justify-center items-center bg-background"
             >
@@ -190,8 +225,14 @@ export default function Navbar({ shouldChangeColor = true }: { shouldChangeColor
               >
                 <span className="sr-only">Close menu</span>
                 <div className="w-6 h-6 relative">
-                  <span className="absolute block h-0.5 w-6 bg-primary transform rotate-45" style={{ top: 11 }} />
-                  <span className="absolute block h-0.5 w-6 bg-primary transform -rotate-45" style={{ top: 11 }} />
+                  <span
+                    className="absolute block h-0.5 w-6 bg-primary transform rotate-45"
+                    style={{ top: 11 }}
+                  />
+                  <span
+                    className="absolute block h-0.5 w-6 bg-primary transform -rotate-45"
+                    style={{ top: 11 }}
+                  />
                 </div>
               </motion.button>
 
@@ -202,16 +243,17 @@ export default function Navbar({ shouldChangeColor = true }: { shouldChangeColor
                 transition={{ delay: 0.1 }}
                 className="mb-12"
               >
-                <Link href="/" onClick={() => setIsOpen(false)}>
-                  <Image
-                    src="/nav-blue-logo.svg"
-                    alt="logo"
-                    width={80}
-                    height={80}
-                    className="object-contain"
-                    priority
-                  />
-                </Link>
+                <div className="flex items-center py-4 relative w-36 h-20">
+                  <Link href="/" onClick={() => setIsOpen(false)}>
+                    <Image
+                      src="/nav-blue-logo.svg"
+                      alt="logo"
+                      fill
+                      className="object-contain w-full h-full"
+                      priority
+                    />
+                  </Link>
+                </div>
               </motion.div>
 
               {/* Navigation Items */}
@@ -221,11 +263,11 @@ export default function Navbar({ shouldChangeColor = true }: { shouldChangeColor
                     key={item.name}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 + (index * 0.1) }}
+                    transition={{ delay: 0.1 + index * 0.1 }}
                     className="relative"
                   >
                     {pathname === item.href && !item.isButton && (
-                      <motion.span 
+                      <motion.span
                         layoutId="mobile-active-indicator"
                         className="absolute -left-8 top-1/2 transform -translate-y-1/2 w-3 h-3 bg-primary rounded-full"
                       />

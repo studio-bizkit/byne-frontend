@@ -1,46 +1,23 @@
-"use client";
-import Navbar from "@/components/Navbar";
-import Header from "@/components/Header";
-import Timeline from "@/components/Timeline";
-import HorizontalCardSection from "@/components/ui/HorizontalCardSection";
-import ScrollingText from "@/components/ScrollingText";
-import ScrollRevealCards from "@/components/ui/ScrollRevealCards";
-import { ProgressiveBlur } from "@/components/ui/ProgressiveBlur";
-import Footer from "@/components/Footer";
+import type { Metadata } from "next";
+import HomeClient from "@/components/HomeClient";
+
+export const metadata: Metadata = {
+  title: "Huro - Home | Premium Coffee & Homestay Experience",
+  description: "Welcome to Huro - your gateway to exceptional coffee experiences and luxury homestay accommodations in Chickmagalur. Discover our story, premium products, and unforgettable hospitality.",
+  openGraph: {
+    title: "Huro - Home | Premium Coffee & Homestay Experience",
+    description: "Welcome to Huro - your gateway to exceptional coffee experiences and luxury homestay accommodations in Chickmagalur.",
+    images: [
+      {
+        url: "https://i.ibb.co/zhQnBFh4/image.png",
+        width: 1200,
+        height: 630,
+        alt: "Huro - Premium Coffee & Homestay Experience",
+      },
+    ],
+  },
+};
 
 export default function Home() {
-  return (
-    <main className="relative bg-background">
-      {/* Navbar */}
-      <div className="fixed top-0 left-0 right-0 z-50">
-        <Navbar />
-      </div>
-
-      {/* Blur layer under navbar */}
-      <ProgressiveBlur
-        className="fixed top-0 left-0 right-0 z-40"
-        height="15%"
-        position="top"
-      />
-
-      {/* Sections */}
-      <section data-section="home">
-        <Header page="home" />
-      </section>
-      <section data-section="timeline">
-        <Timeline />
-      </section>
-      <section data-section="horizontal">
-        <HorizontalCardSection />
-      </section>
-      <section data-section="scrolling">
-        <ScrollingText />
-      </section>
-      <section data-section="reveal">
-        <ScrollRevealCards />
-      </section>
-      <Footer withForm={false} />
-
-    </main>
-  );
+  return <HomeClient />;
 }

@@ -32,11 +32,11 @@ const HorizontalScrollCarousel = () => {
   const cardWidth = isMobile ? 180 : 380;
   const viewportCenter =
     typeof window !== "undefined" ? window.innerWidth / 2 : 320;
-  const cardCenter = isMobile ? 90 : 220;
+  const cardCenter = isMobile ? 150 : 220;
   const totalScrollDistance = isMobile
     ? (cards.length - 0.4) * cardWidth
     : (cards.length - 1) * cardWidth;
-  const offset = isMobile ? 200 : 0;
+  const offset = isMobile ? 100 : 0;
 
   const x = useTransform(
     scrollYProgress,
@@ -118,7 +118,7 @@ const HorizontalScrollCarousel = () => {
         {/* Top text */}
         <div
           className={`max-w-xl relative z-10 ${
-            isMobile ? "mt-28 px-4" : "mt-24 px-6"
+            isMobile ? "mt-36 px-4" : "md:mt-28 lg:mt-36 px-6"
           }`}
         >
           <p
@@ -163,7 +163,7 @@ const HorizontalScrollCarousel = () => {
 
         {/* Cards */}
         <motion.div
-          className="relative w-full flex justify-center z-10 mt-12 ml-18 md:ml-32"
+          className="relative w-full flex justify-center z-10 mt-12 ml-52 md:ml-32"
           animate={{ y: [0, -10, 30] }}
           transition={{
             duration: 3,
@@ -277,31 +277,31 @@ const Card = ({ card, isMobile }: { card: CardType; isMobile: boolean }) => {
 
 const cards: CardType[] = [
   {
-    url: "/imgs/coffee/1.jpg",
+    url: "/home/coffee1.jpg",
     title: "South Indian Filter",
     desc: "80:20",
     id: 1,
   },
   {
-    url: "/imgs/coffee/2.jpg",
+    url: "/home/coffee2.jpg",
     title: "South Indian Filter",
     desc: "60:40",
     id: 2,
   },
   {
-    url: "/imgs/coffee/3.jpg",
+    url: "/home/coffee3.jpg",
     title: "House Blend",
     desc: "Real flavor",
     id: 3,
   },
   {
-    url: "/imgs/coffee/4.jpg",
+    url: "/home/coffee4.jpg",
     title: "100% Arabica",
     desc: "Medium Dark Roast",
     id: 4,
   },
   {
-    url: "/imgs/coffee/5.jpg",
+    url: "/home/coffee5.jpg",
     title: "100% Arabica",
     desc: "Light Roast",
     id: 5,

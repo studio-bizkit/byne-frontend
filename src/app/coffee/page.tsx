@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Header from "@/components/Header";
 import { ProgressiveBlur } from "@/components/ui/ProgressiveBlur";
@@ -6,6 +7,23 @@ import AnimatedProductCards from "@/components/ui/AnimatedProductCards";
 import AnimatedReviews from "@/components/ui/TestimonialCards";
 import Footer from "@/components/Footer";
 import { TextReveal } from "@/components/ui/ScrollRevealText";
+
+export const metadata: Metadata = {
+  title: "Huro Coffee | Premium Coffee Blends & Products",
+  description: "Explore Huro's premium coffee collection. From carefully sourced beans to expertly crafted blends, discover exceptional coffee products that elevate your daily brew experience.",
+  openGraph: {
+    title: "Huro Coffee | Premium Coffee Blends & Products",
+    description: "Explore Huro's premium coffee collection. From carefully sourced beans to expertly crafted blends, discover exceptional coffee products.",
+    images: [
+      {
+        url: "https://i.ibb.co/zhQnBFh4/image.png",
+        width: 1200,
+        height: 630,
+        alt: "Huro Coffee - Premium Coffee Blends & Products",
+      },
+    ],
+  },
+};
 
 export default function Coffee() {
   return (

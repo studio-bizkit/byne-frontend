@@ -101,7 +101,7 @@ export default function ScrollingText() {
         );
       })}
 
-      <h6 className={`${isMobile ? "text-2xl" : "text-2xl"} text-primary font-serif relative z-10`}>
+      <h6 className={`${isMobile ? "text-2xl" : "text-4xl"} text-primary font-serif relative z-10`}>
         From our farms to your cups
       </h6>
       <svg className="w-full relative z-10" viewBox="0 0 900 300">

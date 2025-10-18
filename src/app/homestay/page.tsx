@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Header from "@/components/Header";
 import { ProgressiveBlur } from "@/components/ui/ProgressiveBlur";
@@ -6,6 +7,23 @@ import { TextReveal } from "@/components/ui/ScrollRevealText";
 import RoomSlider from "@/components/ui/RoomSlider";
 import { ActivitesComponent } from "@/components/ui/ActivitesComponent";
 import HomestayResponsiveSection from "@/components/ui/HomestayResponsiveSection";
+
+export const metadata: Metadata = {
+  title: "Villa Bynekere | Luxury Homestay in Chickmagalur",
+  description: "Experience luxury at Villa Bynekere homestay in Chickmagalur. Nestled in the Western Ghats, our stylish hilltop villa offers private accommodations, outdoor activities, and breathtaking views.",
+  openGraph: {
+    title: "Villa Bynekere | Luxury Homestay in Chickmagalur",
+    description: "Experience luxury at Villa Bynekere homestay in Chickmagalur. Nestled in the Western Ghats, our stylish hilltop villa offers private accommodations and breathtaking views.",
+    images: [
+      {
+        url: "https://i.ibb.co/zhQnBFh4/image.png",
+        width: 1200,
+        height: 630,
+        alt: "Villa Bynekere - Luxury Homestay in Chickmagalur",
+      },
+    ],
+  },
+};
 
 export default function Coffee() {
   return (

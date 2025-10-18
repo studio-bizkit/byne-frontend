@@ -1,8 +1,26 @@
 "use client";
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import { ProgressiveBlur } from "@/components/ui/ProgressiveBlur";
 import Footer from "@/components/Footer";
 import { FormEvent, useState } from "react";
+
+export const metadata: Metadata = {
+  title: "Contact Huro | Get in Touch with Us",
+  description: "Contact Byne for inquiries about our premium coffee products and luxury homestay accommodations. Reach out to us for bookings, partnerships, or general information.",
+  openGraph: {
+    title: "Contact Huro | Get in Touch with Us",
+    description: "Contact Huro for inquiries about our premium coffee products and luxury homestay accommodations. Reach out to us for bookings and general information.",
+    images: [
+      {
+        url: "https://i.ibb.co/zhQnBFh4/image.png",
+        width: 1200,
+        height: 630,
+        alt: "Contact Huro - Get in Touch with Us",
+      },
+    ],
+  },
+};
 
 export default function Home() {
   const [result, setResult] = useState("");

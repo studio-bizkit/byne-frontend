@@ -18,10 +18,10 @@ interface HeaderProps {
 }
 
 const pageContent: Record<string, { bgImage: string; title?: string }> = {
-  home: { bgImage: "/hero-bg.png" },
-  coffee: { bgImage: "/coffee-bg.png", title: "Coffee Byne" },
+  home: { bgImage: "/home-bg-new.png" },
+  coffee: { bgImage: "/coffee-bg.png", title: "Coffee Huro" },
   homestay: { bgImage: "/homestay-bg.png", title: "Villa Bynekere" },
-  about: { bgImage: "/about-bg.png", title: "About Byne" },
+  about: { bgImage: "/about-bg.png", title: "About Huro" },
 };
 
 export default function Header({ page }: HeaderProps) {
@@ -43,6 +43,9 @@ export default function Header({ page }: HeaderProps) {
         variants={fadeUp}
       >
         <div className="relative h-screen overflow-hidden">
+          {page === "home" && (
+            <div className="absolute inset-0 bg-black/50 z-1 overflow-hidden" />
+          )}
           {/* Background */}
           <motion.div className="absolute inset-0" style={{ scale }}>
             <div className="relative h-full w-full">
@@ -53,17 +56,19 @@ export default function Header({ page }: HeaderProps) {
                 className="object-cover"
                 priority
               />
-
             </div>
           </motion.div>
           {page !== "home" && (
-            <motion.div className="absolute inset-x-0 bottom-0 h-1/12 bg-gradient-to-t from-background via-background/30 to-transparent" style={{ opacity }} />
+            <motion.div
+              className="absolute inset-x-0 bottom-0 h-1/12 bg-gradient-to-t from-background via-background/30 to-transparent"
+              style={{ opacity }}
+            />
           )}
 
           {/* Overlay */}
           {content.title ? (
             <motion.div
-              className="absolute inset-0 flex items-center justify-center"
+              className="absolute inset-0 flex items-center justify-center z-20"
               style={{ scale: logoScale }}
             >
               {(() => {
@@ -71,16 +76,14 @@ export default function Header({ page }: HeaderProps) {
                 const lastWord = words.pop();
                 return (
                   <h1 className="text-6xl sm:text-8xl font-serif text-background text-center px-4">
-                    {words.join(" ")}{" "}
-                    <span className="italic">{lastWord}</span>
+                    {words.join(" ")} <span className="italic">{lastWord}</span>
                   </h1>
                 );
               })()}
             </motion.div>
-
           ) : (
             <motion.div
-              className="absolute inset-0 flex items-center justify-center"
+              className="absolute inset-0 flex items-center justify-center z-20"
               style={{ scale: logoScale }}
             >
               <div className="h-2/5 relative aspect-square">
