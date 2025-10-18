@@ -30,8 +30,11 @@ const HorizontalScrollCarousel = () => {
   const viewportCenter = typeof window !== "undefined" ? window.innerWidth / 2 : 640;
   // const cardCenter = isMobile ? 120 : 220;
   // const initialOffset = viewportCenter - cardCenter;
-  const initialOffset = viewportCenter ;
-  const totalScrollDistance = (cards.length - 3) * cardWidth;
+  const initialOffset = viewportCenter;
+  
+  // Adjust scroll distance based on device - mobile needs slower scroll
+  const baseScrollDistance = (cards.length - 3) * cardWidth;
+  const totalScrollDistance = isMobile ? baseScrollDistance * 0.3 : baseScrollDistance;
 
   const x = useTransform(scrollYProgress, [0, 1], [initialOffset, initialOffset - totalScrollDistance]);
 
@@ -40,7 +43,7 @@ const HorizontalScrollCarousel = () => {
       <div className="sticky top-0 flex h-screen flex-col items-center justify-start px-8 overflow-hidden w-full">
         {/* Top text */}
         <div className="w-full text-center mt-24 relative z-10">
-          <p className="max-w-full text-primary md:text-5xl text-lg leading-tight px-6 text-center font-serif">
+          <p className="max-w-full text-primary md:text-5xl text-4xl leading-tight px-6 text-center font-serif">
             What We Craft
           </p>
         </div>

@@ -90,7 +90,7 @@ const AnimatedReviews = () => {
       ref={sectionRef}
       className="relative h-[200vh] bg-background -mb-32 md:mb-0"
     >
-      <div className="sticky top-20 h-screen flex flex-col items-center justify-center overflow-hidden px-6 ">
+      <div className="sticky top-30 h-screen flex flex-col items-center justify-center overflow-hidden px-6 ">
         {/* Header */}
         <motion.div
           className="text-center z-10 -mt-8"
@@ -98,9 +98,12 @@ const AnimatedReviews = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-2xl md:text-3xl lg:text-5xl font-serif text-primary max-w-4xl leading-tight">
+          <h2 className="text-4xl md:text-3xl lg:text-5xl font-serif text-primary max-w-xs md:max-w-4xl leading-tight">
             What the coffee nation talks about us
           </h2>
+          <p className="text-primary text-lg leading-snug font-serif text-center block md:hidden">
+            click to read em.
+          </p>
         </motion.div>
 
         {/* Review Cards */}
@@ -131,7 +134,7 @@ const AnimatedReviews = () => {
                   onClick={() => handleCardClick(review.id)}
                 >
                   <div
-                    className="w-64 md:w-80 bg-cover rounded-2xl px-4 py-5 flex flex-col justify-between shadow-2xl text-background"
+                    className="w-48 md:w-80 bg-cover rounded-2xl px-4 py-5 flex flex-col justify-between shadow-2xl text-background"
                     style={{
                       aspectRatio: "419 / 512",
                       backgroundImage: "url('/gradient-card-bg.png')",

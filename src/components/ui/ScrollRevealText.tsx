@@ -26,7 +26,7 @@ export const TextReveal: FC<TextRevealProps> = ({ children, className }) => {
         <span className="flex flex-wrap justify-center text-2xl text-primary md:text-3xl lg:text-4xl xl:text-5xl font-serif">
           {words.map((word, i) => {
             const total = words.length;
-            const compression = 0.5; // smaller = faster animation (try 0.3–0.7)
+            const compression = 1; // smaller = faster animation (try 0.3–0.7)
             const start = ((total - 1 - i) / total) * compression;
             const end = start + (1 / total) * compression;
             return (
