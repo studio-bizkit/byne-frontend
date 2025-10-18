@@ -39,7 +39,7 @@ const HorizontalScrollCarousel = () => {
   const x = useTransform(scrollYProgress, [0, 1], [initialOffset, initialOffset - totalScrollDistance]);
 
   return (
-    <section ref={targetRef} className="relative md:h-[300vh] h-[60vh] bg-background pb-12">
+    <section ref={targetRef} className="relative md:h-[300vh] h-[70vh] bg-background pb-24 md:pb-12">
       <div className="sticky top-0 flex h-screen flex-col items-center justify-start px-8 overflow-hidden w-full">
         {/* Top text */}
         <div className="w-full text-center mt-24 relative z-10">

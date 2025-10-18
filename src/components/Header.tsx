@@ -86,7 +86,7 @@ export default function Header({ page }: HeaderProps) {
               className="absolute inset-0 flex items-center justify-center z-20"
               style={{ scale: logoScale }}
             >
-              <div className="h-2/5 relative aspect-square">
+              <div className="h-1/4 relative aspect-square">
                 <Image
                   src="/hero-logo.svg"
                   alt="Bynekere Estate Logo"

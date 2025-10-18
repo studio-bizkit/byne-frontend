@@ -255,7 +255,7 @@ const MobileProductCards = ({
     <section ref={targetRef} className="relative h-[200vh]">
       <div className="sticky top-0 flex h-screen flex-col items-start justify-start px-8 overflow-hidden w-full">
         {/* Top text - centered */}
-        <div className="relative z-10 mt-36 flex justify-center w-full flex-col">
+        <div className="relative z-10 mt-24 flex justify-center w-full flex-col">
           <p className="text-primary text-5xl leading-snug font-serif text-center">
             Our Products
           </p>
@@ -319,16 +319,16 @@ const MobileCard = ({
       onClick={() => onCardClick(card.id)}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
+      animate={{ rotateY: isFlipped ? 180 : 0 }}
+      transition={{ 
+        type: "spring",
+        stiffness: 200,
+        damping: 25,
+        mass: 1
+      }}
     >
-      <motion.div
+      <div
         className="w-full h-full relative"
-        animate={{ rotateY: isFlipped ? 180 : 0 }}
-        transition={{ 
-          type: "spring",
-          stiffness: 200,
-          damping: 25,
-          mass: 1
-        }}
         style={{ 
           transformStyle: "preserve-3d",
         }}
@@ -391,14 +391,14 @@ const MobileCard = ({
 
         {/* Back */}
         <div
-          className="absolute inset-0 w-full h-full rounded-xl overflow-hidden"
+          className="absolute inset-0 w-full h-full rounded-xl overflow-hidden bg-red-500"
           style={{
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
             transform: "rotateY(180deg)",
           }}
         >
-          <div className="bg-primary text-background h-2/3 p-5 flex flex-col justify-center">
+          <div className="bg-primary text-background h-2/3 p-6 flex flex-col justify-center">
             <div className="font-serif text-xl mb-4">
               Huro Index
             </div>
@@ -429,7 +429,7 @@ const MobileCard = ({
 
           <div className="absolute flex flex-col justify-between h-1/3 bottom-0 w-full bg-background text-primary p-4">
             <div>
-              <div className="text-xl font-serif">
+              <div className="text-2xl font-serif">
                 {card.title}
               </div>
               <div className="text-sm">
@@ -439,23 +439,23 @@ const MobileCard = ({
             </div>
             <div>
               <div className="flex justify-between mt-2">
-                <span className="text-sm">FEEL:</span>
-                <span className="text-sm">
+                <span className="text-xs">FEEL:</span>
+                <span className="text-xs">
                   {card.feel}
                 </span>
               </div>
               <div className="flex justify-between mt-1">
-                <span className="text-sm">
+                <span className="text-xs">
                   INGREDIENTS:
                 </span>
-                <span className="text-sm">
+                <span className="text-xs">
                   {card.ingredients}
                 </span>
               </div>
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
     </motion.div>
   );
 };
