@@ -118,7 +118,7 @@ const HorizontalScrollCarousel = () => {
         {/* Top text */}
         <div
           className={`max-w-xl relative z-10 ${
-            isMobile ? "mt-36 px-4" : "md:mt-28 lg:mt-36 px-6"
+            isMobile ? "mt-32 px-4" : "md:mt-10 lg:mt-30 px-4"
           }`}
         >
           <p
@@ -185,7 +185,7 @@ const HorizontalScrollCarousel = () => {
         </motion.div>
 
         {/* Bottom info */}
-        <motion.div className="mt-10 max-w-xltext-center text-white relative h-20 w-full z-10">
+        <motion.div className="lg:mt-6 mt-12 max-w-xltext-center text-white relative h-20 w-full z-10">
           {cards.map((card, i) => (
             <BottomInfo
               key={card.id}

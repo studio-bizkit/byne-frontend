@@ -1,12 +1,14 @@
 "use client";
+import { useIsMobile } from "@/lib/useMediaQuery";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
 
 const Footer = ({ withForm = true }) => {
+  const isMobile = useIsMobile();
   const { scrollYProgress } = useScroll();
-  const yTransform = useTransform(scrollYProgress, [0, 1], [2.1, 1]);
+  const yTransform = useTransform(scrollYProgress, [0, 1], [isMobile? 4 :2.1, 1]);
   const navItems = [
     { name: "COFFEE", href: "/coffee" },
     { name: "HOMESTAY", href: "/homestay" },
@@ -191,7 +193,7 @@ const Footer = ({ withForm = true }) => {
       )}
 
       <div
-        className="w-full relative bg-gradient-to-b from-background to-primary overflow-x-hidden overflow-y-visible scrollbar-none"
+        className="w-full relative bg-gradient-to-b from-background to-primary overflow-x-hidden md:overflow-y-visible overflow-y-hidden scrollbar-none"
         style={{ paddingTop: `${100 / 1.595}%` }} // ≈ 62.7%
       >
         <motion.div

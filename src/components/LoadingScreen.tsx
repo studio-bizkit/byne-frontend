@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import AnimatedBean from "./ui/AnimatedBean";
 
 export default function LoadingScreen() {
   const router = useRouter();
@@ -51,7 +52,8 @@ export default function LoadingScreen() {
     // ❌ In App Router `useRouter` does not expose .events
     // ✅ Use window events instead
     window.addEventListener("beforeunload", handleStart);
-    router.prefetch; // keep router ref so eslint doesn’t warn
+    // Keep router ref to prevent eslint warning
+    void router;
 
     return () => {
       window.removeEventListener("beforeunload", handleStart);
@@ -62,9 +64,14 @@ export default function LoadingScreen() {
 
   return (
     <div className="fixed inset-0 flex flex-col items-center justify-center bg-background z-[9999] transition-opacity duration-300">
-      {/* Percentage */}
-      <p className="text-4xl font-serif mb-4 text-primary">{progress}%</p>
-
+      {/* Progress container */}
+      <div className="flex items-center gap-6">
+        
+        {/* Animated Bean */}
+        <AnimatedBean progress={progress} size={30} />
+        {/* Percentage */}
+        <p className="text-4xl font-serif text-primary">{progress}%</p>
+      </div>
     </div>
   );
 }

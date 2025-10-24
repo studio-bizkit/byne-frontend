@@ -46,8 +46,8 @@ export default function Coffee() {
         <Header page={"coffee"} />
       </section>
       {/* <Timeline /> */}
-      <CoffeeCarousel />
-      <section className="max-w-5xl mx-auto px-12 sm:px-6 lg:px-8">
+      {/* <CoffeeCarousel /> */}
+      <section className="max-w-5xl pt-32 pb-20 mx-auto px-12 sm:px-6 lg:px-8">
         <TextReveal className="h-[30vh] max-w-7xl">
           At HURO, we don’t just craft products — we design experiences. Each
           HURO creation blends precision, purpose, and passion, rooted in our

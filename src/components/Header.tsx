@@ -19,7 +19,7 @@ interface HeaderProps {
 
 const pageContent: Record<string, { bgImage: string; title?: string }> = {
   home: { bgImage: "/home-bg-new.png" },
-  coffee: { bgImage: "/coffee-bg.png", title: "Coffee Huro" },
+  coffee: { bgImage: "/coffee-bg.png", title: "Huro Coffee" },
   homestay: { bgImage: "/homestay-bg.png", title: "Villa Bynekere" },
   about: { bgImage: "/about-bg.png", title: "About Huro" },
 };
@@ -27,7 +27,7 @@ const pageContent: Record<string, { bgImage: string; title?: string }> = {
 export default function Header({ page }: HeaderProps) {
   const isMobile = useIsMobile();
   const { scrollY } = useScroll();
-  const scale = useTransform(scrollY, [0, 500], [1, 1.2]);
+  const scale = useTransform(scrollY, [0,1000], [1, 1.9]);
   const logoScale = useTransform(scrollY, [0, 500], [1, 0.8]);
   const opacity = useTransform(scrollY, [0, 300], [0.3, 1]);
 
@@ -48,12 +48,12 @@ export default function Header({ page }: HeaderProps) {
           )}
           {/* Background */}
           <motion.div className="absolute inset-0" style={{ scale }}>
-            <div className="relative h-full w-full">
+            <div className={"relative h-full w-full "}>
               <Image
                 src={content.bgImage}
                 alt={content.title || "Background"}
                 fill
-                className="object-cover"
+                className="object-cover object-[40%_center] sm:object-center"
                 priority
               />
             </div>
@@ -76,7 +76,7 @@ export default function Header({ page }: HeaderProps) {
                 const lastWord = words.pop();
                 return (
                   <h1 className="text-6xl sm:text-8xl font-serif text-background text-center px-4">
-                    {words.join(" ")} <span className="italic">{lastWord}</span>
+                    {words.join(" ")} <span className={`${page === "coffee" ? "" :"italic"}`}>{lastWord}</span>
                   </h1>
                 );
               })()}
@@ -86,7 +86,7 @@ export default function Header({ page }: HeaderProps) {
               className="absolute inset-0 flex items-center justify-center z-20"
               style={{ scale: logoScale }}
             >
-              <div className="h-1/4 relative aspect-square">
+              <div className="md:h-1/3 h-1/4 relative aspect-square">
                 <Image
                   src="/hero-logo.svg"
                   alt="Bynekere Estate Logo"

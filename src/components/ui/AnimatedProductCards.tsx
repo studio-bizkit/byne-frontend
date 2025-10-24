@@ -41,7 +41,7 @@ const AnimatedProductCards = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative h-[200vh] mt-36 overflow-visible"
+      className="relative h-[100vh] mt-36 overflow-visible mb-52"
     >
       <div className=" h-screen flex flex-col items-center justify-center overflow-visible">
         <motion.div className="text-center px-6 z-10 pt-10 pb-10">
@@ -252,7 +252,7 @@ const MobileProductCards = ({
   );
 
   return (
-    <section ref={targetRef} className="relative h-[200vh]">
+    <section ref={targetRef} className="relative h-[350vh]">
       <div className="sticky top-0 flex h-screen flex-col items-start justify-start px-8 overflow-hidden w-full">
         {/* Top text - centered */}
         <div className="relative z-10 mt-24 flex justify-center w-full flex-col">

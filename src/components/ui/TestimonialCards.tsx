@@ -25,15 +25,15 @@ const AnimatedReviews = () => {
   const [activeCard, setActiveCard] = useState<number | null>(null);
 
   const card1Transform = {
-    rotate: useTransform(scrollYProgress, [0, 0.5], [25, -15]),
-    x: useTransform(scrollYProgress, [0, 0.5], [-700, -200]),
-    y: useTransform(scrollYProgress, [0, 0.5], [50, -20]),
+    rotate: useTransform(scrollYProgress, [0, 0.6], [25, -15]),
+    x: useTransform(scrollYProgress, [0, 0.6], [-700, -200]),
+    y: useTransform(scrollYProgress, [0, 0.6], [50, -20]),
   };
 
   const card2Transform = {
-    rotate: useTransform(scrollYProgress, [0.1, 0.6], [15, 0]),
-    x: useTransform(scrollYProgress, [0.1, 0.6], [0, 0]),
-    y: useTransform(scrollYProgress, [0.1, 0.6], [500, 0]),
+    rotate: useTransform(scrollYProgress, [0.1, 0.65], [15, 0]),
+    x: useTransform(scrollYProgress, [0.1, 0.65], [0, 0]),
+    y: useTransform(scrollYProgress, [0.1, 0.65], [500, 0]),
   };
 
   const card3Transform = {
@@ -43,15 +43,15 @@ const AnimatedReviews = () => {
   };
 
   const mcard1Transform = {
-    rotate: useTransform(scrollYProgress, [0, 0.5], [25, -15]),
-    x: useTransform(scrollYProgress, [0, 0.5], [-700, -50]),
-    y: useTransform(scrollYProgress, [0, 0.5], [50, -50]),
+    rotate: useTransform(scrollYProgress, [0, 0.6], [25, -15]),
+    x: useTransform(scrollYProgress, [0, 0.6], [-700, -50]),
+    y: useTransform(scrollYProgress, [0, 0.6], [50, -50]),
   };
 
   const mcard2Transform = {
-    rotate: useTransform(scrollYProgress, [0.1, 0.6], [15, 0]),
-    x: useTransform(scrollYProgress, [0.1, 0.6], [0, 0]),
-    y: useTransform(scrollYProgress, [0.1, 0.6], [500, 0]),
+    rotate: useTransform(scrollYProgress, [0.1, 0.65], [15, 0]),
+    x: useTransform(scrollYProgress, [0.1, 0.65], [0, 0]),
+    y: useTransform(scrollYProgress, [0.1, 0.65], [500, 0]),
   };
 
   const mcard3Transform = {
@@ -88,18 +88,18 @@ const AnimatedReviews = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative h-[200vh] bg-background -mb-32 md:mb-0"
+      className="relative h-[200vh] bg-background -mb-32 mt-6 md:mb-0"
     >
-      <div className="sticky top-30 h-screen flex flex-col items-center justify-center overflow-hidden px-6 ">
+      <div className="sticky top-24 h-screen flex flex-col items-center justify-center overflow-hidden px-6 ">
         {/* Header */}
         <motion.div
-          className="text-center z-10 -mt-8"
+          className="text-center z-10 mb-10"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl md:text-3xl lg:text-5xl font-serif text-primary max-w-xs md:max-w-4xl leading-tight">
-            What the coffee nation talks about us
+          <h2 className="text-4xl md:text-3xl lg:text-5xl font-serif text-primary max-w-[250px] md:max-w-4xl leading-tight">
+            What the nation speaks about us?
           </h2>
           <p className="text-primary text-lg leading-snug font-serif text-center block md:hidden">
             click to read em.
