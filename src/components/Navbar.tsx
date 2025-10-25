@@ -124,7 +124,10 @@ export default function Navbar({
               {navItems.map(item => (
                 <div key={item.name} className="relative flex items-center">
                   {pathname === item.href && !item.isButton && (
-                    <span className="absolute -left-1 w-2 h-2 bg-primary rounded-full"></span>
+                    <motion.span
+                      className="absolute -left-1 w-2 h-2 rounded-full"
+                      style={{ backgroundColor: textColor }}
+                    ></motion.span>
                   )}
                   <motion.div
                     className={`px-3 py-1 ${

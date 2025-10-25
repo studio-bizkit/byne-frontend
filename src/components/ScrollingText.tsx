@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useMemo } from "react";
+import React, { useEffect, useRef, useMemo } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useIsMobile } from "@/lib/useMediaQuery";
 
@@ -148,16 +148,30 @@ export default function ScrollingText() {
 
   const { scrollYProgress } = useScroll({
     target: container,
-    offset: ["start end", "end start"],
+    offset: isMobile?["start center", "end start"]:["start end", "end start"],
   });
 
   // Create smooth scroll-based Y transform for beans
   const beanYTransform = useTransform(scrollYProgress, [0, 1], [0, -20]);
 
+  // Path scrolling effect for desktop
+  useEffect(() => {
+    if (isMobile) return; // Skip for mobile
+    
+    const unsubscribe = scrollYProgress.on("change", e => {
+      if (textPath.current) {
+        const offset = -50 + e * 200;
+        textPath.current.setAttribute("startOffset", offset + "%");
+      }
+    });
+
+    return () => unsubscribe();
+  }, [scrollYProgress, isMobile]);
+
   // Mobile-specific scroll transforms for text lines
-  const experienceY = useTransform(scrollYProgress, [0, 0.3], [100, 0]);
-  const coffeeY = useTransform(scrollYProgress, [0.1, 0.4], [100, 0]);
-  const withUsY = useTransform(scrollYProgress, [0.2, 0.5], [100, 0]);
+  const experienceY = useTransform(scrollYProgress, [0, 0.6], [100, 0]);
+  const coffeeY = useTransform(scrollYProgress, [0.1, 0.7], [100, 0]);
+  const withUsY = useTransform(scrollYProgress, [0.2, 0.8], [100, 0]);
 
   if (isMobile) {
     return (

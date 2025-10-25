@@ -13,7 +13,7 @@ const ScrollRevealCards = () => {
   const sectionHeight = 300;
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ["start center", "end end"],
+    offset: ["start end", "end end"],
   });
 
   const transform0 = {
@@ -25,20 +25,20 @@ const ScrollRevealCards = () => {
     y: useTransform(
       scrollYProgress,
       [0 / cards.length, 1 / cards.length],
-      ["600vh", `${0 * 80 - 200}px`]
+      ["600vh", `${0 *60 - 200}px`]
     ),
   };
 
   const transform1 = {
     x: useTransform(
       scrollYProgress,
-      [1 / cards.length, 2 / cards.length],
+      [1 / cards.length, 3 / cards.length],
       ["150%", `${1 * 60}px`]
     ),
     y: useTransform(
       scrollYProgress,
       [1 / cards.length, 2 / cards.length],
-      ["600vh", `${1 * 80 - 200}px`]
+      ["600vh", `${1 *60 - 200}px`]
     ),
   };
 
@@ -51,7 +51,7 @@ const ScrollRevealCards = () => {
     y: useTransform(
       scrollYProgress,
       [2 / cards.length, 3 / cards.length],
-      ["600vh", `${2 * 80 - 200}px`]
+      ["600vh", `${2 *60 - 200}px`]
     ),
   };
 
@@ -64,7 +64,7 @@ const ScrollRevealCards = () => {
     y: useTransform(
       scrollYProgress,
       [3 / cards.length, 4 / cards.length],
-      ["600vh", `${3 * 80 - 200}px`]
+      ["600vh", `${3 *60 - 200}px`]
     ),
   };
 
@@ -77,7 +77,7 @@ const ScrollRevealCards = () => {
     y: useTransform(
       scrollYProgress,
       [4 / cards.length, 1],
-      ["600vh", `${4 * 80 - 200}px`]
+      ["600vh", `${4 *60 - 200}px`]
     ),
   };
 
@@ -92,9 +92,9 @@ const ScrollRevealCards = () => {
   return (
     <section ref={targetRef} className={`relative h-[${sectionHeight}vh]`}>
 
-      <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden md:overflow-x-hidden md:md:overflow-y-visible pt-32 md:pt-24">
+      <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden md:overflow-hidden  pt-16 md:pt-24">
         {/* Top Text */}
-        <div className="lg:top-32 px-6 max-w-md text-primary text-3xl md:text-3xl font-serif z-10">
+        <div className="lg:top-32 px-6 max-w-md text-primary text-3xl md:text-3xl font-serif z-10 mt-12 md:mt-0">
           Where our coffee travels.
         </div>
         <div className="px-6 max-w-xs md:max-w-xl text-primary text-sm md:text-md text-center z-10">
