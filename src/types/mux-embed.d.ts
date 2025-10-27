@@ -1,14 +1,14 @@
 declare module "mux-embed" {
   interface MuxMonitorOptions {
     debug?: boolean;
-    hlsjs?: any;
-    Hls?: any;
+    hlsjs?: unknown;
+    Hls?: unknown;
     data?: {
       env_key?: string;
       player_name?: string;
       player_init_time?: number;
       video_title?: string;
-      [key: string]: any;
+      [key: string]: string | number | boolean | null | undefined;
     };
   }
 
@@ -21,7 +21,7 @@ declare module "mux-embed" {
     options: MuxMonitorOptions
   ): void;
 
-  export function updateData(data: Record<string, any>): void;
+  export function updateData(data: Record<string, string | number | boolean | null | undefined>): void;
 
   export function addHLSJS(
     selector: string | HTMLVideoElement,
