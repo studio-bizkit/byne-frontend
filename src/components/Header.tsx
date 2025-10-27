@@ -151,6 +151,11 @@ export default function Header({ page }: HeaderProps) {
                   loop
                   muted
                   autoPlay
+                  data-mux-complete="false"
+                  onLoadedData={(e) => {
+                    e.currentTarget.dataset.muxComplete = 'true';
+                    window.dispatchEvent(new Event('mux-video-ready'));
+                  }}
                 />
               ) : (
                 <Image

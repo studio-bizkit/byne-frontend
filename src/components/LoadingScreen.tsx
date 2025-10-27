@@ -27,19 +27,44 @@ export default function LoadingScreen() {
     };
   }, [loading, progress]);
 
-  // Initial load
+  // Initial load and video tracking
   useEffect(() => {
     const handleLoad = () => {
-      setProgress(100);
-      setTimeout(() => setLoading(false), 300);
+      // Check if there are any video elements loading
+      const videos = document.querySelectorAll('video');
+      let videoLoaded = true;
+
+      if (videos.length > 0) {
+        videoLoaded = Array.from(videos).every(video => 
+          video.readyState >= 3 || // HAVE_FUTURE_DATA
+          video.dataset.muxComplete === 'true' // Check Mux loading state
+        );
+      }
+
+      if (videoLoaded) {
+        setProgress(100);
+        setTimeout(() => setLoading(false), 300);
+      }
     };
+
+    // Listen for Mux video ready event
+    const handleMuxInit = () => {
+      setProgress(prev => Math.min(prev + 20, 90));
+    };
+
+    window.addEventListener('mux-video-ready', handleMuxInit);
 
     if (document.readyState === "complete") {
       handleLoad();
     } else {
       window.addEventListener("load", handleLoad);
-      return () => window.removeEventListener("load", handleLoad);
     }
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("load", handleLoad);
+      window.removeEventListener('mux-video-ready', handleMuxInit);
+    };
   }, []);
 
   // Route change tracking
@@ -65,12 +90,12 @@ export default function LoadingScreen() {
   return (
     <div className="fixed inset-0 flex flex-col items-center justify-center bg-background z-[9999] transition-opacity duration-300">
       {/* Progress container */}
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-3">
         
         {/* Animated Bean */}
-        <AnimatedBean progress={progress} size={30} />
+        <AnimatedBean progress={progress} size={40} />
         {/* Percentage */}
-        <p className="text-4xl font-serif text-primary">{progress}%</p>
+        <p className="text-4xl font-serif text-primary">{progress}</p>
       </div>
     </div>
   );
