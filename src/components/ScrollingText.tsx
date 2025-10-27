@@ -177,7 +177,7 @@ export default function ScrollingText() {
     return (
       <div
         ref={container}
-        className="w-full flex flex-col justify-center items-start relative gap-0 mt-10 py-12 pb-0 px-6 overflow-hidden"
+        className="w-full flex flex-col justify-center items-start relative gap-0 mt-10 py-12 pb-0 px-6 overflow-hidden -mb-20"
         style={{ minHeight: '400px' }}
       >
         {/* Animated coffee beans for mobile */}
@@ -260,7 +260,7 @@ export default function ScrollingText() {
   return (
     <div
       ref={container}
-      className="w-full flex flex-col justify-center items-center relative overflow-hidden gap-10 mt-20 py-20"
+      className="w-full flex flex-col justify-center items-center relative overflow-hidden gap-10 mt-20 pt-20 -mb-96"
     >
       {/* Animated coffee beans for desktop */}
       {beans.map(bean => {

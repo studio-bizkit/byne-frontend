@@ -36,19 +36,21 @@ const HorizontalScrollCarousel = () => {
   const totalScrollDistance = isMobile
     ? (cards.length - 0.4) * cardWidth
     : (cards.length - 1) * cardWidth;
-  const offset = isMobile ? 100 : 0;
+  const offset = cardWidth;
 
+  const scrollScale = isMobile ? 0.9 : 1; // lower = slower
+  const adjustedScrollDistance = totalScrollDistance / scrollScale;
+  
   const x = useTransform(
     scrollYProgress,
     [0, 1],
     [
-      viewportCenter - cardCenter + offset,
-      viewportCenter - cardCenter - totalScrollDistance + offset,
+      viewportCenter - (isMobile ? 0 : cardWidth / 2) + offset,
+      viewportCenter - adjustedScrollDistance - (isMobile ? 0 : cardWidth / 2) + offset,
     ]
   );
-
-  // Path moves across its full width while cards scroll
-  const pathWidth = isMobile ? 1200 : 2934;
+  
+  const pathWidth = isMobile ? 1200 / scrollScale : 2934;
   const pathX = useTransform(
     scrollYProgress,
     [0, 1],
@@ -118,14 +120,14 @@ const HorizontalScrollCarousel = () => {
         {/* Top text */}
         <div
           className={`max-w-xl relative z-10 ${
-            isMobile ? "mt-32 px-4" : "md:mt-10 lg:mt-30 px-4"
+            isMobile ? "mt-32 px-4" : "md:mt-10 lg:mt-28 px-4 2xl:max-w-sm"
           }`}
         >
           <p
             className={`text-background ${
               isMobile
                 ? "text-4xl leading-snug "
-                : "md:text-3xl text-2xl leading-tighter"
+                : "md:text-3xl lg:text-4xl text-2xl leading-tighter"
             } font-serif`}
           >
             Experience coffee, perfected over decades
@@ -163,7 +165,7 @@ const HorizontalScrollCarousel = () => {
 
         {/* Cards */}
         <motion.div
-          className="relative w-full flex justify-center z-10 mt-12 ml-52 md:ml-32"
+          className="relative w-full flex justify-center z-10 mt-8 -ml-2 md:-ml-52 2xl:-ml-64 2xl:mt-8"
           animate={{ y: [0, -10, 30] }}
           transition={{
             duration: 3,
@@ -185,7 +187,7 @@ const HorizontalScrollCarousel = () => {
         </motion.div>
 
         {/* Bottom info */}
-        <motion.div className="lg:mt-6 mt-12 max-w-xltext-center text-white relative h-20 w-full z-10">
+        <motion.div className="lg:mt-6 mt-12 2xl:mt-16 max-w-xltext-center text-white relative h-20 w-full z-10">
           {cards.map((card, i) => (
             <BottomInfo
               key={card.id}
@@ -224,7 +226,7 @@ const BottomInfo = ({
         transition={{ duration: 0.3, ease: "easeOut" }}
       >
         <motion.p
-          className="italic text-2xl md:text-xl font-semibold font-serif"
+          className="italic text-2xl md:text-xl 2xl:text-3xl font-semibold font-serif"
           initial={{ opacity: 0 }}
           animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: 0.4, delay: 0.1 }}
@@ -232,7 +234,7 @@ const BottomInfo = ({
           {card.title}
         </motion.p>
         <motion.p
-          className="text-lg md:text-sm mt-1"
+          className="text-lg md:text-sm 2xl:text-lg mt-1"
           initial={{ opacity: 0 }}
           animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: 0.4, delay: 0.2 }}
@@ -255,7 +257,7 @@ const Card = ({ card, isMobile }: { card: CardType; isMobile: boolean }) => {
     []
   );
   const w = isMobile ? 180 : 300;
-  const h = isMobile ? 250 : 380;
+  const h = isMobile ? 250 : 360;
   return (
     <motion.div
       className="relative rounded-xl overflow-hidden bg-background shadow-xl flex-shrink-0"

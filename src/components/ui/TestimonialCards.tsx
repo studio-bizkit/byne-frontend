@@ -167,30 +167,30 @@ const AnimatedReviews = () => {
 const reviews: ReviewType[] = [
   {
     id: 1,
-    name: "Mr. Sriram Ishwar",
-    designation: "CEO",
-    company: "ARR VEE TRADE",
-    stars: 4,
+    name: "Arjun Menon",
+    designation: "Roaster",
+    company: "—",
+    stars: 5,
     description:
-      "The quality of coffee beans we receive is consistently exceptional. Their attention to detail and commitment to excellence has made them our preferred partner for premium coffee sourcing.",
+      "Truly one of India’s hidden gems in coffee. We roasted a microlot from Bynekere Estate and were blown away by its clarity and sweetness. The caramel and green apple notes are beautifully balanced with a soft acidity that finishes clean. What stands out most is the traceability — shade-grown, high-altitude, and managed with care for both land and people. A coffee that speaks volumes about where it’s from.",
   },
   {
     id: 2,
-    name: "Mr. Anil Kumar",
-    designation: "Head of Operations",
-    company: "BLUE TOKAI ROASTERS",
-    stars: 4,
+    name: "Meera K.",
+    designation: "Barista",
+    company: "—",
+    stars: 4.5,
     description:
-      "Working with this team has transformed our coffee procurement process. The variety and quality they offer allows us to create unique blends that our customers absolutely love.",
+      "Bright, expressive, and rewarding to brew. I’ve brewed Bynekere’s washed lot on V60 and AeroPress — both highlight different layers of flavour. Expect crisp white grape, light caramel, and a pleasant areca-nut finish. It’s the kind of coffee that lets you play with brew ratios and still delivers a satisfying cup. Bonus points for the estate’s focus on biodiversity and fair work culture.",
   },
   {
     id: 3,
-    name: "Mrs. Amelia",
-    designation: "Quality Manager",
-    company: "ABC ROASTERS & CO.",
-    stars: 4,
+    name: "Rohan Sharma",
+    designation: "Coffee Enthusiast",
+    company: "Pune",
+    stars: 5,
     description:
-      "Their expertise in coffee sourcing and quality control is unmatched. Every batch meets our strict standards, and their customer service is always professional and responsive.",
+      "A cup that captures Chikmagalur’s soul. I ordered this out of curiosity about Indian single origins — and now I’m hooked. The aroma fills the kitchen with a warm caramel scent, and the taste is bright yet smooth. You can tell it’s grown under shade and roasted thoughtfully. It’s become my go-to morning brew.",
   },
 ];
 

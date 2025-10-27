@@ -6,6 +6,7 @@ import Image from "next/image";
 interface CardType {
   id: number;
   title: string;
+  logo: string;
 }
 
 const ScrollRevealCards = () => {
@@ -92,9 +93,9 @@ const ScrollRevealCards = () => {
   return (
     <section ref={targetRef} className={`relative h-[${sectionHeight}vh]`}>
 
-      <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden md:overflow-hidden  pt-16 md:pt-24">
+      <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden md:overflow-hidden">
         {/* Top Text */}
-        <div className="lg:top-32 px-6 max-w-md text-primary text-3xl md:text-3xl font-serif z-10 mt-12 md:mt-0">
+        <div className="px-6 max-w-md text-primary text-3xl md:text-3xl font-serif z-10 mt-28 md:mt-24 ">
           Where our coffee travels.
         </div>
         <div className="px-6 max-w-xs md:max-w-xl text-primary text-sm md:text-md text-center z-10">
@@ -102,7 +103,7 @@ const ScrollRevealCards = () => {
         </div>
 
         {/* Cards Row */}
-        <div className="relative flex flex-row items-center justify-center w-full h-full ml-24 md:mt-24 mt-12">
+        <div className="relative flex flex-row items-center justify-center w-full h-full ml-18 md:mt-24 mt-12">
           {cards.map((card, i) => (
             <motion.div
               key={card.id}
@@ -110,7 +111,7 @@ const ScrollRevealCards = () => {
                 y: transforms[i].y,
                 zIndex: i,
               }}
-              className={`relative w-[130px] h-[150px] md:w-[230px] md:h-[267px] -ml-24 rounded-sm overflow-hidden flex-shrink-0  ${
+              className={`relative w-[130px] h-[150px] 2xl:w-[230px] 2xl:h-[267px] md:w-[156px] md:h-[180px] 2xl:-ml-24 -ml-18 rounded-sm overflow-hidden flex-shrink-0  ${
                 "z-" + i
               } 
             `}
@@ -124,12 +125,15 @@ const ScrollRevealCards = () => {
               />
               <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-background to-transparent pointer-events-none opacity-50" />
 
-              {/* Overlay text */}
-              <div className="absolute md:bottom-4 md:left-4 bottom-2 left-2 text-background font-serif">
-                <div className="text-md md:text-base font-light">
-                  {String(card.id).padStart(2, "0")}
-                </div>
-                <div className="text-lg md:text-3xl">{card.title}</div>
+              {/* Brand Logo - Centered */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Image
+                  src={card.logo}
+                  alt={card.title}
+                  width={80}
+                  height={80}
+                  className="w-16 h-16 md:w-20 md:h-20 2xl:w-32 2xl:h-32 object-contain opacity-85"
+                />
               </div>
             </motion.div>
           ))}
@@ -143,22 +147,27 @@ const cards: CardType[] = [
   {
     id: 1,
     title: "Blue Tokai",
+    logo: "/home/product-brand-1.svg",
   },
   {
     id: 2,
     title: "Gardeli Roasters",
+    logo: "/home/product-brand-2.svg",
   },
   {
     id: 3,
     title: "Covoya Cofee",
+    logo: "/home/product-brand-3.svg",
   },
   {
     id: 4,
     title: "Olam Intl",
+    logo: "/home/product-brand-4.svg",
   },
   {
     id: 5,
     title: "Hawker",
+    logo: "/home/product-brand-5.svg",
   },
 ];
 
