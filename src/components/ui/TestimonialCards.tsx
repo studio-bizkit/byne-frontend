@@ -90,7 +90,7 @@ const AnimatedReviews = () => {
       ref={sectionRef}
       className="relative h-[200vh] bg-background -mb-32 mt-6 md:mb-0"
     >
-      <div className="sticky top-24 h-screen flex flex-col items-center justify-center overflow-hidden px-6 ">
+      <div className="sticky top-28 md:top-24 h-screen flex flex-col items-center justify-center overflow-hidden px-6 ">
         {/* Header */}
         <motion.div
           className="text-center z-10 mb-10"
@@ -107,7 +107,7 @@ const AnimatedReviews = () => {
         </motion.div>
 
         {/* Review Cards */}
-        <div className="relative w-full max-w-4xl h-full -mt-32 flex items-center justify-center ">
+        <div className="relative w-full max-w-4xl h-full -mt-48 md:-mt-32 flex items-center justify-center ">
           <div className="relative w-full h-96 flex justify-between">
             {reviews.map((review, index) => {
               const { rotate, x, y } = transforms[index];
@@ -134,7 +134,7 @@ const AnimatedReviews = () => {
                   onClick={() => handleCardClick(review.id)}
                 >
                   <div
-                    className="w-48 md:w-80 bg-cover rounded-2xl px-4 py-5 flex flex-col justify-between shadow-2xl text-background"
+                    className="w-48 md:w-72 2xl:w-80 bg-cover rounded-2xl px-4 py-5 flex flex-col justify-between shadow-2xl text-background"
                     style={{
                       aspectRatio: "419 / 512",
                       backgroundImage: "url('/gradient-card-bg.png')",
@@ -151,7 +151,7 @@ const AnimatedReviews = () => {
 
                     <div className="flex flex-col gap-4 font-light">
                       <div className="flex">{renderStars(review.stars)}</div>
-                      <p className="text-sm md:text-sm">{review.description}</p>
+                      <p className="text-[10px] md:text-xs 2xl:text-sm">{review.description}</p>
                     </div>
                   </div>
                 </motion.div>

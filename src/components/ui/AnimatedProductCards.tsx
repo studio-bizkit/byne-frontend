@@ -308,29 +308,28 @@ const MobileCard = ({
   const h = 450;
   
   return (
-    <motion.div
+    <div
       className="relative rounded-xl overflow-hidden bg-background shadow-xl flex-shrink-0 cursor-pointer"
       style={{ 
         width: w, 
         height: h,
         transformStyle: "preserve-3d",
-        perspective: 1000
       }}
       onClick={() => onCardClick(card.id)}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      animate={{ rotateY: isFlipped ? 180 : 0 }}
-      transition={{ 
-        type: "spring",
-        stiffness: 200,
-        damping: 25,
-        mass: 1
-      }}
     >
-      <div
+      <motion.div
         className="w-full h-full relative"
         style={{ 
           transformStyle: "preserve-3d",
+        }}
+        animate={{ rotateY: isFlipped ? 180 : 0 }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        transition={{ 
+          type: "spring",
+          stiffness: 200,
+          damping: 25,
+          mass: 1
         }}
       >
         {/* Front */}
@@ -391,7 +390,7 @@ const MobileCard = ({
 
         {/* Back */}
         <div
-          className="absolute inset-0 w-full h-full rounded-xl overflow-hidden bg-red-500"
+          className="absolute inset-0 w-full h-full rounded-xl overflow-hidden"
           style={{
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
@@ -455,8 +454,8 @@ const MobileCard = ({
             </div>
           </div>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 };
 
