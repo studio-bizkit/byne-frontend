@@ -405,7 +405,7 @@ export default function ScrollingText() {
           />
         ))}
         {/* Centered blue arch logo above text, behind beans */}
-        <motion.div className="absolute z-0 left-1/2 -translate-x-1/2 top-48 w-40 h-48 pointer-events-none"
+        {/* <motion.div className="absolute z-0 left-1/2 -translate-x-1/2 top-48 w-40 h-48 pointer-events-none"
         style={{scale:scaleY}}>
           <div className="relative w-full h-full">
             <Image
@@ -416,7 +416,7 @@ export default function ScrollingText() {
               priority
             />
           </div>
-        </motion.div>
+        </motion.div> */}
         {/* Mobile text layout - bottom-left anchored */}
         <div className="absolute z-20 left-6 bottom-48 flex flex-col gap-0">
           <h6 className="text-2xl text-primary font-serif z-20 -mt-24">

@@ -3,6 +3,7 @@ import { Manrope, Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { ReactLenis } from "lenis/react";
 import LoadingScreen from "@/components/LoadingScreen";
+import { Analytics } from "@vercel/analytics/next"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -59,6 +60,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} ${manrope.variable} antialiased`}
       >
+        <Analytics />
         <ReactLenis root />
         <LoadingScreen />
         {children}
