@@ -64,7 +64,7 @@ export default function Navbar({
   const navItems = [
     { name: "COFFEE", href: "/coffee" },
     { name: "HOMESTAY", href: "/homestay" },
-    { name: "ABOUT US", href: "/about" },
+    // { name: "ABOUT US", href: "/about" },
     { name: "Contact Us", href: "/contact", isButton: true },
   ];
 
