@@ -46,14 +46,12 @@ export default function Coffee() {
         <Header page={"homestay"} />
       </section>
       <section className="max-w-5xl mx-auto py-12">
-          <section className="flex flex-col items-center justify-center space-y- text-center">
-            <TextReveal className="h-[30vh] max-w-7xl">
+          <section className="flex flex-col items-center justify-center space-y- text-center pt-24 md:py-24">
+            <TextReveal className="md:h-[20vh] h-[15vh] md:max-w-7xl max-w-xs">
               Situated in the western ghats and a short drive from the town of
               chickmagalur, &apos;Villa Bynekere&apos; Homestay offers you an
               escape to a private and stylish villa right on top of a hill.
-            </TextReveal>
-
-            <TextReveal className="h-[30vh] max-w-7xl">
+            
               A place tastefully done to allow you to feel at home. We offer you
               ample space to lounge to catch up for a chat or gather around for
               some board games and outdoor activities.
@@ -63,7 +61,7 @@ export default function Coffee() {
       <HomestayResponsiveSection />
       <RoomSlider />
       {/* <SemicircleScrollAnimation /> */}
-      <ActivitesComponent />
+      {/* <ActivitesComponent /> */}
       <Footer />
     </main>
   );

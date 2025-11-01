@@ -83,10 +83,10 @@ export default function RoomSlider() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-background px-4">
+    <div className="flex justify-center md:items-center items-start min-h-screen bg-background px-4">
       <div className="flex flex-col md:flex-row max-w-6xl w-full overflow-hidden gap-6">
         {/* Left Image */}
-        <div className="relative w-full md:w-1/2 h-64 md:h-[600px] overflow-hidden">
+        <div className="relative w-full md:w-1/2 h-64 md:h-[500px] 2xl:h-[600px] overflow-hidden">
           <AnimatePresence initial={false} custom={direction}>
             <motion.div
               key={current.id + "-main"}
@@ -109,7 +109,7 @@ export default function RoomSlider() {
         </div>
 
         {/* Right Section */}
-        <div className="flex flex-col justify-between w-full md:w-1/2 bg-background gap-8 md:gap-48">
+        <div className="flex flex-col justify-between w-full md:w-1/2 bg-background gap-8">
           {/* Top: Title, Description */}
           <div className="flex flex-col gap-4 md:flex-row md:gap-6">
             <div className="flex-1 flex-col gap-2">

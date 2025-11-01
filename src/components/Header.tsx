@@ -152,9 +152,9 @@ export default function Header({ page }: HeaderProps) {
                   muted
                   autoPlay
                   data-mux-complete="false"
-                  onLoadedData={(e) => {
-                    e.currentTarget.dataset.muxComplete = 'true';
-                    window.dispatchEvent(new Event('mux-video-ready'));
+                  onLoadedData={e => {
+                    e.currentTarget.dataset.muxComplete = "true";
+                    window.dispatchEvent(new Event("mux-video-ready"));
                   }}
                 />
               ) : (
@@ -202,6 +202,8 @@ export default function Header({ page }: HeaderProps) {
               <div className="md:h-1/3 h-1/4 relative aspect-square">
                 <Image
                   src="/hero-logo.svg"
+                  quality={100}
+                  unoptimized={true}
                   alt="Bynekere Estate Logo"
                   fill
                   className="object-contain"

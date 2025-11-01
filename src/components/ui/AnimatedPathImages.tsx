@@ -69,7 +69,7 @@ const PolaroidBoundingBox = ({ images }: PolaroidBoundingBoxProps) => {
   ];
 
   return (
-    <div className="relative w-full h-screen bg-background  mb-24">
+    <div className="relative w-full h-screen bg-background  mb-1">
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
         <span className="font-serif text-primary/20 text-6xl md:text-9xl">
           {isMobile ? "Click to expand" : "Hover for more"}

@@ -99,6 +99,8 @@ export default function Navbar({
                   <Image
                     src="/nav-logo.svg"
                     alt="logo"
+                    quality={100}
+                    unoptimized={true}
                     fill
                     className="object-contain w-full h-full"
                     priority
@@ -110,6 +112,8 @@ export default function Navbar({
                 >
                   <Image
                     src="/nav-blue-logo.svg"
+                    quality={100}
+                    unoptimized={true}
                     alt="blue logo"
                     fill
                     className="object-contain w-full h-full"
@@ -251,6 +255,8 @@ export default function Navbar({
                     <Image
                       src="/nav-blue-logo.svg"
                       alt="logo"
+                      quality={100}
+                      unoptimized={true}
                       fill
                       className="object-contain w-full h-full"
                       priority

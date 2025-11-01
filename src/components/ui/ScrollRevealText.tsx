@@ -23,7 +23,7 @@ export const TextReveal: FC<TextRevealProps> = ({ children, className }) => {
   return (
     <div ref={targetRef} className={cn("relative z-0 h-[100vh]", className)}>
       <div className="sticky top-0 flex h-[30vh] items-center justify-center mx-auto max-w-7xl text-center">
-        <span className="flex flex-wrap justify-center text-3xl text-primary md:text-3xl lg:text-4xl xl:text-5xl font-serif tracking-tight text-justify leading-8 md:tracking-tight md:text-center md:leading-14">
+        <span className="flex flex-wrap justify-center text-3xl text-primary md:text-4xl lg:text-5xl 2xl:text-5xl font-serif tracking-tight text-justify leading-8 md:tracking-tight md:text-center md:leading-12 2xl:leading-12">
           {words.map((word, i) => {
             const total = words.length;
             const compression = 1; // smaller = faster animation (try 0.3–0.7)
