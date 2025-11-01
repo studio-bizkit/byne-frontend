@@ -83,8 +83,8 @@ export default function RoomSlider() {
   };
 
   return (
-    <div className="flex justify-center md:items-center items-start min-h-screen bg-background px-4">
-      <div className="flex flex-col md:flex-row max-w-6xl w-full overflow-hidden gap-6">
+    <div className="flex justify-center md:items-center items-start min-h-screen bg-background md:px-4 px-8 -mb-24 md:mb-0">
+      <div className="flex flex-col md:flex-row md:max-w-6xl w-full overflow-hidden gap-6">
         {/* Left Image */}
         <div className="relative w-full md:w-1/2 h-64 md:h-[500px] 2xl:h-[600px] overflow-hidden">
           <AnimatePresence initial={false} custom={direction}>

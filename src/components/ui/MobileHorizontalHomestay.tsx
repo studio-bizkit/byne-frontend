@@ -154,7 +154,7 @@ export default function Stack({
             </CardRotate>
           );
         })}
-        <div className="absolute left-3/4 transform  top-full flex flex-row items-center gap-1 mt- w-full  -rotate-12">
+        <div className="absolute left-3/4 transform  top-full flex flex-row items-center gap-1 mt- w-full  -rotate-12 opacity-40">
           <div className="w-6 h-6 relative rotate-40">
             <Image
               src="/homestay/arrow.svg"
@@ -166,7 +166,7 @@ export default function Stack({
               priority
             />
           </div>
-          <span className="text-sm w-full translate-y-1">Flick em&apos;</span>
+          <span className="text-sm w-full translate-y-1">flick em&apos;</span>
         </div>
       </div>
     </div>

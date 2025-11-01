@@ -8,11 +8,11 @@ import { FormEvent, useState } from "react";
 const Footer = ({ withForm = true }) => {
   const isMobile = useIsMobile();
   const { scrollYProgress } = useScroll();
-  const yTransform = useTransform(scrollYProgress, [0, 1], [isMobile? 4 :2.1, 1]);
+  const yTransform = useTransform(scrollYProgress, [0, 1], [isMobile ? 3 : 2.1, 1]);
   const navItems = [
     { name: "COFFEE", href: "/coffee" },
     { name: "HOMESTAY", href: "/homestay" },
-    { name: "ABOUT US", href: "/about" },
+    // { name: "ABOUT US", href: "/about" },
     { name: "CONTACT US", href: "/contact", isButton: true },
   ];
   const [result, setResult] = useState("");
