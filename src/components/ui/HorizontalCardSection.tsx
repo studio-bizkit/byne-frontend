@@ -285,27 +285,27 @@ const cards: CardType[] = [
     id: 1,
   },
   {
-    url: "/home/coffee3.jpg",
-    title: "Huro signature",
-    desc: "House blend",
-    id: 2,
-  },
-  {
     url: "/home/coffee2.jpg",
     title: "Everyday south",
     desc: "South Indian filter coffee 60:40",
-    id: 3,
+    id: 2,
   },
   {
     url: "/home/coffee4.jpg",
     title: "Malanad reserve",
     desc: "100% Arabica medium dark roast",
-    id: 4,
+    id: 3,
   },
   {
     url: "/home/coffee5.jpg",
     title: "Bloomfield",
     desc: "100% Arabica light roast",
+    id: 4,
+  },
+  {
+    url: "/home/coffee3.jpg",
+    title: "Huro signature",
+    desc: "House blend",
     id: 5,
   },
 ];

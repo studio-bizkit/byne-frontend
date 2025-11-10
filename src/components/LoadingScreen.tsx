@@ -68,9 +68,9 @@ export default function LoadingScreen() {
       <div className="flex items-center gap-6">
         
         {/* Animated Bean */}
-        <AnimatedBean progress={progress} size={30} />
+        <AnimatedBean progress={progress} size={50} />
         {/* Percentage */}
-        <p className="text-4xl font-serif text-primary">{progress}</p>
+        {/* <p className="text-4xl font-serif text-primary">{progress}</p> */}
       </div>
     </div>
   );

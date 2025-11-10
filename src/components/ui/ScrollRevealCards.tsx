@@ -26,7 +26,7 @@ const ScrollRevealCards = () => {
     y: useTransform(
       scrollYProgress,
       [0 / cards.length, 1 / cards.length],
-      ["600vh", `${0 *60 - 200}px`]
+      ["600vh", `${0 * 60 - 200}px`]
     ),
   };
 
@@ -39,7 +39,7 @@ const ScrollRevealCards = () => {
     y: useTransform(
       scrollYProgress,
       [1 / cards.length, 2 / cards.length],
-      ["600vh", `${1 *60 - 200}px`]
+      ["600vh", `${1 * 60 - 200}px`]
     ),
   };
 
@@ -52,7 +52,7 @@ const ScrollRevealCards = () => {
     y: useTransform(
       scrollYProgress,
       [2 / cards.length, 3 / cards.length],
-      ["600vh", `${2 *60 - 200}px`]
+      ["600vh", `${2 * 60 - 200}px`]
     ),
   };
 
@@ -65,7 +65,7 @@ const ScrollRevealCards = () => {
     y: useTransform(
       scrollYProgress,
       [3 / cards.length, 4 / cards.length],
-      ["600vh", `${3 *60 - 200}px`]
+      ["600vh", `${3 * 60 - 200}px`]
     ),
   };
 
@@ -78,7 +78,7 @@ const ScrollRevealCards = () => {
     y: useTransform(
       scrollYProgress,
       [4 / cards.length, 1],
-      ["600vh", `${4 *60 - 200}px`]
+      ["600vh", `${4 * 60 - 200}px`]
     ),
   };
 
@@ -99,7 +99,7 @@ const ScrollRevealCards = () => {
           Where our coffee travels.
         </div>
         <div className="px-6 max-w-xs md:max-w-xl text-primary text-sm md:text-md text-center z-10">
-          Premium coffee powder from the hills og coorg. 100% Quality.
+          From the hills of Chikmagalur to the world, crafted to perfection.
         </div>
 
         {/* Cards Row */}
@@ -111,9 +111,8 @@ const ScrollRevealCards = () => {
                 y: transforms[i].y,
                 zIndex: i,
               }}
-              className={`relative w-[130px] h-[150px] 2xl:w-[230px] 2xl:h-[267px] md:w-[156px] md:h-[180px] 2xl:-ml-24 -ml-18 rounded-sm overflow-hidden flex-shrink-0  ${
-                "z-" + i
-              } 
+              className={`relative w-[130px] h-[150px] 2xl:w-[230px] 2xl:h-[267px] md:w-[156px] md:h-[180px] 2xl:-ml-24 -ml-18 rounded-sm overflow-hidden flex-shrink-0  ${"z-" + i
+                } 
             `}
             >
               {/* Background gradient */}
