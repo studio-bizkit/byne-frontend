@@ -475,7 +475,7 @@ const cards: CardType[] = [
     country: "India",
     feel: "Smooth & Traditional",
     ingredients: "South Indian Filter Coffee 60:40",
-    image: "/products/1.png",
+    image: "/products/2.png",
     ratings: { sweetness: 4, acidity: 2, bitterness: 3, body: 4 },
   },
   {
@@ -484,7 +484,7 @@ const cards: CardType[] = [
     country: "India",
     feel: "Bold & Balanced",
     ingredients: "100% Arabica Medium Dark Roast",
-    image: "/products/1.png",
+    image: "/products/3.png",
     ratings: { sweetness: 4, acidity: 3, bitterness: 3, body: 5 },
   },
   {
@@ -493,7 +493,7 @@ const cards: CardType[] = [
     country: "India",
     feel: "Bright & Fruity",
     ingredients: "100% Arabica Light Roast",
-    image: "/products/1.png",
+    image: "/products/4.png",
     ratings: { sweetness: 5, acidity: 4, bitterness: 2, body: 4 },
   },
   {
@@ -502,7 +502,7 @@ const cards: CardType[] = [
     country: "India",
     feel: "Rich & Smooth",
     ingredients: "House Blend",
-    image: "/products/1.png",
+    image: "/products/5.png",
     ratings: { sweetness: 4, acidity: 3, bitterness: 3, body: 5 },
   },
   {
@@ -511,7 +511,7 @@ const cards: CardType[] = [
     country: "India",
     feel: "Premium & Versatile",
     ingredients: "Custom Blend for Bulk Orders",
-    image: "/products/1.png",
+    image: "/products/6.png",
     ratings: { sweetness: 4, acidity: 3, bitterness: 3, body: 4 },
   },
 ];

@@ -279,25 +279,25 @@ const Card = ({ card, isMobile }: { card: CardType; isMobile: boolean }) => {
 
 const cards: CardType[] = [
   {
-    url: "/home/coffee1.jpg",
+    url: "/home/brass.jpg",
     title: "Brass filter",
     desc: "South Indian filter coffee 80:20",
     id: 1,
   },
   {
-    url: "/home/coffee2.jpg",
+    url: "/home/everyday.jpg",
     title: "Everyday south",
     desc: "South Indian filter coffee 60:40",
     id: 2,
   },
   {
-    url: "/home/coffee4.jpg",
+    url: "/home/maland.jpg",
     title: "Malanad reserve",
     desc: "100% Arabica medium dark roast",
     id: 3,
   },
   {
-    url: "/home/coffee5.jpg",
+    url: "/home/bloomfield.jpg",
     title: "Bloomfield",
     desc: "100% Arabica light roast",
     id: 4,
