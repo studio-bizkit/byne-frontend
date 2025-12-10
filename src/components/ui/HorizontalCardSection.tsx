@@ -276,7 +276,7 @@ const Card = ({ card, isMobile }: { card: CardType; isMobile: boolean }) => {
         className="absolute inset-0 z-0 transition-transform duration-300 hover:scale-105"
       />
       {card.comingSoon && (
-        <div className="absolute inset-0 bg-white/60 flex items-center text-center justify-center z-10 ">
+        <div className="absolute inset-0 bg-white/60 flex items-center text-center justify-center z-10 font-serif">
           <p className="text-2xl font-semibold text-gray-800">Coming<br></br>Soon!</p>
         </div>
       )}
