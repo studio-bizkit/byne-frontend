@@ -277,7 +277,7 @@ const Card = ({ card, isMobile }: { card: CardType; isMobile: boolean }) => {
       />
       {card.comingSoon && (
         <div className="absolute inset-0 bg-white/60 flex items-center text-center justify-center z-10 ">
-          <p className="text-2xl font-semibold text-gray-800">Coming<br></br>Soon</p>
+          <p className="text-2xl font-semibold text-gray-800">Coming<br></br>Soon!</p>
         </div>
       )}
     </motion.div>
