@@ -10,6 +10,7 @@ interface CardType {
   country: string;
   feel: string;
   ingredients: string;
+  tagline: string;
   image: string;
   ratings: {
     sweetness: number;
@@ -94,14 +95,14 @@ const AnimatedProductCards = () => {
                       WebkitBackfaceVisibility: "hidden"
                     }}
                   >
-                    <div className="absolute top-0 right-0 h-fit bg-background text-primary text-xs font-medium px-2 py-1 rounded-bl-sm z-10 flex gap-2">
+                    <div className="absolute top-0 right-0 h-fit bg-background text-primary text-xs font-medium px-2 py-1 rounded-bl-md z-10 flex gap-2">
                       <Image
                         src={"/bean.svg"}
                         alt={"bean"}
                         height={10}
                         width={10}
                       />
-                      Omni Roast
+                      {card.tagline}
                     </div>
 
                     <div className="relative w-full h-2/3 overflow-hidden">
@@ -468,6 +469,7 @@ const cards: CardType[] = [
     ingredients: "South Indian Filter Coffee 80:20",
     image: "/products/1.png",
     ratings: { sweetness: 3, acidity: 2, bitterness: 4, body: 5 },
+    tagline: "80:20",
   },
   {
     id: 2,
@@ -477,6 +479,7 @@ const cards: CardType[] = [
     ingredients: "South Indian Filter Coffee 60:40",
     image: "/products/2.png",
     ratings: { sweetness: 4, acidity: 2, bitterness: 3, body: 4 },
+    tagline: "60:40",
   },
   {
     id: 3,
@@ -486,6 +489,7 @@ const cards: CardType[] = [
     ingredients: "100% Arabica Medium Dark Roast",
     image: "/products/3.png",
     ratings: { sweetness: 4, acidity: 3, bitterness: 3, body: 5 },
+    tagline: "Dark Roast",
   },
   {
     id: 4,
@@ -495,6 +499,7 @@ const cards: CardType[] = [
     ingredients: "100% Arabica Light Roast",
     image: "/products/4.png",
     ratings: { sweetness: 5, acidity: 4, bitterness: 2, body: 4 },
+    tagline: "Light Roast",
   },
   {
     id: 5,
@@ -504,6 +509,7 @@ const cards: CardType[] = [
     ingredients: "House Blend",
     image: "/products/5.png",
     ratings: { sweetness: 4, acidity: 3, bitterness: 3, body: 5 },
+    tagline: "Coming Soon",
   },
   {
     id: 6,
@@ -513,6 +519,7 @@ const cards: CardType[] = [
     ingredients: "Custom Blend for Bulk Orders",
     image: "/products/6.png",
     ratings: { sweetness: 4, acidity: 3, bitterness: 3, body: 4 },
+    tagline: "Wholesale",
   },
 ];
 

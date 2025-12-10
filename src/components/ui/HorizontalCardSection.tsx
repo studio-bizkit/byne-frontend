@@ -14,6 +14,7 @@ interface CardType {
   title: string;
   desc: string;
   id: number;
+  comingSoon?: boolean;
 }
 
 const Example = () => {
@@ -270,9 +271,15 @@ const Card = ({ card, isMobile }: { card: CardType; isMobile: boolean }) => {
           backgroundImage: `url(${card.url})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
+          filter: card.comingSoon ? "blur(10px)" : "none",
         }}
         className="absolute inset-0 z-0 transition-transform duration-300 hover:scale-105"
       />
+      {card.comingSoon && (
+        <div className="absolute inset-0 bg-white/60 flex items-center text-center justify-center z-10 ">
+          <p className="text-2xl font-semibold text-gray-800">Coming<br></br>Soon</p>
+        </div>
+      )}
     </motion.div>
   );
 };
@@ -307,6 +314,7 @@ const cards: CardType[] = [
     title: "Huro signature",
     desc: "House blend",
     id: 5,
+    comingSoon: true,
   },
 ];
 
