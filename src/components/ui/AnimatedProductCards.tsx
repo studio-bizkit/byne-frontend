@@ -110,7 +110,7 @@ const AnimatedProductCards = () => {
                         src={card.image}
                         alt={card.title}
                         fill
-                        className="object-cover"
+                        className={`object-cover ${card.tagline === "Coming Soon" ? "scale-125 blur-sm " : ""}`}
                       />
                     </div>
 
@@ -348,7 +348,7 @@ const MobileCard = ({
               height={10}
               width={10}
             />
-            Omni Roast
+            {card.tagline}
           </div>
 
           <div className="relative w-full h-2/3 overflow-hidden">
@@ -356,7 +356,7 @@ const MobileCard = ({
               src={card.image}
               alt={card.title}
               fill
-              className="object-cover"
+              className={`object-cover ${card.tagline === "Coming Soon" ? "scale-125 blur-sm " : ""}`}
             />
           </div>
 

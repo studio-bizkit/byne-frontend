@@ -22,7 +22,7 @@ const generateMobileBeans = () => {
       id: 1,
       image: "/beans/1.png",
       x: 70,
-      y: 70,
+      y: 50,
       rotation: 0,
       scale: 0.8,
       delay: 0.2,
@@ -33,7 +33,7 @@ const generateMobileBeans = () => {
       id: 2,
       image: "/beans/3.png",
       x: 75,
-      y: 75,
+      y: 55,
       rotation: 0,
       scale: 0.8,
       delay: 0.4,
@@ -341,19 +341,19 @@ export default function ScrollingText() {
   }, [scrollYProgress, isMobile]);
 
   // Mobile-specific scroll transforms for text lines
-  const beanY = useTransform(scrollYProgress, [0, 0.7], [100, 0]);
+  const beanY = useTransform(scrollYProgress, [0, 0.5], [100, 0]);
   const scaleY = useTransform(scrollYProgress, [0.1, 0.4], [1.3, 1]);
-  const fromY = useTransform(scrollYProgress, [0.1, 0.4], [100, 0]);
-  const experienceY = useTransform(scrollYProgress, [0.1, 0.4], [100, 0]);
-  const coffeeY = useTransform(scrollYProgress, [0.2, 0.5], [50, 0]);
+  const fromY = useTransform(scrollYProgress, [0.1, 0.7], [40, 0]);
+  const experienceY = useTransform(scrollYProgress, [0.1, 0.6], [35, 0]);
+  const coffeeY = useTransform(scrollYProgress, [0.2, 0.5], [35, 0]);
   const withUsY = useTransform(scrollYProgress, [0.4, 0.6], [30, 0]);
 
   if (isMobile) {
     return (
       <div
         ref={container}
-        className="w-full flex flex-col justify-center items-start relative gap-0 -mt-8 pb-0 px-6 overflow-hidden -mb-54 md:-mb-12"
-        style={{ minHeight: "120vh" }}
+        className="w-full flex flex-col justify-center items-start relative gap-0 -pt-8 pb-0 px-6 overflow-hidden -mb-54 md:-mb-12"
+        style={{ minHeight: "60vh" }}
       >
         {/* Animated coffee beans for mobile */}
         {beans.map(bean => (
