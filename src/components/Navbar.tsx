@@ -48,22 +48,22 @@ export default function Navbar({
   const textColor = isHorizontalSectionVisible
     ? "rgb(245, 230, 211)" // text-background color when horizontal section is visible
     : shouldChangeColor
-    ? textColorTransform
-    : "rgb(0, 51, 153)";
+      ? textColorTransform
+      : "rgb(0, 51, 153)";
   const logoOpacity = isHorizontalSectionVisible
     ? 1 // Show white logo when horizontal section is visible
     : shouldChangeColor
-    ? logoOpacityTransform
-    : 0;
+      ? logoOpacityTransform
+      : 0;
   const blueLogoOpacity = isHorizontalSectionVisible
     ? 0 // Hide blue logo when horizontal section is visible
     : shouldChangeColor
-    ? blueLogoOpacityTransform
-    : 1;
+      ? blueLogoOpacityTransform
+      : 1;
 
   const navItems = [
     { name: "COFFEE", href: "/coffee" },
-    { name: "HOMESTAY", href: "/homestay" },
+    // { name: "HOMESTAY", href: "/homestay" },
     // { name: "ABOUT US", href: "/about" },
     { name: "Contact Us", href: "/contact", isButton: true },
   ];
@@ -134,11 +134,10 @@ export default function Navbar({
                     ></motion.span>
                   )}
                   <motion.div
-                    className={`px-3 py-1 ${
-                      item.isButton
+                    className={`px-3 py-1 ${item.isButton
                         ? "font-serif text-lg font-light bg-primary text-background rounded-full px-6 py-1"
                         : "text-sm font-semibold"
-                    }`}
+                      }`}
                     style={{
                       color: !item.isButton ? textColor : undefined,
                     }}
@@ -284,11 +283,10 @@ export default function Navbar({
                     <Link
                       href={item.href}
                       onClick={() => setIsOpen(false)}
-                      className={`block text-center transition-colors duration-200 ${
-                        item.isButton
+                      className={`block text-center transition-colors duration-200 ${item.isButton
                           ? "font-serif text-xl font-light bg-primary text-background rounded-full px-8 py-3 hover:bg-opacity-90"
                           : "text-2xl font-semibold text-primary hover:text-opacity-80"
-                      }`}
+                        }`}
                     >
                       {item.name}
                     </Link>

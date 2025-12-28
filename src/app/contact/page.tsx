@@ -56,13 +56,13 @@ export default function Home() {
           </div>
           <div>
             <h4 className="text-2xl font-serif mb-1 font-medium">Address</h4>
-            <p className="text-base">128 ABC ST</p>
-            <p className="text-base">Chickmagalur, KA 577101</p>
+            <p className="text-base">Hulikere Nilaya, Vijayapura</p>
+            <p className="text-base">Chikkamagaluru, Karnataka 577101</p>
           </div>
           <div>
             <h4 className="text-2xl font-serif mb-1 font-medium">Phone</h4>
-            <p className="text-base">+91 72002 74687</p>
-            <p className="text-base">+91 72002 74687</p>
+            <p className="text-base">+91 93807 47516 </p>
+            <p className="text-base">+91 96632 71888</p>
           </div>
         </div>
       </section>
