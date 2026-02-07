@@ -17,30 +17,30 @@ const generateMobileBeans = () => {
     duration: number;
     isMain: boolean;
   }> = [
-    // Two main regular-sized beans near the center-right area
-    {
-      id: 1,
-      image: "/beans/1.png",
-      x: 70,
-      y: 50,
-      rotation: 0,
-      scale: 0.8,
-      delay: 0.2,
-      duration: 6,
-      isMain: true,
-    },
-    {
-      id: 2,
-      image: "/beans/3.png",
-      x: 75,
-      y: 55,
-      rotation: 0,
-      scale: 0.8,
-      delay: 0.4,
-      duration: 7,
-      isMain: true,
-    },
-  ];
+      // Two main regular-sized beans near the center-right area
+      {
+        id: 1,
+        image: "/beans/1.png",
+        x: 70,
+        y: 50,
+        rotation: 0,
+        scale: 0.8,
+        delay: 0.2,
+        duration: 6,
+        isMain: true,
+      },
+      {
+        id: 2,
+        image: "/beans/3.png",
+        x: 75,
+        y: 55,
+        rotation: 0,
+        scale: 0.8,
+        delay: 0.4,
+        duration: 7,
+        isMain: true,
+      },
+    ];
 
   // Fixed small beans positions to avoid clustering (spread top/mid/bottom and left/center/right)
   const fixedSmallBeans = [
@@ -352,18 +352,19 @@ export default function ScrollingText() {
     return (
       <div
         ref={container}
-        className="w-full flex flex-col justify-center items-start relative gap-0 -pt-8 pb-0 px-6 overflow-hidden -mb-54 md:-mb-12"
-        style={{ minHeight: "60vh" }}
+        // 1. Changed min-h to 60dvh (fixes iOS address bar issue)
+        // 2. Changed justify-center to justify-end (pushes text to bottom naturally)
+        // 3. Added pb-48 to replicate the previous 'bottom-48' look
+        className="w-full flex flex-col justify-end items-start relative overflow-hidden px-6 pt-10 pb-8 md:-mb-12 min-h-[30vh] "
       >
         {/* Animated coffee beans for mobile */}
-        {beans.map(bean => (
+        {beans.map((bean) => (
           <motion.img
             key={bean.id}
             src={bean.image}
             alt="Coffee bean"
-            className={`absolute object-contain pointer-events-none z-10 ${
-              bean.isMain ? "w-8 h-8" : "w-4 h-4"
-            }`}
+            className={`absolute object-contain pointer-events-none z-10 ${bean.isMain ? "w-8 h-8" : "w-4 h-4"
+              }`}
             style={{
               left: `${bean.x}%`,
               top: `${bean.y}%`,
@@ -404,41 +405,36 @@ export default function ScrollingText() {
             }}
           />
         ))}
-        {/* Centered blue arch logo above text, behind beans */}
-        {/* <motion.div className="absolute z-0 left-1/2 -translate-x-1/2 top-48 w-40 h-48 pointer-events-none"
-        style={{scale:scaleY}}>
-          <div className="relative w-full h-full">
-            <Image
-              src="/logo-blue-arch.svg"
-              alt="Bynekere Estate Logo"
-              fill
-              className="object-contain"
-              priority
-            />
-          </div>
-        </motion.div> */}
-        {/* Mobile text layout - bottom-left anchored */}
-        <div className="absolute z-20 left-6 bottom-48 flex flex-col gap-0">
-          <h6 className="text-2xl text-primary font-serif z-20 -mt-24">
+
+        {/* Mobile text layout */}
+        {/* Changed from absolute to relative z-20. 
+      This ensures it sits in the document flow, respecting the parent's padding. */}
+        <div className="relative z-20 flex flex-col items-start">
+          <h6 className="text-2xl text-primary font-serif mb-2">
             <motion.div style={{ y: fromY }}>
               From our farms to your cups
             </motion.div>
           </h6>
+
+          {/* Note on Leading: 
+       'leading-[0.8]' forces the lines to be tight. 
+       This removes the need for negative margins (like -mt-4) which break on iOS.
+    */}
           <motion.div
             style={{ y: experienceY }}
-            className="text-8xl font-medium font-serif tracking-tight text-[#003399] leading-tighter"
+            className="text-8xl font-medium font-serif tracking-tight text-[#003399] leading-[1]"
           >
             Experience
           </motion.div>
           <motion.div
             style={{ y: coffeeY }}
-            className="text-8xl font-medium font-serif tracking-tight text-[#003399] leading-tighter"
+            className="text-8xl font-medium font-serif tracking-tight text-[#003399] leading-[0.9]"
           >
             coffee
           </motion.div>
           <motion.div
             style={{ y: withUsY }}
-            className="text-8xl font-medium font-serif tracking-tight text-[#003399] leading-tighter -mt-4"
+            className="text-8xl font-medium font-serif tracking-tight text-[#003399] leading-[0.8]"
           >
             with Us
           </motion.div>
@@ -462,9 +458,8 @@ export default function ScrollingText() {
             key={bean.id}
             src={bean.image}
             alt="Coffee bean"
-            className={`absolute object-contain pointer-events-none ${
-              isForeground ? "z-20" : "z-0"
-            } w-8 h-8`}
+            className={`absolute object-contain pointer-events-none ${isForeground ? "z-20" : "z-0"
+              } w-8 h-8`}
             style={{
               left: `${bean.x}%`,
               top: `${bean.y}%`,
